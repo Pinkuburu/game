@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="41px" height="17px" viewBox="0 0 41 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.3 (67297) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_error</title>
+    <desc>Created with Sketch.</desc>
+    <g id="1.0.0首页" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-family="JLinXin, 迷你简菱心" font-size="12" font-weight="normal">
+        <g id="1.0.2首页_赛程结果" transform="translate(-670.000000, -250.000000)" fill="#DE3D4D">
+            <g id="预测赛1-copy" transform="translate(80.000000, 233.000000)">
+                <g id="预测赛1">
+                    <g id="分组" transform="translate(590.000000, 17.000000)">
+                        <text id="错误">
+                            <tspan x="8.5" y="13">错误</tspan>
+                        </text>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

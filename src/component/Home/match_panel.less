@@ -1,0 +1,53 @@
+@import '../../variable.less';
+
+.match-panel {
+  color: @fade_font;
+  .tabs {
+    line-height: 60px;
+    .tab {
+      flex-basis: 130px;
+      font-size: 14px;
+      cursor: pointer;
+      &.active {
+        color: @main_font;
+      }
+    }
+  }
+  .match-panel {
+    color: @fade_font;
+    .ant-tabs-tab:hover {
+      color: @hover_font;
+    }
+    .ant-tabs-tab-active {
+      color: @main_font;
+    }
+    .ant-tabs-ink-bar {
+      background: @active_color;
+    }
+
+    .league_filter {
+      width: 390px;
+      height: 466px;
+      background-color: @item_first;
+      border-radius: 0;
+      .ant-card-head {
+        padding: 0 16px;
+        min-height: auto;
+        line-height: 40px;
+        border: none;
+        color: @fade_font;
+        background: @item_second;
+        .ant-card-head-title {
+          padding: 0;
+          font-size: 12px;
+        }
+        .ant-card-extra {
+          color: @fade_font;
+          padding: 0;
+          font-size: 12px;
+        }
+      }
+    }
+
+  }
+}
