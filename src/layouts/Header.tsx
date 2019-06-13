@@ -9,7 +9,7 @@ const gameList = [
     name: 'ALL'
   },
   {
-    name: 'DOTA',
+    name: 'DOTA2',
   },
   {
     name: 'LOL'

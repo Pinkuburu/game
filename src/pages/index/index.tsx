@@ -10,7 +10,8 @@ export interface HomeProps {
   predict: object;
   dispatch: (action: object) => void;
   liveList: [];
-  upcommingList: [];
+  UCGroup: {};
+  UCLeagues: {};
 }
 
 class Home extends React.Component<HomeProps> {
@@ -18,7 +19,7 @@ class Home extends React.Component<HomeProps> {
     
   }
   render() {
-    const { predict, liveList, dispatch, upcommingList } = this.props;
+    const { predict, liveList, dispatch, UCGroup, UCLeagues } = this.props;
     return (
       <div>
         <div>
@@ -28,7 +29,7 @@ class Home extends React.Component<HomeProps> {
           live_list={liveList}
           refresh={() => dispatch({ type: 'getLiveList' })}
         />
-        <MatchPanel upcommingList={upcommingList} />
+        <MatchPanel UCGroup={UCGroup} UCLeagues={UCLeagues} />
       </div>
     );
   }
@@ -39,6 +40,7 @@ export default connect((state: any) => {
     banners: state.model.banners,
     predict: state.model.predict,
     liveList: state.model.live_list,
-    upcommingList: state.model.upcommingList,
+    UCGroup: state.model.UCGroup,
+    UCLeagues: state.model.UCLeagues,
   };
 })(Home);

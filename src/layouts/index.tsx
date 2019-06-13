@@ -4,18 +4,19 @@ import MenuSide from './MenuSide';
 import Header from './Header';
 
 import './layout.less';
+import './reset-antd.less';
 import './index.css';
 
 const { Footer, Content } = Layout;
 
 const BasicLayout: React.FC = props => {
   return (
-    <Layout className="web-page" style={{ minHeight: '100vh' }}>
+    <Layout className="web-page">
       <MenuSide />
       <Layout className="web-page">
         <Header>这里是头部</Header>
         <Content style={{ padding: '20px' }}>{props.children}</Content>
-        <Footer>这里是底部</Footer>
+        {/* <Footer>这里是底部</Footer> */}
       </Layout>
     </Layout>
   );

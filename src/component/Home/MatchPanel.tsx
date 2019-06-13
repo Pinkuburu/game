@@ -1,31 +1,59 @@
 import * as React from 'react';
-import { Tabs, Card } from 'antd';
+import { Tabs, Card, List } from 'antd';
 import { connect } from 'dva';
 import classNames from 'classnames';
 import _ from 'lodash';
+import ReactTable from 'react-table';
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn'
+
 
 import imgSet, { imgStore } from './../../utils/imgStore';
+import ucDisplay from './ucDisplay';
 import './match_panel.less';
 
 const { TabPane } = Tabs;
 
 export interface MatchPanelProps {
-  gameType: string;
+  gameType: 'ALL' | 'DOTA2' | 'CSGO' | 'LOL';
+  UCGroup: object;
+  UCLeagues: object;
+  dispatch: (action: object) => void;
 }
  
 export interface MatchPanelState {
-  gameFilter: { name: string; select: boolean; icon: imgStore.lol }[];
-  leagueFilter: { select: boolean, leagueName: string, leagueUrl: string }[];
-  displayList: [];
+  gameFilter: {
+    game_type: 'dota2' | 'lol' | 'csgo';
+    dota2: {};
+    lol: {};
+    csgo: {};
+    date: number;
+    curFilter: () => object;
+  };
+  gameList: {
+    key: string;
+    name: string;
+    icon: string;
+  }[];
+  ucDateFilter: [];
 }
 
-function GameFilter({ onSelect, gameList }) {
+// interface leagueItem {
+//   league_name: string;
+//   league_id: string;
+//   game_type: string;
+//   league_img_url: string;
+//   select: boolean;
+//   count: number;
+// }
+
+function GameFilter({ onSelect, gameList, activeType }) {
   return (
     <div className="tabs d-flex text-center">
       {gameList.map((game: object, idx: string) => (
         <div
           key={game.name}
-          className={classNames('tab', { active: game.select })}
+          className={classNames('tab', { active: activeType === game.key })}
           onClick={() => onSelect(game, idx)}
         >
           <img className="mr-1" width="22" height="22" src={game.icon} alt=" "/>
@@ -36,77 +64,161 @@ function GameFilter({ onSelect, gameList }) {
   );
 }
 
-const initFilter = [
-  { name: 'dota2', select: true, icon: imgStore.dota2 },
-  { name: 'lol', select: true, icon: imgStore.lol },
-  { name: 'csgo', select: true, icon: imgStore.csgo }, 
+
+function geneDateList(status: 1 | -1) { // 1是预告的，-1是结果的
+  const dateTime = dayjs().format('YYYY-MM-DD');
+  const dateObj = dayjs(dateTime).locale('zh-cn');
+  const dateList = _.range(7).map(
+    (cur: number) => {
+      const curDay = dateObj.add((cur + 1) * status, 'day');
+      return {
+        text: curDay.format('MM-DD ddd'),
+        time: curDay.unix(),
+      };
+    }
+  )
+  return dateList;
+}
+
+const initGameList = [
+  {
+    key: 'dota2',
+    name: 'DOTA2',
+    icon: imgStore.dota2,
+  }, {
+    key: 'lol',
+    name: 'LOL',
+    icon: imgStore.lol,
+  }, {
+    key: 'csgo',
+    name: 'CSGO',
+    icon: imgStore.csgo,
+  },
 ];
 
-
+const initFilter = {
+  game_type: 'dota2',
+  dota2: {}, // 各个游戏的联赛过滤
+  lol: {},
+  csgo: {},
+  date: 0,
+  get curFilter(): object {
+    return this[this.game_type];
+  },
+}
 
 class MatchPanel extends React.Component<MatchPanelProps, MatchPanelState> {
   constructor(props: MatchPanelProps) {
     super(props);
+    const { gameList, gameFilter } = this.filterList(props.gameType, true);
     this.state = {
-      gameFilter: this.filterList(props.gameType),
-      leagueFilter: [],
-      displayList: [],
+      gameList: gameList,
+      gameFilter: gameFilter,
+      ucDateFilter: geneDateList(1),
+      reDateFilter: geneDateList(-1),
     };
   }
+
   componentDidMount() {
-    const { upcommingList } = this.props;
-    
+
   }
 
-  filterMatchList(data) {
-    const firstFilter = this.gameTypeFilter(data);
-    const res = this.matchFilter(firstFilter);
-    return res;
+  componentDidUpdate(preProps: MatchPanelProps) {
+    const { gameType } = this.props;
+    if (gameType !== preProps.gameType) {
+      const { gameList, gameFilter } = this.filterList(gameType, false)
+      this.setState({
+        gameList,
+        gameFilter,
+      });
+    }
   }
 
-  gameTypeFilter(data) {
+  mapLeagueList() {
+    const { UCLeagues } = this.props;
+    const { game_type } = this.state.gameFilter;
+    const leagues = _.get(UCLeagues, game_type, []);
+    return leagues;
+  }
+
+  mapMatchList() {
     const { gameFilter } = this.state;
-    const gameMap = gameFilter.reduce((acc: object, cur) => {
-      acc[cur.name] = cur.select;
-      return acc;
-    }, {});
-    return data.filter(it => gameMap[it.game_type]);
-  }
-
-  matchFilter(data) {
-    const { leagueFilter } = this.state;
-    
-  }
-
-  filterList(gameType: string) {
-    if (gameType === "ALL") {
-      return initFilter;
+    const { UCGroup } = this.props;
+    const leagueFilter = gameFilter.curFilter;
+    const gameM = _.get(UCGroup, gameFilter.game_type, {})
+    const info = Object.keys(leagueFilter);
+    const mObj = info.length === 0
+      ? gameM
+      : _.pcik(info.filter(key => leagueFilter[key]));
+    const flatM = Object.values(mObj).flat();
+    if (gameFilter.date === 0) {
+      return flatM;
     } else {
-      return initFilter.filter(game => game.name === gameType.toLocaleLowerCase());
+      return flatM.filter(m => m.start_time === gameFilter.date); 
+    }
+  }
+
+  filterList(gameType: 'ALL' | 'DOTA2' | 'LOL' | 'CSGO', init : boolean) {
+    let tempGameList, tempGameFilter;
+    if (init) {
+      tempGameList = initGameList;
+      tempGameFilter = initFilter;
+    } else {
+      const { gameList, gameFilter } = this.state;
+      tempGameList = gameList
+      tempGameFilter = gameFilter;
+    }
+
+    if (gameType === "ALL") {
+      return {
+        gameList: tempGameList,
+        gameFilter: tempGameFilter,
+      };
+    } else {
+      const key = gameType.toLocaleLowerCase();
+      return {
+        gameList: tempGameList.filter(game => game.key === key),
+        gameFilter: {
+          ...tempGameFilter,
+          game_type: key,
+        },
+      };
     }
   }
 
   selectFilterGame(game: any, idx: number) {
-    const gameFilter = [...this.state.gameFilter];
-    const newGame = {
-      ...game,
-      select: !game.select,
+    const newFilter = {
+      ...this.state.gameFilter,
+      game_type: game.key,
+      date: 0,
     };
-    gameFilter[idx] = newGame;
     this.setState({
-      gameFilter,
+      gameFilter: newFilter,
+    });
+  }
+
+  selectDate(it: any) {
+    const newFilter = {
+      ...this.state.gameFilter,
+      date: it.time,
+    };
+    this.setState({
+      gameFilter: newFilter,
     });
   }
   
   render() {
-    const { gameFilter } = this.state;
-    const { upcommingList } = this.props;
-    
+    const { gameFilter, gameList, ucDateFilter } = this.state;
+    const leaguesList = this.mapLeagueList();
+    const lFilter = gameFilter.curFilter;
+
+    const matchList = this.mapMatchList();
     return (
       <div className="match-panel eyes_card">
         <GameFilter
           onSelect={(game: object, idx: number) => this.selectFilterGame(game, idx)}
-          gameList={gameFilter}
+          gameList={gameList}
+          activeType={gameFilter.game_type}
         />
         <Tabs
           className="match-panel"
@@ -114,11 +226,11 @@ class MatchPanel extends React.Component<MatchPanelProps, MatchPanelState> {
           tabBarStyle={{ border: 'none', lineHeight: '40px' }}
           defaultActiveKey="0"
         >
-          <TabPane tab="赛事预告" key="0">
+          <TabPane className="d-flex" tab="赛事预告" key="0">
             <Card
               title={
                 <span>
-                  <img className="align-middle" width={20} height={20} src={imgSet.leagueSelect[0]} alt=""/>
+                  <input type="checkbox" className="align-middle" />
                   <span>联赛</span>
                 </span>
               }
@@ -130,11 +242,51 @@ class MatchPanel extends React.Component<MatchPanelProps, MatchPanelState> {
                 </span>
               }
               className="league_filter"
-            >{
-
-            }
+            >
+              <List
+                dataSource={leaguesList}
+                renderItem={(it: object, idx: number) => (
+                  <List.Item
+                    className="pointer"
+                    onClick={() => this.selectLeagueFilter(it)}
+                  >
+                    <input className="align-middle" checked={_.get(lFilter, it.league_id, false)} type="checkbox" name="" id=""/>
+                    <img
+                      width="20"
+                      height="20"
+                      src={it.league_img_url}
+                      alt=""
+                    />
+                    <span className="league_name text-truncate">{it.league_name}</span>
+                    <span className="count">{it.count}</span>
+                  </List.Item>
+                )}
+              />
             </Card>
-            123
+            <Card
+              className="match-list flex-grow-1"
+              bordered={false}
+            >
+              <List
+                dataSource={ucDateFilter}
+                renderItem={(it: object, idx: number) => (
+                  <List.Item
+                    className={classNames(
+                      "pointer menu-font d-inline-block date-item",
+                      { active: gameFilter.date === it.time }
+                    )}
+                    onClick={() => this.selectDate(it)}
+                  >
+                    {it.text}
+                  </List.Item>
+                )}
+              />
+              <ReactTable
+                data={matchList}
+                columns={ucDisplay}
+                className="-striped"
+              />
+            </Card>
           </TabPane>
           <TabPane tab="赛事结果" key="1">
             123

@@ -1,11 +1,35 @@
 import { getSlider, todayPredict, liveList, upcommingList } from '../../service/api';
+import _ from 'lodash';
+
+function groupMatches(match) {
+  const groupData = _.groupBy(match, 'game_type');
+  const UCGroup = {}, UCLeagues = {};
+  Object.keys(groupData).forEach(key => UCGroup[key] = _.groupBy(groupData[key], 'league_id'));
+  Object.keys(UCGroup).forEach(key => {
+    const leagueSet = Object.values(UCGroup[key]).map(leagues => {
+      const league = _.pick(leagues[0], ['league_id', 'league_name', 'league_img_url', 'game_type']);
+      league.count = leagues.length;
+      return league;
+    });
+    UCLeagues[key] = leagueSet;
+  });
+  return {
+    UCGroup,
+    UCLeagues,
+  };
+}
 
 export default {
   state: {
     banners: [],
     predict: {},
     live_list: {},
-    upcommingList: [],
+    upcomingList: [],
+    UCGroup: {},
+    UCLeagues: {},
+    resultList: [],
+    dResultList: [],
+    resultLeagueList: [],
   },
   reducers: {
     banners(state, { payload: banners }) {
@@ -21,18 +45,20 @@ export default {
       };
     },
     live_list(state, { payload: live_list }) {
-      console.log('进入到了live_list', live_list)
       return {
         ...state,
         live_list,
       };
     },
-    upcomingLeagues(state, { payload: upcommingList }) {
+    upcommingList(state, { payload: upcommingList }) {
+      // const upcomingLeagueList = getLeagueList(upcommingList);
+      const Sets = groupMatches(upcommingList);
       return {
         ...state,
         upcommingList,
+        ...Sets,
       };
-    }
+    },
   },
   effects: {
     *getSlider(_, { call, put }) {
@@ -56,13 +82,12 @@ export default {
         payload: data.data
       })
     },
-    *getUpcomingLeagues(_, { put }) {
+    *getupcommingList(_, { put }) {
       const data = yield upcommingList();
-      // console.log('赛事预告滚滚滚', data);
       yield put({
-        type: 'upcomingLeagues',
+        type: 'upcommingList',
         payload: data.data,
-      })
+      });
     }
   },
   subscriptions: {
@@ -70,7 +95,7 @@ export default {
       dispatch({ type: 'getSlider' });
       dispatch({ type: 'getPredict' });
       dispatch({ type: 'getLiveList' });
-      dispatch({ type: 'getUpcomingLeagues' })
+      dispatch({ type: 'getupcommingList' });
     }
   }
 }

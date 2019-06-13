@@ -26,7 +26,15 @@ class TableView extends React.Component<TableViewProps, TableViewState> {
     return (
       <div>
         <Row style={{ height: headHeight }}>
-          {cols.map((col, idx) => <Col span={col.span} key={`${col.title}-${idx}`}>{col.header ? col.header(rows, idx) : col.title}</Col>)}
+          {cols.map((col, idx) => (
+            <Col
+              span={col.span}
+              key={`${col.title}-${idx}`}
+            >{
+              col.header ? col.header(rows, idx) : col.title
+            }
+            </Col>))
+          }
         </Row>
         {rows.map((row, idx: number) => (
           <Row key={idx} style={{ height: bodyHeight }}>
