@@ -11,12 +11,12 @@ const commonRequest = extend({
   headers: {
     token,
   },
-})
+});
 
 const request = extend({
   prefix: test,
   headers: {
-    token
+    token,
   },
 });
 
