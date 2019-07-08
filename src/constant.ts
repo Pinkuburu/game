@@ -16,7 +16,7 @@ const constants = {
   gold: '#ffd018', // 金钱文字
   green: '#66bb6a', // 验证成功
   red: '#ff4c4c', // 失败的
-  blue: '#0a9dfc', // 蓝色方
+  blue: '#0a9dfc' // 蓝色方
 };
 
 export default constants;

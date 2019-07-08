@@ -41,13 +41,15 @@ const config: IConfig =  {
       formatter: eslintFormatter,
       baseConfig: {
         // extends: [require.resolve('eslint-config-umi')],
-        extends: [require.resolve("@aimake/eslint-config/react")],
+        extends: [require.resolve("@aimake/eslint-config")],
       },
       ignore: false,
       eslintPath: require.resolve('eslint'),
-      useEslintrc: false,
+      useEslintrc: true,
       failOnError: true,
-      // failOnWarning: true,
+      failOnWarning: true,
+      emitError: true,
+      emitWarning: true,
       rules: {
         "jsx-a11y/anchor-is-valid": 0,
         "import/no-unresolved": 0,
@@ -56,13 +58,14 @@ const config: IConfig =  {
     };
 
     config.module
-      .rule('eslint')
-      .test(/\.(js|jsx)$/)
-      .include.add('/src')
+      .rule('lint')
+      .test(/\.(js|jsx|tsx|ts)$/)
+      .pre()
+      .include.add(resolveApp('src'))
       .end()
       .exclude
-      .add(/node_modules/)
-      .add('/src/pages/.umi/*')
+      // .add(/node_modules/)
+      // .add('/src/pages/.umi/*')
       .end()
       .enforce('pre')
       .use('eslint-loader')

@@ -9,7 +9,7 @@ const gameList = [
     name: 'ALL'
   },
   {
-    name: 'DOTA2',
+    name: 'DOTA2'
   },
   {
     name: 'LOL'
@@ -21,15 +21,19 @@ const gameList = [
 
 const userList = [
   {
-    name: "个人中心",
+    name: '个人中心'
   },
   {
-    name: "退出登录"
+    name: '退出登录'
   }
-]
+];
+interface Props {
+  dispatch: any,
+  gameType: any
+}
 
-class Header extends React.Component {
-  getUserList() {
+class Header extends React.Component<Props> {
+  static getUserList() {
     return (
       <Menu>
         {userList.map(item => (
@@ -41,12 +45,11 @@ class Header extends React.Component {
     );
   }
   gameList() {
-    const { dispatch } = this.props;    
+    const { dispatch } = this.props;
     return (
       <Menu
         onClick={(item) => {
-
-          dispatch({ type: 'global/selectType', payload: item.key })
+          dispatch({ type: 'global/selectType', payload: item.key });
         }}
       >
         {gameList.map(game => (
@@ -65,7 +68,7 @@ class Header extends React.Component {
           className="menu-item"
           overlay={this.gameList()}
           placement="bottomCenter"
-          trigger={["click"]}
+          trigger={['click']}
         >
           <div>
             <img className="menu_icon mr-2" src={imgSet.iconGame} alt=" "/>
@@ -74,7 +77,7 @@ class Header extends React.Component {
         </Dropdown>
         <Dropdown
           className="menu-item"
-          overlay={this.getUserList()}
+          overlay={Header.getUserList()}
           placement="bottomCenter"
         >
           <div>
@@ -86,5 +89,5 @@ class Header extends React.Component {
     );
   }
 }
- 
+
 export default connect((state: any) => state.global)(Header);

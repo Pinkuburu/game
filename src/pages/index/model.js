@@ -18,7 +18,7 @@ function groupMatches(match) {
   });
   return {
     UCGroup,
-    UCLeagues,
+    UCLeagues
   };
 }
 
@@ -32,26 +32,26 @@ export default {
     UCLeagues: {},
     resultList: [],
     dResultList: [],
-    resultLeagueList: [],
+    resultLeagueList: []
   },
   reducers: {
     banners(state, { payload: banners }) {
       return {
         ...state,
-        banners,
+        banners
       };
     },
     predict(state, { payload: predict }) {
       return {
         ...state,
-        predict,
+        predict
       };
     },
     // eslint-disable-next-line camelcase
     live_list(state, { payload: live_list }) {
       return {
         ...state,
-        live_list,
+        live_list
       };
     },
     upcommingList(state, { payload: upcommingList }) {
@@ -60,39 +60,39 @@ export default {
       return {
         ...state,
         upcommingList,
-        ...Sets,
+        ...Sets
       };
-    },
+    }
   },
   effects: {
     * getSlider(action, { put }) {
       const data = yield getSlider();
       yield put({
         type: 'banners',
-        payload: data.data,
+        payload: data.data
       });
     },
     * getPredict(action, { put }) {
       const data = yield todayPredict();
       yield put({
         type: 'predict',
-        payload: data.data,
+        payload: data.data
       });
     },
     * getLiveList(action, { put }) {
       const data = yield liveList();
       yield put({
         type: 'live_list',
-        payload: data.data,
+        payload: data.data
       });
     },
     * getupcommingList(action, { put }) {
       const data = yield getUpcommingList();
       yield put({
         type: 'getUpcommingList',
-        payload: data.data,
+        payload: data.data
       });
-    },
+    }
   },
   subscriptions: {
     setup({ dispatch }) {
@@ -100,6 +100,6 @@ export default {
       dispatch({ type: 'getPredict' });
       dispatch({ type: 'getLiveList' });
       dispatch({ type: 'getupcommingList' });
-    },
-  },
+    }
+  }
 };

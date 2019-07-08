@@ -6,14 +6,14 @@ import './loading.less';
 
 class LoadingIcon extends React.PureComponent {
   static propTypes = {
-    flashData: PropTypes.func.isRequired,
+    flashData: PropTypes.func.isRequired
   };
 
   constructor() {
     super();
     this.state = {
       timer: 0,
-      number: 10,
+      number: 10
     };
   }
 
@@ -22,9 +22,9 @@ class LoadingIcon extends React.PureComponent {
       timer: setInterval(() => {
         const { number } = this.state;
         this.setState({
-          number: number - 1 > 0 ? number - 1 : 10,
+          number: number - 1 > 0 ? number - 1 : 10
         });
-      }, 1000),
+      }, 1000)
     });
   }
 
@@ -35,7 +35,7 @@ class LoadingIcon extends React.PureComponent {
 
   clickFlash() {
     this.setState({
-      number: 10,
+      number: 10
     });
     const { flashData } = this.props;
     flashData();

@@ -1,23 +1,27 @@
 import React from 'react';
-import { Typography } from 'antd';
-
-import TableView from './../Common/TableView';
+// import { Typography } from 'antd';
+//
+// import TableView from './../Common/TableView';
 import LoadingIcon from '../Common/LoadingIcon';
 import { imgStore } from '../../utils/imgStore';
 import { StyleLiveContainer, MusicBar } from './Styled';
 
-class LiveContainer extends React.PureComponent {
-  constructor() {
-    super();
+interface Props {
+  live_list: any
+}
+
+class LiveContainer extends React.PureComponent<Props> {
+  constructor(p) {
+    super(p);
     this.state = {};
   }
 
-  flashData() {
-
-  }
+  // flashData() {
+  //
+  // }
 
   render() {
-    const { live_list } = this.props;
+    // const { live_list } = this.props;
 
     return (
       <StyleLiveContainer>
@@ -42,7 +46,7 @@ class LiveContainer extends React.PureComponent {
           </div>
         </div>
         <div className="live-table">
-          
+
           {/* <TableView />
           <TableView />
           <TableView /> */}

@@ -12,28 +12,28 @@ const moduleList = [
   {
     name: '赛程',
     path: '/',
-    icon: [imgSet.menuList[0], imgSet.fade_menuList[0]],
+    icon: [imgSet.menuList[0], imgSet.fade_menuList[0]]
   },
   {
     name: '联赛',
     path: '/league',
-    icon: [imgSet.menuList[1], imgSet.fade_menuList[1]],
+    icon: [imgSet.menuList[1], imgSet.fade_menuList[1]]
   },
   {
     name: '战队',
     path: '/team',
-    icon: [imgSet.menuList[2], imgSet.fade_menuList[2]],
+    icon: [imgSet.menuList[2], imgSet.fade_menuList[2]]
   },
   {
     name: '选手',
     path: '/player',
-    icon: [imgSet.menuList[3], imgSet.fade_menuList[3]],
+    icon: [imgSet.menuList[3], imgSet.fade_menuList[3]]
   },
   {
     name: '预测',
     path: '/predict',
-    icon: [imgSet.menuList[4], imgSet.fade_menuList[4]],
-  },
+    icon: [imgSet.menuList[4], imgSet.fade_menuList[4]]
+  }
 ];
 
 const MenuSide = () => {
@@ -55,16 +55,16 @@ const MenuSide = () => {
         mode="inline"
         inlineIndent={40}
         selectable={false}
-        style={{ background: constant.item_second, border:'none' }}
+        style={{ background: constant.item_second, border: 'none' }}
       >{
         moduleList.map(module => (
           <Menu.Item
-            className="menu-list-item m-b-10 p-0" 
+            className="menu-list-item m-b-10 p-0"
             key={module.name}
           >
             <NavLink
               activeClassName="cur-link"
-              className={className("nav-link", { close: !open })}
+              className={className('nav-link', { close: !open })}
               exact={true}
               to={module.path}
             >
@@ -83,6 +83,6 @@ const MenuSide = () => {
       </Menu>
     </Layout.Sider>
   );
-}
- 
+};
+
 export default MenuSide;

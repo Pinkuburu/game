@@ -1,12 +1,12 @@
 import * as React from 'react';
+import propTypes from 'prop-types';
 import { Tabs, Card, List } from 'antd';
 import { connect } from 'dva';
 import classNames from 'classnames';
 import _ from 'lodash';
 import ReactTable from 'react-table';
 import dayjs from 'dayjs';
-import 'dayjs/locale/zh-cn'
-
+import 'dayjs/locale/zh-cn';
 
 import imgSet, { imgStore } from './../../utils/imgStore';
 import ucDisplay from './ucDisplay';
@@ -16,11 +16,11 @@ const { TabPane } = Tabs;
 
 export interface MatchPanelProps {
   gameType: 'ALL' | 'DOTA2' | 'CSGO' | 'LOL';
-  UCGroup: object;
-  UCLeagues: object;
-  dispatch: (action: object) => void;
+  UCGroup: {};
+  UCLeagues: {};
+  dispatch: (action: {}) => void;
 }
- 
+
 export interface MatchPanelState {
   gameFilter: {
     game_type: 'dota2' | 'lol' | 'csgo';
@@ -28,7 +28,7 @@ export interface MatchPanelState {
     lol: {};
     csgo: {};
     date: number;
-    curFilter: () => object;
+    curFilter: () => {};
   };
   gameList: {
     key: string;
@@ -50,7 +50,7 @@ export interface MatchPanelState {
 function GameFilter({ onSelect, gameList, activeType }) {
   return (
     <div className="tabs d-flex text-center">
-      {gameList.map((game: object, idx: string) => (
+      {gameList.map((game: any, idx: string) => (
         <div
           key={game.name}
           className={classNames('tab', { active: activeType === game.key })}
@@ -64,19 +64,22 @@ function GameFilter({ onSelect, gameList, activeType }) {
   );
 }
 
+GameFilter.propTypes = {
+  onSelect: propTypes.func.isRequired,
+  gameList: propTypes.array.isRequired,
+  activeType: propTypes.number.isRequired
+};
 
 function geneDateList(status: 1 | -1) { // 1是预告的，-1是结果的
   const dateTime = dayjs().format('YYYY-MM-DD');
   const dateObj = dayjs(dateTime).locale('zh-cn');
-  const dateList = _.range(7).map(
-    (cur: number) => {
-      const curDay = dateObj.add((cur + 1) * status, 'day');
-      return {
-        text: curDay.format('MM-DD ddd'),
-        time: curDay.unix(),
-      };
-    }
-  )
+  const dateList = _.range(7).map((cur: number) => {
+    const curDay = dateObj.add((cur + 1) * status, 'day');
+    return {
+      text: curDay.format('MM-DD ddd'),
+      time: curDay.unix()
+    };
+  });
   return dateList;
 }
 
@@ -84,16 +87,16 @@ const initGameList = [
   {
     key: 'dota2',
     name: 'DOTA2',
-    icon: imgStore.dota2,
+    icon: imgStore.dota2
   }, {
     key: 'lol',
     name: 'LOL',
-    icon: imgStore.lol,
+    icon: imgStore.lol
   }, {
     key: 'csgo',
     name: 'CSGO',
-    icon: imgStore.csgo,
-  },
+    icon: imgStore.csgo
+  }
 ];
 
 const initFilter = {
@@ -102,10 +105,10 @@ const initFilter = {
   lol: {},
   csgo: {},
   date: 0,
-  get curFilter(): object {
+  get curFilter(): {} {
     return this[this.game_type];
-  },
-}
+  }
+};
 
 class MatchPanel extends React.Component<MatchPanelProps, MatchPanelState> {
   constructor(props: MatchPanelProps) {
@@ -115,27 +118,28 @@ class MatchPanel extends React.Component<MatchPanelProps, MatchPanelState> {
       gameList: gameList,
       gameFilter: gameFilter,
       ucDateFilter: geneDateList(1),
-      reDateFilter: geneDateList(-1),
+      reDateFilter: geneDateList(-1)
     };
   }
 
-  componentDidMount() {
-
-  }
+  // componentDidMount() {
+  //
+  // }
 
   componentDidUpdate(preProps: MatchPanelProps) {
     const { gameType } = this.props;
     if (gameType !== preProps.gameType) {
-      const { gameList, gameFilter } = this.filterList(gameType, false)
+      const { gameList, gameFilter } = this.filterList(gameType, false);
       this.setState({
         gameList,
-        gameFilter,
+        gameFilter
       });
     }
   }
 
   mapLeagueList() {
     const { UCLeagues } = this.props;
+    // eslint-disable-next-line camelcase
     const { game_type } = this.state.gameFilter;
     const leagues = _.get(UCLeagues, game_type, []);
     return leagues;
@@ -145,7 +149,7 @@ class MatchPanel extends React.Component<MatchPanelProps, MatchPanelState> {
     const { gameFilter } = this.state;
     const { UCGroup } = this.props;
     const leagueFilter = gameFilter.curFilter;
-    const gameM = _.get(UCGroup, gameFilter.game_type, {})
+    const gameM = _.get(UCGroup, gameFilter.game_type, {});
     const info = Object.keys(leagueFilter);
     const mObj = info.length === 0
       ? gameM
@@ -153,60 +157,59 @@ class MatchPanel extends React.Component<MatchPanelProps, MatchPanelState> {
     const flatM = Object.values(mObj).flat();
     if (gameFilter.date === 0) {
       return flatM;
-    } else {
-      return flatM.filter(m => m.start_time === gameFilter.date); 
     }
+    return flatM.filter(m => m.start_time === gameFilter.date);
   }
 
   filterList(gameType: 'ALL' | 'DOTA2' | 'LOL' | 'CSGO', init : boolean) {
-    let tempGameList, tempGameFilter;
+    let tempGameList; let
+      tempGameFilter;
     if (init) {
       tempGameList = initGameList;
       tempGameFilter = initFilter;
     } else {
       const { gameList, gameFilter } = this.state;
-      tempGameList = gameList
+      tempGameList = gameList;
       tempGameFilter = gameFilter;
     }
 
-    if (gameType === "ALL") {
+    if (gameType === 'ALL') {
       return {
         gameList: tempGameList,
-        gameFilter: tempGameFilter,
-      };
-    } else {
-      const key = gameType.toLocaleLowerCase();
-      return {
-        gameList: tempGameList.filter(game => game.key === key),
-        gameFilter: {
-          ...tempGameFilter,
-          game_type: key,
-        },
+        gameFilter: tempGameFilter
       };
     }
+    const key = gameType.toLocaleLowerCase();
+    return {
+      gameList: tempGameList.filter(game => game.key === key),
+      gameFilter: {
+        ...tempGameFilter,
+        game_type: key
+      }
+    };
   }
-
-  selectFilterGame(game: any, idx: number) {
+  // idx: number
+  selectFilterGame(game: any) {
     const newFilter = {
       ...this.state.gameFilter,
       game_type: game.key,
-      date: 0,
+      date: 0
     };
     this.setState({
-      gameFilter: newFilter,
+      gameFilter: newFilter
     });
   }
 
   selectDate(it: any) {
     const newFilter = {
       ...this.state.gameFilter,
-      date: it.time,
+      date: it.time
     };
     this.setState({
-      gameFilter: newFilter,
+      gameFilter: newFilter
     });
   }
-  
+
   render() {
     const { gameFilter, gameList, ucDateFilter } = this.state;
     const leaguesList = this.mapLeagueList();
@@ -216,7 +219,7 @@ class MatchPanel extends React.Component<MatchPanelProps, MatchPanelState> {
     return (
       <div className="match-panel eyes_card">
         <GameFilter
-          onSelect={(game: object, idx: number) => this.selectFilterGame(game, idx)}
+          onSelect={(game: {}, idx: number) => this.selectFilterGame(game, idx)}
           gameList={gameList}
           activeType={gameFilter.game_type}
         />
@@ -245,7 +248,7 @@ class MatchPanel extends React.Component<MatchPanelProps, MatchPanelState> {
             >
               <List
                 dataSource={leaguesList}
-                renderItem={(it: object, idx: number) => (
+                renderItem={(it: {}) => (
                   <List.Item
                     className="pointer"
                     onClick={() => this.selectLeagueFilter(it)}
@@ -269,10 +272,10 @@ class MatchPanel extends React.Component<MatchPanelProps, MatchPanelState> {
             >
               <List
                 dataSource={ucDateFilter}
-                renderItem={(it: object, idx: number) => (
+                renderItem={(it: {}) => (
                   <List.Item
                     className={classNames(
-                      "pointer menu-font d-inline-block date-item",
+                      'pointer menu-font d-inline-block date-item',
                       { active: gameFilter.date === it.time }
                     )}
                     onClick={() => this.selectDate(it)}
@@ -296,7 +299,5 @@ class MatchPanel extends React.Component<MatchPanelProps, MatchPanelState> {
     );
   }
 }
- 
-export default connect(
-  (state: any) => state.global
-)(MatchPanel);
+
+export default connect((state: any) => state.global)(MatchPanel);

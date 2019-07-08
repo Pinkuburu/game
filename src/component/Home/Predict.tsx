@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Table } from 'antd';
 import _ from 'lodash';
-import Image from '../../component/Image';
+// import Image from '../../component/Image';
 import panelBg from '../../assets/bg_jryc.svg';
 import constants from '../../constant';
 import { percent } from '../../utils';
@@ -64,7 +64,7 @@ const cols = [
     key: ['game_type', 'best_of'],
     width: 80,
     className: 'p_table_cell',
-    render(_, record) {
+    render() {
       // const info = _(data);
       // const type = info.get(0, 1);
       // const bo = info.get(1, '2');
@@ -76,7 +76,7 @@ const cols = [
       //     <span>BO{bo}</span>
       //   </div>
       // );
-    },
+    }
   },
   {
     title: '推荐类型',
@@ -86,7 +86,7 @@ const cols = [
     render(data: number) {
       const type = ['未知', '赛前', '实时'];
       return type[data];
-    },
+    }
   },
   {
     title: '场次',
@@ -94,11 +94,11 @@ const cols = [
       'team_a_info.tag',
       'team_a_info.custom_logo',
       'team_b_info.tag',
-      'team_b_info.custom_logo',
+      'team_b_info.custom_logo'
     ],
     width: 160,
-    className: 'p_table_cell',    
-    render(data) {
+    className: 'p_table_cell',
+    render() {
       return '哈哈';
       // const info = _(data);
       // const at = info.get(0);
@@ -119,16 +119,16 @@ const cols = [
       //     </div>
       //   </div>
       // );
-    },
+    }
   },
   {
     title: '预测',
     key: ['content', 'is_member'],
     width: 140,
     className: 'p_table_cell',
-    render(data) {
+    render() {
       // if (!data || data === '--') return '--';
-      return "预测"
+      return '预测';
       // const [result, isMember] = data;
       // const [team, type] = result.split(' ');
       // if (!isMember) {
@@ -149,13 +149,13 @@ const cols = [
       //     </div>
       //   );
       // }
-    },
+    }
   },
   {
     title: '指数',
     key: 'odds',
     width: 80,
-    className: 'p_table_cell',
+    className: 'p_table_cell'
   },
   {
     title: '结果',
@@ -172,23 +172,24 @@ const cols = [
       //   return '--';
       // }
     }
-  },
+  }
 ];
 
-export interface PredictProps {
+interface PredictProps {
   data: {
     total: { [propNames: string]: any };
     list: [];
   },
 }
 
+// eslint-disable-next-line react/prop-types
 const Predict: React.SFC<PredictProps> = ({ data }) => {
   // const { total, list } = data;
   const total = _.defaultsDeep(data.total, {
     success_scene: 0,
     total_scene: 0,
     win_rate: 0,
-    rate_of_return: 0,
+    rate_of_return: 0
   });
   const list = _.get(data, 'list', [
     {
@@ -197,20 +198,20 @@ const Predict: React.SFC<PredictProps> = ({ data }) => {
       recommend_type: 1,
       team_a_info: {
         tag: null,
-        custom_logo: null,
+        custom_logo: null
       },
       team_b_info: {
         tag: null,
-        custom_logo: null,
+        custom_logo: null
       },
       content: {},
       odds: 0,
       result: '正确'
-    },
+    }
   ]);
   return (
     <Panel>
-      <div className="panel-header">  
+      <div className="panel-header">
         <div className="panel-text">今日预测</div>
         <div className="time">
           <p className="head">场次</p>
@@ -236,6 +237,7 @@ const Predict: React.SFC<PredictProps> = ({ data }) => {
       </div>
     </Panel>
   );
-}
- 
+};
+
+
 export default Predict;

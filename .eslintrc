@@ -28,7 +28,8 @@
     }
   },
   "extends": [
-    "@aimake/eslint-config/react"
+    "@aimake/eslint-config",
+    "plugin:react/recommended"
   ],
   "rules": {
     "jsx-wrap-multiline": false,

@@ -21,7 +21,7 @@ import deleteIcon from '../assets/icon_delete.png';
 export const imgStore = {
   dota2: cirDota,
   lol: cirLol,
-  csgo: cirCsgo,
+  csgo: cirCsgo
 };
 
 const imgSet = {
@@ -32,7 +32,7 @@ const imgSet = {
   cirGameIcon: [cirDota, cirLol, cirCsgo],
   userImg,
   leagueSelect: [leagueS, leagueD],
-  deleteIcon,
+  deleteIcon
 };
 
 export default imgSet;

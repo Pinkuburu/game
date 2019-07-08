@@ -6,20 +6,19 @@ import LiveContainer from '../../component/Home/LiveContainer';
 import MatchPanel from '../../component/Home/MatchPanel';
 
 export interface HomeProps {
-  banners: [];
-  predict: object;
-  dispatch: (action: object) => void;
-  liveList: [];
-  UCGroup: {};
-  UCLeagues: {};
+  banners: [],
+  predict: {},
+  dispatch: (action: any) => void,
+  liveList: [],
+  UCGroup: {},
+  UCLeagues: {},
 }
 
 class Home extends React.Component<HomeProps> {
-  componentDidMount() {
-    
-  }
   render() {
-    const { predict, liveList, dispatch, UCGroup, UCLeagues } = this.props;
+    const {
+      predict, liveList, dispatch, UCGroup, UCLeagues
+    } = this.props;
     return (
       <div>
         <div>
@@ -34,13 +33,11 @@ class Home extends React.Component<HomeProps> {
     );
   }
 }
- 
-export default connect((state: any) => {
-  return {
-    banners: state.model.banners,
-    predict: state.model.predict,
-    liveList: state.model.live_list,
-    UCGroup: state.model.UCGroup,
-    UCLeagues: state.model.UCLeagues,
-  };
-})(Home);
+
+export default connect((state: any) => ({
+  banners: state.model.banners,
+  predict: state.model.predict,
+  liveList: state.model.live_list,
+  UCGroup: state.model.UCGroup,
+  UCLeagues: state.model.UCLeagues
+}))(Home);

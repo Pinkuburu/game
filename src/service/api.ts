@@ -9,15 +9,15 @@ const token = localStorage.getItem('token') || '';
 const commonRequest = extend({
   prefix: index,
   headers: {
-    token,
-  },
+    token
+  }
 });
 
 const request = extend({
   prefix: test,
   headers: {
-    token,
-  },
+    token
+  }
 });
 
 
