@@ -33,6 +33,6 @@ const imgSet = {
   userImg,
   leagueSelect: [leagueS, leagueD],
   deleteIcon,
-}
+};
 
 export default imgSet;
