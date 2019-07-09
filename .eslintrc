@@ -40,7 +40,9 @@
     // 禁止在 componentWillUpdate 中使用 setState
     "react/no-will-update-set-state": "error",
     // 禁止出现重复的 props
-    "react/jsx-no-duplicate-props": "error"
+    "react/jsx-no-duplicate-props": "error",
+    // 大括号内的首尾必须有换行
+    "object-curly-newline": "off"
   },
   "parser": "babel-eslint"
 }
