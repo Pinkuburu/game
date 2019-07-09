@@ -185,6 +185,7 @@ interface PredictProps {
 // eslint-disable-next-line react/prop-types
 const Predict: React.SFC<PredictProps> = ({ data }) => {
   // const { total, list } = data;
+  // eslint-disable-next-line react/prop-types
   const total = _.defaultsDeep(data.total, {
     success_scene: 0,
     total_scene: 0,
