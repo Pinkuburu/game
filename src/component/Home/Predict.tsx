@@ -71,7 +71,6 @@ const cols = [
       // return (
       //   <div className="text-center" style={{ lineHeight: '50px' }}>
       //     <Image
-
       //     />
       //     <span>BO{bo}</span>
       //   </div>
@@ -179,7 +178,7 @@ interface PredictProps {
   data: {
     total: { [propNames: string]: any };
     list: [];
-  },
+  };
 }
 
 // eslint-disable-next-line react/prop-types
@@ -239,6 +238,5 @@ const Predict: React.SFC<PredictProps> = ({ data }) => {
     </Panel>
   );
 };
-
 
 export default Predict;
