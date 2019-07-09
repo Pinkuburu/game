@@ -11,6 +11,7 @@ const constants = {
   // 文字颜色
   main_font: '#eee',
   nav_font: '#626F86', // 导航
+  nav_font_gray: '#D0D0D0', // 导航中的灰体字色
   tip_font: '#cfd3da', // 用户输入框内的文字
   hover_font: '#ca59ff', // 悬浮
   gold: '#ffd018', // 金钱文字

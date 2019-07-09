@@ -10,16 +10,16 @@ import './index.css';
 const { Footer, Content } = Layout;
 
 interface Props {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
-const BasicLayout: React.FC = (props:Props) => {
+const BasicLayout: React.FC<Props> = (props: Props) => {
   return (
     <Layout className="web-page">
       <MenuSide />
       <Layout className="web-page">
         <Header>这里是头部</Header>
         <Content style={{ padding: '20px' }}>{props.children}</Content>
-         <Footer>这里是底部</Footer>
+        <Footer>这里是底部</Footer>
       </Layout>
     </Layout>
   );

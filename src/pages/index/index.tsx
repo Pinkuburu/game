@@ -1,33 +1,32 @@
 import React from 'react';
 import { connect } from 'dva';
 
-import Predict from '../../component/Home/Predict';
+// import Predict from '../../component/Home/Predict';
 import LiveContainer from '../../component/Home/LiveContainer';
 import MatchPanel from '../../component/Home/MatchPanel';
+import Predict1 from '../../component/Predict';
 
 export interface HomeProps {
-  banners: [],
-  predict: {},
-  dispatch: (action: any) => void,
-  liveList: [],
-  UCGroup: {},
-  UCLeagues: {},
+  banners: [];
+  predict: {};
+  dispatch: (action: any) => void;
+  liveList: [];
+  UCGroup: {};
+  UCLeagues: {};
 }
 
 class Home extends React.Component<HomeProps> {
   render() {
-    const {
-      predict, liveList, dispatch, UCGroup, UCLeagues
-    } = this.props;
+    const { predict, liveList, dispatch, UCGroup, UCLeagues } = this.props;
     return (
       <div>
-        <div>
+        {/* <div>
           <Predict data={predict} />
+        </div> */}
+        <div>
+          <Predict1 data={predict} />
         </div>
-        <LiveContainer
-          live_list={liveList}
-          refresh={() => dispatch({ type: 'getLiveList' })}
-        />
+        <LiveContainer live_list={liveList} refresh={() => dispatch({ type: 'getLiveList' })} />
         <MatchPanel UCGroup={UCGroup} UCLeagues={UCLeagues} />
       </div>
     );

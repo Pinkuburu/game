@@ -9,6 +9,7 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
+    "@types/classnames": "^2.2.9",
     "@types/styled-components": "^4.1.15",
     "antd": "^3.15.0",
     "classnames": "^2.2.6",
