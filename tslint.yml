@@ -5,7 +5,8 @@ extends:
 jsRules:
 rules:
   eofline: true
-  no-console: true
+  # TODO: 开发时 暂时允许提交含有console的代码。上线时需设为false
+  no-console: false
   no-construct: true
   no-debugger: true
   no-reference: true
