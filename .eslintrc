@@ -27,6 +27,9 @@
     // 在类的非静态方法中，必须存在对 this 的引用
     // @off 太严格了
     "class-methods-use-this": "off",
+    // 组件必须有 displayName 属性
+    // @off 不强制要求写 displayName
+    "react/display-name": "off",
     // 禁止使用一些不安全的生命周期函数(将要废弃的)
     "react/no-unsafe": "error",
     // state需要在构造函数中定义

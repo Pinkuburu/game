@@ -1,0 +1,48 @@
+@import '../../../variable.less';
+.container {
+  :global {
+    .ant-table-thead tr > th {
+      text-align: center;
+      padding: 0;
+      line-height: 30px;
+      color: @fade_font;
+      background: @card_header;
+    }
+    .ant-table-tbody > tr {
+      text-align: center;
+      &:nth-child(odd) {
+        background: @item_first;
+      }
+      &:nth-child(even) {
+        background: @item_second;
+      }
+      & > td {
+        min-height: 50px;
+        color: @main_font;
+      }
+    }
+  }
+}
+// 未测试
+// 防止超长字段
+// .ant-table-thead tr {
+//   display: flex;
+// }
+// .ant-table-thead th {
+//   flex: 1;
+// }
+// .ant-table-row {
+//   display: flex;
+// }
+// .ant-table-row td {
+//   flex: 1;
+//   overflow: auto;
+// }
+// .ant-table-row td::-webkit-scrollbar {
+//   display: none;
+// }
+// .columns {
+//   display: flex;
+//   align-items: center;
+//   width: 0;
+// }

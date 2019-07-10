@@ -1,0 +1,48 @@
+@import '../../variable.less';
+
+.container {
+  width: 700px;
+  :global {
+    .panel-header {
+      display: flex;
+      height: 70px;
+      background: url('../../assets/bg_jryc.svg') no-repeat center / cover;
+      text-align: center;
+      color: @fade_font;
+      padding-top: 10px;
+      p {
+        margin: 0;
+      }
+      .panel-text {
+        flex: 1 1 200px;
+        font-size: 30px;
+        color: white;
+      }
+      .time {
+        flex: 1 1 160px;
+      }
+      .win-rate {
+        flex: 1 1 140px;
+      }
+      .bene-rate {
+        flex: 1 1 200px;
+      }
+      .time,
+      .win-rate,
+      .bene-rate {
+        .strong {
+          color: @hover_font;
+          font-size: 28px;
+        }
+        .normal {
+          color: @nav_font_gray;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}
+
+.table-container {
+  padding: 0 20px 25px 20px;
+}

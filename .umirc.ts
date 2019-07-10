@@ -5,43 +5,47 @@ const fs = require('fs');
 const eslintFormatter = require('eslint-friendly-formatter');
 
 const appDirectory = fs.realpathSync(process.cwd());
-const resolveApp = (relativePath:any) => path.resolve(appDirectory, relativePath);
+const resolveApp = (relativePath: any) => path.resolve(appDirectory, relativePath);
 
 // ref: https://umijs.org/config/
-const config: IConfig =  {
+const config: IConfig = {
   treeShaking: true,
   disableCSSModules: true,
   disableCSSSourceMap: true,
+  cssModulesWithAffix: true,
   hash: true,
   targets: {
-    ie: 10,
+    ie: 10
   },
-  theme: "./theme.js",
+  theme: './theme.js',
   plugins: [
     // ref: https://umijs.org/plugin/umi-plugin-react.html
-    ['umi-plugin-react', {
-      antd: true,
-      dva: true,
-      dynamicImport: { webpackChunkName: true },
-      title: 'new_project',
-      dll: false,
-      routes: {
-        exclude: [
-          /models\//,
-          /services\//,
-          /model\.(t|j)sx?$/,
-          /service\.(t|j)sx?$/,
-          /components\//,
-        ],
-      },
-    }],
+    [
+      'umi-plugin-react',
+      {
+        antd: true,
+        dva: true,
+        dynamicImport: { webpackChunkName: true },
+        title: 'new_project',
+        dll: false,
+        routes: {
+          exclude: [
+            /models\//,
+            /services\//,
+            /model\.(t|j)sx?$/,
+            /service\.(t|j)sx?$/,
+            /components\//
+          ]
+        }
+      }
+    ]
   ],
-  chainWebpack(config:any) {
+  chainWebpack(config: any) {
     const eslintOptions = {
       formatter: eslintFormatter,
       baseConfig: {
         // extends: [require.resolve('eslint-config-umi')],
-        extends: [require.resolve("@aimake/eslint-config")],
+        extends: [require.resolve('@aimake/eslint-config')]
       },
       ignore: false,
       eslintPath: require.resolve('eslint'),
@@ -51,9 +55,9 @@ const config: IConfig =  {
       emitError: true,
       emitWarning: true,
       rules: {
-        "jsx-a11y/anchor-is-valid": 0,
-        "import/no-unresolved": 0,
-        "import/no-extraneous-dependencies": 0,
+        'jsx-a11y/anchor-is-valid': 0,
+        'import/no-unresolved': 0,
+        'import/no-extraneous-dependencies': 0
       }
     };
 
@@ -63,15 +67,14 @@ const config: IConfig =  {
       .pre()
       .include.add(resolveApp('src'))
       .end()
-      .exclude
-      // .add(/node_modules/)
+      .exclude // .add(/node_modules/)
       // .add('/src/pages/.umi/*')
       .end()
       .enforce('pre')
       .use('eslint-loader')
       .loader(require.resolve('eslint-loader'))
       .options(eslintOptions);
-  },
-}
+  }
+};
 
 export default config;

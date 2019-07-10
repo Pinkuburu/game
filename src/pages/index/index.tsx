@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'dva';
 
 // import Predict from '../../component/Home/Predict';
-import LiveContainer from '../../component/Home/LiveContainer';
-import MatchPanel from '../../component/Home/MatchPanel';
-import Predict1 from '../../component/Predict';
+import LiveContainer from '../../components/Home/LiveContainer';
+import MatchPanel from '../../components/Home/MatchPanel';
+import Predict1 from '../../components/Predict';
 
 export interface HomeProps {
   banners: [];

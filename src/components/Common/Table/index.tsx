@@ -1,18 +1,17 @@
 import React from 'react';
-import { Container } from './Styled';
 import { Table } from 'antd';
 import { TableProps } from 'antd/lib/table/interface';
+import styles from './index.module.less';
 
-// import classnames from 'classnames';
-
+// 若要使用react-table 请之后修改
 interface IProps<T> extends TableProps<T> {}
 
 class CustomTable<T> extends React.Component<IProps<T>> {
   render() {
     return (
-      <Container>
+      <div className={styles.container}>
         <Table {...this.props} />
-      </Container>
+      </div>
     );
   }
 }

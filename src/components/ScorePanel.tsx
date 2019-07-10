@@ -7,7 +7,7 @@ import Image from './Image';
 
 const ScorePanelContainer = styled.div`
   padding: 10px 20px;
-  background: center / cover url(${props => props.bg}) no-repeat;
+  background: center / cover url(${(props) => props.bg}) no-repeat;
 
   .date {
     line-height: 28px;
@@ -39,9 +39,7 @@ const ScorePanelContainer = styled.div`
 
 const ScorePanel = () => {
   return (
-    <ScorePanelContainer
-      bg="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchSlicePng7139f9b4a54d9d48dd681bb0473de346"
-    >
+    <ScorePanelContainer bg="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchSlicePng7139f9b4a54d9d48dd681bb0473de346">
       <p className="base d-flex justify-content-between">
         <div className="img-text-center">
           <Image

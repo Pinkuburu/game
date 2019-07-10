@@ -1,9 +1,14 @@
 import React from 'react';
-import { Container, TableContainer } from './Styled';
-import Table from '../Table/index';
+import Table from '../Common/Table/index';
 import { ColumnProps } from 'antd/lib/table';
+import styles from './index.module.less';
+import GameTypeCell from './components/GameTypeCell';
 
-// import classnames from 'classnames';
+import GameCell from './components/GameCell';
+import ResultCell from './components/ResultCell';
+import OddsCell from './components/OddsCell';
+import PredictCell from './components/PredictCell';
+import RecommendTypeCell from './components/RecommendTypeCell';
 
 interface IProps {
   data: any;
@@ -52,37 +57,43 @@ const columns: ColumnProps<resultItem>[] = [
     title: '游戏类型',
     dataIndex: 'game_type',
     key: 'game_type',
-    width: 80
+    width: 80,
+    render: () => <GameTypeCell />
   },
   {
     title: '推荐类型',
     dataIndex: 'recommend_type',
     key: 'recommend_type',
-    width: 100
+    width: 100,
+    render: () => <RecommendTypeCell />
   },
   {
     title: '场次',
     dataIndex: 'game',
     key: 'game',
-    width: 160
+    width: 160,
+    render: () => <GameCell />
   },
   {
     title: '预测',
     dataIndex: 'predict',
     key: 'predict',
-    width: 140
+    width: 140,
+    render: () => <PredictCell />
   },
   {
     title: '指数',
     dataIndex: 'odds',
     key: 'odds',
-    width: 80
+    width: 80,
+    render: () => <OddsCell />
   },
   {
     title: '结果',
     dataIndex: 'result',
     key: 'result',
-    width: 100
+    width: 100,
+    render: () => <ResultCell />
   }
 ];
 
@@ -105,20 +116,18 @@ class Predict extends React.Component<IProps> {
   }
 
   render() {
-    // const { data } = this.props;
-    // console.log(data);
     return (
-      <Container>
+      <div className={styles.container}>
         <div className="panel-header">
           <div className="panel-text">今日预测</div>
           {this.predictOfTodayItem('time', '场次', '2', '/3')}
           {this.predictOfTodayItem('win-rate', '胜率', '55', '%')}
           {this.predictOfTodayItem('bene-rate', '收益率', '66', '%')}
         </div>
-        <TableContainer>
+        <div className={styles['table-container']}>
           <Table bordered={false} pagination={false} dataSource={dataSource} columns={columns} />
-        </TableContainer>
-      </Container>
+        </div>
+      </div>
     );
   }
 }
