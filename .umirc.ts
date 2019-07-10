@@ -10,9 +10,7 @@ const resolveApp = (relativePath: any) => path.resolve(appDirectory, relativePat
 // ref: https://umijs.org/config/
 const config: IConfig = {
   treeShaking: true,
-  disableCSSModules: true,
-  disableCSSSourceMap: true,
-  cssModulesWithAffix: true,
+  // disableCSSSourceMap: true,
   hash: true,
   targets: {
     ie: 10

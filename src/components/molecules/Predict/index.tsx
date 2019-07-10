@@ -1,8 +1,8 @@
 import React from 'react';
-import Table from '../Common/Table/index';
 import { ColumnProps } from 'antd/lib/table';
-import styles from './index.module.less';
+import styles from './predict.less';
 import GameTypeCell from './components/GameTypeCell';
+import Table from '../../atoms/Table/index';
 
 import GameCell from './components/GameCell';
 import ResultCell from './components/ResultCell';
@@ -105,11 +105,11 @@ class Predict extends React.Component<IProps> {
     normalLabel: string
   ) {
     return (
-      <div className={classname}>
-        <p className="head">{titleLabel}</p>
-        <p className="content">
-          <em className="strong">{strongLabel}</em>
-          <em className="normal">{normalLabel}</em>
+      <div className={styles[classname]}>
+        <p className={styles.head}>{titleLabel}</p>
+        <p className={styles.content}>
+          <em className={styles.strong}>{strongLabel}</em>
+          <em className={styles.normal}>{normalLabel}</em>
         </p>
       </div>
     );
@@ -118,13 +118,13 @@ class Predict extends React.Component<IProps> {
   render() {
     return (
       <div className={styles.container}>
-        <div className="panel-header">
-          <div className="panel-text">今日预测</div>
+        <div className={styles.panelHeader}>
+          <div className={styles.panelText}>今日预测</div>
           {this.predictOfTodayItem('time', '场次', '2', '/3')}
-          {this.predictOfTodayItem('win-rate', '胜率', '55', '%')}
-          {this.predictOfTodayItem('bene-rate', '收益率', '66', '%')}
+          {this.predictOfTodayItem('winRate', '胜率', '55', '%')}
+          {this.predictOfTodayItem('beneRate', '收益率', '66', '%')}
         </div>
-        <div className={styles['table-container']}>
+        <div className={styles.tableContainer}>
           <Table bordered={false} pagination={false} dataSource={dataSource} columns={columns} />
         </div>
       </div>

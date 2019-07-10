@@ -1,0 +1,19 @@
+@import '../../../common/less/variable.less';
+
+.container {
+  :global {
+    .layout-header {
+      justify-content: flex-end;
+      display: flex;
+      color: @nav_font;
+      .menu-item {
+        padding: 0 20px;
+        cursor: pointer;
+
+        &:hover {
+          .font(@main_font);
+        }
+      }
+    }
+  }
+}
