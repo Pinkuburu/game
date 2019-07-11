@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies,import/no-duplicates */
 import _ from 'lodash';
 import { getSlider, todayPredict, liveList, getUpcommingList } from '../../service/api';
 
@@ -7,10 +6,15 @@ function groupMatches(match) {
   const UCGroup = {};
   const UCLeagues = {};
   // eslint-disable-next-line no-return-assign
-  Object.keys(groupData).forEach(key => UCGroup[key] = _.groupBy(groupData[key], 'league_id'));
+  Object.keys(groupData).forEach((key) => (UCGroup[key] = _.groupBy(groupData[key], 'league_id')));
   Object.keys(UCGroup).forEach((key) => {
     const leagueSet = Object.values(UCGroup[key]).map((leagues) => {
-      const league = _.pick(leagues[0], ['league_id', 'league_name', 'league_img_url', 'game_type']);
+      const league = _.pick(leagues[0], [
+        'league_id',
+        'league_name',
+        'league_img_url',
+        'game_type'
+      ]);
       league.count = leagues.length;
       return league;
     });
@@ -23,6 +27,7 @@ function groupMatches(match) {
 }
 
 export default {
+  namespace: 'home',
   state: {
     banners: [],
     predict: {},
@@ -65,28 +70,28 @@ export default {
     }
   },
   effects: {
-    * getSlider(action, { put }) {
+    *getSlider(action, { put }) {
       const data = yield getSlider();
       yield put({
         type: 'banners',
         payload: data.data
       });
     },
-    * getPredict(action, { put }) {
+    *getPredict(action, { put }) {
       const data = yield todayPredict();
       yield put({
         type: 'predict',
         payload: data.data
       });
     },
-    * getLiveList(action, { put }) {
+    *getLiveList(action, { put }) {
       const data = yield liveList();
       yield put({
         type: 'live_list',
         payload: data.data
       });
     },
-    * getupcommingList(action, { put }) {
+    *getupcommingList(action, { put }) {
       const data = yield getUpcommingList();
       yield put({
         type: 'getUpcommingList',

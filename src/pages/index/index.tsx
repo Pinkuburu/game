@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import Api from '../../service/request/api';
+// import Api from '../../service/request/api';
 
 // import Predict from '../../component/Home/Predict';
 // import LiveContainer from '../../components/Home/LiveContainer';
@@ -19,7 +19,8 @@ export interface HomeProps {
 
 class Home extends React.Component<HomeProps> {
   componentDidMount() {
-    Api.todayPredict();
+    console.log(this.props);
+    // Api.todayPredict();
   }
 
   render() {
@@ -40,10 +41,10 @@ class Home extends React.Component<HomeProps> {
 }
 
 export default connect((state: any) => ({
-  banners: state.model.banners,
-  predict: state.model.predict,
-  liveList: state.model.live_list,
-  UCGroup: state.model.UCGroup,
-  UCLeagues: state.model.UCLeagues,
-  global: state.model.global
+  banners: state.home.banners,
+  predict: state.home.predict,
+  liveList: state.home.live_list,
+  UCGroup: state.home.UCGroup,
+  UCLeagues: state.home.UCLeagues,
+  global: state.global
 }))(Home);
