@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign, camelcase */
 import _ from 'lodash';
-import { getSlider, liveList, getUpcommingList } from '../../../service/api';
 import Api from '../../../service/request/api';
 import { namespace, ActionType } from '../constant';
 
@@ -40,8 +39,7 @@ export default {
     UCLeagues: {},
     resultList: [],
     dResultList: [],
-    resultLeagueList: [],
-    yo: 1
+    resultLeagueList: []
   },
   reducers: {
     [ActionType.change_banners](state, { payload: banners }) {
@@ -74,7 +72,7 @@ export default {
   },
   effects: {
     *[ActionType.get_banners](action, { put }) {
-      const data = yield getSlider();
+      const data = yield Api.getSlider();
       yield put({
         type: ActionType.change_banners,
         payload: data.data
@@ -82,21 +80,20 @@ export default {
     },
     *[ActionType.get_predict](action, { put }) {
       const data = yield Api.getTodayPredict();
-      yield Api.getUpcommingList();
       yield put({
         type: ActionType.change_predict,
         payload: data
       });
     },
     *[ActionType.get_live_list](action, { put }) {
-      const data = yield liveList();
+      const data = yield Api.getLiveList();
       yield put({
         type: ActionType.change_live_list,
         payload: data.data
       });
     },
     *[ActionType.get_upcomming_list](action, { put }) {
-      const data = yield getUpcommingList();
+      const data = yield Api.getUpcommingList();
       yield put({
         type: ActionType.change_upcomming_list,
         payload: data.data
