@@ -1,5 +1,8 @@
+/* eslint-disable no-param-reassign, camelcase */
 import _ from 'lodash';
-import { getSlider, todayPredict, liveList, getUpcommingList } from '../../service/api';
+import { getSlider, liveList, getUpcommingList } from '../../../service/api';
+import Api from '../../../service/request/api';
+import { namespace, ActionType } from '../constant';
 
 function groupMatches(match) {
   const groupData = _.groupBy(match, 'game_type');
@@ -27,7 +30,7 @@ function groupMatches(match) {
 }
 
 export default {
-  namespace: 'home',
+  namespace,
   state: {
     banners: [],
     predict: {},
@@ -37,29 +40,29 @@ export default {
     UCLeagues: {},
     resultList: [],
     dResultList: [],
-    resultLeagueList: []
+    resultLeagueList: [],
+    yo: 1
   },
   reducers: {
-    banners(state, { payload: banners }) {
+    [ActionType.change_banners](state, { payload: banners }) {
       return {
         ...state,
         banners
       };
     },
-    predict(state, { payload: predict }) {
+    [ActionType.change_predict](state, { payload: predict }) {
       return {
         ...state,
         predict
       };
     },
-    // eslint-disable-next-line camelcase
-    live_list(state, { payload: live_list }) {
+    [ActionType.change_live_list](state, { payload: live_list }) {
       return {
         ...state,
         live_list
       };
     },
-    upcommingList(state, { payload: upcommingList }) {
+    [ActionType.change_upcomming_list](state, { payload: upcommingList }) {
       // const upcomingLeagueList = getLeagueList(getUpcommingList);
       const Sets = groupMatches(upcommingList);
       return {
@@ -70,41 +73,35 @@ export default {
     }
   },
   effects: {
-    *getSlider(action, { put }) {
+    *[ActionType.get_banners](action, { put }) {
       const data = yield getSlider();
       yield put({
-        type: 'banners',
+        type: ActionType.change_banners,
         payload: data.data
       });
     },
-    *getPredict(action, { put }) {
-      const data = yield todayPredict();
+    *[ActionType.get_predict](action, { put }) {
+      const data = yield Api.getTodayPredict();
+      yield Api.getUpcommingList();
       yield put({
-        type: 'predict',
-        payload: data.data
+        type: ActionType.change_predict,
+        payload: data
       });
     },
-    *getLiveList(action, { put }) {
+    *[ActionType.get_live_list](action, { put }) {
       const data = yield liveList();
       yield put({
-        type: 'live_list',
+        type: ActionType.change_live_list,
         payload: data.data
       });
     },
-    *getupcommingList(action, { put }) {
+    *[ActionType.get_upcomming_list](action, { put }) {
       const data = yield getUpcommingList();
       yield put({
-        type: 'getUpcommingList',
+        type: ActionType.change_upcomming_list,
         payload: data.data
       });
     }
   },
-  subscriptions: {
-    setup({ dispatch }) {
-      dispatch({ type: 'getSlider' });
-      dispatch({ type: 'getPredict' });
-      dispatch({ type: 'getLiveList' });
-      dispatch({ type: 'getupcommingList' });
-    }
-  }
+  subscriptions: {}
 };

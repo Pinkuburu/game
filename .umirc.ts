@@ -22,9 +22,7 @@ const config: IConfig = {
       'umi-plugin-react',
       {
         antd: true,
-        dva: {
-          immer: true
-        },
+        dva: { immer: true },
         dynamicImport: { webpackChunkName: true },
         title: 'new_project',
         dll: false,
@@ -34,7 +32,8 @@ const config: IConfig = {
             /services\//,
             /model\.(t|j)sx?$/,
             /service\.(t|j)sx?$/,
-            /components\//
+            /components\//,
+            /constant\.(t|j)sx?$/ // 定义一些常量
           ]
         }
       }
