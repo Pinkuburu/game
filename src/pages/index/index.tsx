@@ -6,7 +6,7 @@ import * as ReturnDataType from '../../common/interfaces/returnData';
 
 import Predict from '../../components/molecules/Predict';
 import LiveTableView from '../../components/molecules/LiveTableView';
-import Temp from '../../components/toDelete/MatchPanel';
+// import Temp from '../../components/toDelete/MatchPanel';
 // import MatchTableView from '../../components/molecules/MatchTableView';
 
 export interface IProps {
@@ -25,6 +25,10 @@ class Home extends React.Component<IProps> {
     });
   }
 
+  componentWillUnmount() {
+    console.log('组件即将注销');
+  }
+
   render() {
     // const { predict, liveList, dispatch, UCGroup, UCLeagues } = this.props;
     const { predict } = this.props;
@@ -34,7 +38,7 @@ class Home extends React.Component<IProps> {
           <Predict data={predict} />
         </div>
         <LiveTableView data={predict} />
-        <Temp />
+        {/* <Temp /> */}
         {/* <MatchTableView data={predict} /> */}
       </div>
     );

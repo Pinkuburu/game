@@ -1,5 +1,7 @@
 import React from 'react';
 import { Layout } from 'antd';
+import withRouter from 'umi/withRouter';
+import { connect } from 'dva';
 import MenuSide from './components/MenuSide/MenuSide';
 import Header from './components/Header/Header';
 
@@ -23,4 +25,4 @@ const BasicLayout: React.FC<Props> = (props: Props) => {
   );
 };
 
-export default BasicLayout;
+export default withRouter(connect()(BasicLayout));

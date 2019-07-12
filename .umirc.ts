@@ -22,8 +22,11 @@ const config: IConfig = {
       'umi-plugin-react',
       {
         antd: true,
-        dva: { immer: true },
-        dynamicImport: { webpackChunkName: true },
+        dva: { immer: true, hmr: true },
+        dynamicImport: {
+          webpackChunkName: true,
+          loadingComponent: './components/molecules/Loading/PageLoading.tsx'
+        },
         title: 'new_project',
         dll: false,
         routes: {
