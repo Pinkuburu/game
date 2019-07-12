@@ -3,6 +3,7 @@ import { ColumnProps } from 'antd/lib/table';
 import styles from './predict.less';
 import Table from '../../atoms/Table/index';
 import * as ReturnDataType from '../../../common/interfaces/returnData';
+import PropTypes from 'prop-types';
 
 // import GameTypeCell from './components/GameTypeCell';
 // import GameCell from './components/GameCell';

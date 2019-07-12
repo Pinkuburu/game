@@ -1,17 +1,20 @@
 /* eslint-disable no-param-reassign, camelcase */
 import _ from 'lodash';
 import Api from '../../../service/request/api';
+import { DvaModel } from '../../../common/interfaces/model';
+
 import { namespace, ActionType } from '../constant';
 
-function groupMatches(match) {
+function groupMatches(match: []) {
   const groupData = _.groupBy(match, 'game_type');
-  const UCGroup = {};
-  const UCLeagues = {};
-  // eslint-disable-next-line no-return-assign
-  Object.keys(groupData).forEach((key) => (UCGroup[key] = _.groupBy(groupData[key], 'league_id')));
+  const UCGroup: any = {};
+  const UCLeagues: any = {};
+  Object.keys(groupData).forEach((key) => {
+    UCGroup[key] = _.groupBy(groupData[key], 'league_id');
+  });
   Object.keys(UCGroup).forEach((key) => {
-    const leagueSet = Object.values(UCGroup[key]).map((leagues) => {
-      const league = _.pick(leagues[0], [
+    const leagueSet = Object.values(UCGroup[key]).map((leagues: any) => {
+      const league: any = _.pick(leagues[0], [
         'league_id',
         'league_name',
         'league_img_url',
@@ -27,8 +30,18 @@ function groupMatches(match) {
     UCLeagues
   };
 }
-
-export default {
+interface IState {
+  banners: [];
+  predict: {};
+  live_list: {};
+  upcomingList: [];
+  UCGroup: {};
+  UCLeagues: {};
+  resultList: [];
+  dResultList: [];
+  resultLeagueList: [];
+}
+const model: DvaModel<IState> = {
   namespace,
   state: {
     banners: [],
@@ -75,13 +88,11 @@ export default {
       const data = yield Api.getSlider();
       yield put({
         type: ActionType.change_banners,
-        payload: data.data
+        payload: data
       });
     },
-    *[ActionType.get_predict](action, { put, call, select }) {
+    *[ActionType.get_predict](action, { put, call }) {
       const data = yield call(Api.getTodayPredict);
-      const globalState = yield select((state) => state);
-      console.log(globalState);
       yield put({
         type: ActionType.change_predict,
         payload: data
@@ -91,16 +102,26 @@ export default {
       const data = yield Api.getLiveList();
       yield put({
         type: ActionType.change_live_list,
-        payload: data.data
+        payload: data
       });
     },
     *[ActionType.get_upcomming_list](action, { put }) {
       const data = yield Api.getUpcommingList();
       yield put({
         type: ActionType.change_upcomming_list,
-        payload: data.data
+        payload: data
       });
     }
   },
-  subscriptions: {}
+  subscriptions: {
+    setup({ history }) {
+      history.listen((location) => {
+        if (location.pathname.includes('/')) {
+          console.log('进入首页');
+        }
+      });
+    }
+  }
 };
+
+export default model;

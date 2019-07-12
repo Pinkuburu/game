@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { ActionType } from './constant';
+import { NAMESPACE } from '../../common/constant';
 import * as ReturnDataType from '../../common/interfaces/returnData';
 
 // import Predict from '../../component/Home/Predict';
@@ -9,6 +10,7 @@ import * as ReturnDataType from '../../common/interfaces/returnData';
 import Predict from '../../components/molecules/Predict';
 import LiveTableView from '../../components/molecules/LiveTableView';
 import MatchTableView from '../../components/molecules/MatchTableView';
+
 export interface IProps {
   dispatch: (action: any) => void;
   banners: [];
@@ -21,7 +23,7 @@ export interface IProps {
 class Home extends React.Component<IProps> {
   componentDidMount() {
     this.props.dispatch({
-      type: ActionType.get_predict_with_namespace
+      type: ActionType.get_upcomming_list_with_namespace
     });
   }
 
@@ -43,10 +45,9 @@ class Home extends React.Component<IProps> {
 }
 
 export default connect((state: any) => ({
-  home: state.home,
-  predict: state.home.predict,
-  liveList: state.home.live_list,
-  UCGroup: state.home.UCGroup,
-  UCLeagues: state.home.UCLeagues,
-  global: state.global
+  predict: state[NAMESPACE.HOME].predict,
+  liveList: state[NAMESPACE.HOME].live_list,
+  UCGroup: state[NAMESPACE.HOME].UCGroup,
+  UCLeagues: state[NAMESPACE.HOME].UCLeagues,
+  global: state[NAMESPACE.GLOBAL]
 }))(Home);

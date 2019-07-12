@@ -5,5 +5,7 @@ export default {
 // models的namespace
 export const NAMESPACE = {
   GLOBAL: 'global',
-  HOME: 'home'
+  HOME: 'home',
+  LOADING: 'loading', // 框架自带
+  ROUTING: 'routing' // 框架自带
 };
