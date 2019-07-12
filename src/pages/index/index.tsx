@@ -21,7 +21,7 @@ export interface IProps {
 class Home extends React.Component<IProps> {
   componentDidMount() {
     this.props.dispatch({
-      type: `home/${ActionType.get_predict}`
+      type: ActionType.get_predict_with_namespace
     });
   }
 

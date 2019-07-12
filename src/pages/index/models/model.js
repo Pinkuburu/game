@@ -78,8 +78,10 @@ export default {
         payload: data.data
       });
     },
-    *[ActionType.get_predict](action, { put }) {
-      const data = yield Api.getTodayPredict();
+    *[ActionType.get_predict](action, { put, call, select }) {
+      const data = yield call(Api.getTodayPredict);
+      const globalState = yield select((state) => state);
+      console.log(globalState);
       yield put({
         type: ActionType.change_predict,
         payload: data

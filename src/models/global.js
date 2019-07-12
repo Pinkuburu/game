@@ -1,5 +1,6 @@
+import { NAMESPACE } from '../common/constant';
 export default {
-  namespace: 'global',
+  namespace: NAMESPACE.GLOBAL,
   state: {
     gameType: 'ALL'
   },

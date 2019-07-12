@@ -4,7 +4,6 @@ import { NavLink, Link } from 'umi';
 import imgSet from '../../../utils/imgStore';
 
 import className from 'classnames';
-import constant from '../../../constant';
 import styles from './menu.less';
 
 const moduleList = [
@@ -51,12 +50,7 @@ const MenuSide = () => {
         width="185"
       >
         <Link className={styles.logo} to="/" style={{ backgroundImage: imgSet.logo }} />
-        <Menu
-          mode="inline"
-          inlineIndent={40}
-          selectable={false}
-          style={{ background: constant.item_second, border: 'none' }}
-        >
+        <Menu mode="inline" inlineIndent={40} selectable={false} className={styles.menu}>
           {moduleList.map((module) => (
             <Menu.Item
               className={className(styles['menu-list-item'], 'm-b-10', 'p-0')}
