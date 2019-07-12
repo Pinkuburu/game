@@ -4,7 +4,6 @@ import styles from './predict.less';
 import Table from '../../atoms/Table/index';
 import * as ReturnDataType from '../../../common/interfaces/returnData';
 import PropTypes from 'prop-types';
-
 // import GameTypeCell from './components/GameTypeCell';
 // import GameCell from './components/GameCell';
 // import ResultCell from './components/ResultCell';
@@ -62,6 +61,10 @@ const columns: ColumnProps<ReturnDataType.PredictResult>[] = [
 ];
 
 class Predict extends React.PureComponent<IProps> {
+  static propTypes = {
+    data: PropTypes.object.isRequired
+  };
+
   predictOfTodayItem(
     classname: string,
     titleLabel: string,
@@ -89,7 +92,7 @@ class Predict extends React.PureComponent<IProps> {
         win_rate: winRate = 1,
         rate_of_return: rateOfReturn = 0
       } = {}
-    } = this.props.data;
+    } = this.props.data || {};
     return (
       <div className={styles.container}>
         <div className={styles.panelHeader}>

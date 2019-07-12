@@ -1,7 +1,7 @@
 import React from 'react';
 // import { ColumnProps } from 'antd/lib/table';
 import styles from './index.less';
-import LoadingIcon from '../../Common/LoadingIcon';
+import RefreshIcon from '../../atoms/RefreshIcon';
 import { imgStore } from '../../../utils/imgStore';
 import classnames from 'classnames';
 // import Table from '../../atoms/Table/index';
@@ -14,7 +14,9 @@ class MatchTable extends React.Component<IProps> {
   constructor(props: IProps) {
     super(props);
   }
-  flashData() {}
+  flashData() {
+    console.log('2');
+  }
   render() {
     return (
       <div className={styles.container}>
@@ -28,7 +30,7 @@ class MatchTable extends React.Component<IProps> {
               <span className="bar n5">E</span>
             </span>
             <span className="font_main m-r-30 n-wrap">数据直播</span>
-            <LoadingIcon flashData={() => this.flashData()} />
+            <RefreshIcon onRefresh={this.flashData} />
           </div>
           <div className={classnames(styles['select-game'], 'f f-ai-c')}>
             <img src={imgStore.dota2} alt="dota2" className="cur-p" />

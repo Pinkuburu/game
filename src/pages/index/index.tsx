@@ -4,12 +4,10 @@ import { ActionType } from './constant';
 import { NAMESPACE } from '../../common/constant';
 import * as ReturnDataType from '../../common/interfaces/returnData';
 
-// import Predict from '../../component/Home/Predict';
-// import LiveContainer from '../../components/Home/LiveContainer';
-// import MatchPanel from '../../components/Home/MatchPanel';
 import Predict from '../../components/molecules/Predict';
 import LiveTableView from '../../components/molecules/LiveTableView';
-import MatchTableView from '../../components/molecules/MatchTableView';
+import Temp from '../../components/toDelete/MatchPanel';
+// import MatchTableView from '../../components/molecules/MatchTableView';
 
 export interface IProps {
   dispatch: (action: any) => void;
@@ -35,10 +33,9 @@ class Home extends React.Component<IProps> {
         <div>
           <Predict data={predict} />
         </div>
-        {/* <LiveContainer live_list={liveList} refresh={() => dispatch({ type: 'getLiveList' })} /> */}
         <LiveTableView data={predict} />
-        {/* <MatchPanel UCGroup={UCGroup} UCLeagues={UCLeagues} /> */}
-        <MatchTableView data={predict} />
+        <Temp />
+        {/* <MatchTableView data={predict} /> */}
       </div>
     );
   }

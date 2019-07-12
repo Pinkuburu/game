@@ -1,55 +1,67 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import styled from 'styled-components';
+interface IProps {
+  onRefresh: Function;
+}
+interface IState {
+  seconds: number;
+}
 
-import './loading.less';
-
-class LoadingIcon extends React.PureComponent {
+class RefreshIcon extends React.PureComponent<IProps, IState> {
   static propTypes = {
-    flashData: PropTypes.func.isRequired
+    onRefresh: PropTypes.func.isRequired
   };
 
-  constructor() {
-    super();
+  // 存储定时器timer
+  timer: number = 0;
+
+  constructor(props: IProps) {
+    super(props);
     this.state = {
-      timer: 0,
-      number: 10
+      seconds: 10
     };
+    this.handleRefresh = this.handleRefresh.bind(this);
+    this.resetCountDown = this.resetCountDown.bind(this);
   }
 
   componentDidMount() {
+    this.resetCountDown();
+  }
+
+  // 重置计时器
+  resetCountDown() {
+    // 清除原本计时器
+    clearInterval(this.timer);
+    // 恢复10
     this.setState({
-      timer: setInterval(() => {
-        const { number } = this.state;
-        this.setState({
-          number: number - 1 > 0 ? number - 1 : 10
-        });
-      }, 1000)
+      seconds: 10
     });
+    // 启动倒计时
+    this.timer = setInterval(() => {
+      const { seconds } = this.state;
+      this.setState({
+        seconds: seconds - 1 > 0 ? seconds - 1 : 10
+      });
+    }, 1000);
   }
 
   componentWillUnmount() {
-    const { timer } = this.state;
-    clearInterval(timer);
+    clearInterval(this.timer);
   }
 
-  clickFlash() {
-    this.setState({
-      number: 10
-    });
-    const { flashData } = this.props;
-    flashData();
+  handleRefresh() {
+    this.resetCountDown();
+    this.props.onRefresh && this.props.onRefresh();
   }
 
   render() {
-    const { number } = this.state;
     return (
       <svg
         width="28px"
         height="28px"
         viewBox="0 0 28 28"
         version="1.1"
-        onClick={() => this.clickFlash()}
+        onClick={this.handleRefresh}
       >
         <defs>
           <text
@@ -60,11 +72,11 @@ class LoadingIcon extends React.PureComponent {
             fontWeight="700"
             fill="#CA59FF"
           >
-            <tspan x={number >= 10 ? '11' : '14'} y="24">
-              {number}
+            <tspan x={this.state.seconds >= 10 ? '11' : '14'} y="24">
+              {this.state.seconds}
             </tspan>
           </text>
-          {/* <filter
+          <filter
             x="-25.0%"
             y="-37.5%"
             width="150.0%"
@@ -79,7 +91,7 @@ class LoadingIcon extends React.PureComponent {
               type="matrix"
               in="shadowBlurOuter1"
             />
-          </filter> */}
+          </filter>
         </defs>
         <g id="1.0.0首页" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
           <g id="1.0.2首页_赛程结果" transform="translate(-222.000000, -414.000000)" fill="#CA59FF">
@@ -123,5 +135,4 @@ class LoadingIcon extends React.PureComponent {
     );
   }
 }
-
-export default LoadingIcon;
+export default RefreshIcon;
