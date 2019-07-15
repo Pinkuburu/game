@@ -1,6 +1,6 @@
 import React from 'react';
 import { ColumnProps } from 'antd/lib/table';
-import styles from './predict.less';
+import styles from './index.less';
 import Table from '../../../../components/atoms/Table/index';
 import * as ReturnDataType from '../../../../common/interfaces/returnData';
 import PropTypes from 'prop-types';
@@ -21,7 +21,7 @@ const columns: ColumnProps<ReturnDataType.PredictResult>[] = [
     dataIndex: 'game_type',
     key: 'game_type',
     width: 80
-    // render: () => <GameTypeCell />
+    // render: () => <GameTypeCell />π
   },
   {
     title: '推荐类型',
