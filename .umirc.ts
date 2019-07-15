@@ -29,6 +29,11 @@ const config: IConfig = {
         },
         title: '电竞鹰眼玩家服务平台',
         dll: false,
+        locale: {
+          default: 'zh-CN', // default zh-CN
+          baseNavigator: true, // default true, when it is true, will use navigator.language overwrite default
+          antd: true // use antd, default is true
+        },
         routes: {
           exclude: [
             /models\//,

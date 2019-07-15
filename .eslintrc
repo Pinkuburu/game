@@ -15,7 +15,7 @@
       }
     }
   },
-  "extends": ["@aimake/eslint-config", "plugin:react/recommended"],
+  "extends": ["@aimake/eslint-config", "plugin:react/recommended", "plugin:prettier/recommended"],
   "rules": {
     "jsx-wrap-multiline": "off",
     "no-unused-vars": ["error"],
