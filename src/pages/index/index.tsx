@@ -4,8 +4,8 @@ import { ActionType } from './constant';
 import { NAMESPACE } from '../../common/constant';
 import * as ReturnDataType from '../../common/interfaces/returnData';
 
-import Predict from '../../components/molecules/Predict';
-import LiveTableView from '../../components/molecules/LiveTableView';
+import Predict from './components/Predict';
+import LiveTableView from './components/LiveTableView';
 // import Temp from '../../components/toDelete/MatchPanel';
 // import MatchTableView from '../../components/molecules/MatchTableView';
 

@@ -1,27 +1,25 @@
 import React from 'react';
-// import { ColumnProps } from 'antd/lib/table';
 import styles from './index.less';
-import RefreshIcon from '../../atoms/RefreshIcon';
-import { imgStore } from '../../../utils/imgStore';
+import RefreshIcon from '../../../../components/atoms/RefreshIcon';
+import Table from '../../../../components/atoms/Table';
+import { imgStore } from '../../../../utils/imgStore';
 import classnames from 'classnames';
-// import Table from '../../atoms/Table/index';
 
 interface IProps {
   data: any;
 }
 
-class MatchTable extends React.Component<IProps> {
+class LiveTableView extends React.Component<IProps> {
   constructor(props: IProps) {
     super(props);
   }
-  flashData() {
-    console.log('2');
-  }
+  flashData() {}
   render() {
     return (
       <div className={styles.container}>
         <div className="live-icon d-flex justify-content-between align-items-center">
           <div className="f f-ai-c">
+            ß
             <span className={styles.musicBar}>
               <span className="bar n1">A</span>
               <span className="bar n2">B</span>
@@ -30,7 +28,7 @@ class MatchTable extends React.Component<IProps> {
               <span className="bar n5">E</span>
             </span>
             <span className="font_main m-r-30 n-wrap">数据直播</span>
-            <RefreshIcon onRefresh={this.flashData} />
+            <RefreshIcon onRefresh={() => 1} />
           </div>
           <div className={classnames(styles['select-game'], 'f f-ai-c')}>
             <img src={imgStore.dota2} alt="dota2" className="cur-p" />
@@ -38,10 +36,10 @@ class MatchTable extends React.Component<IProps> {
             <img src={imgStore.csgo} alt="csgo" className="cur-p" />
           </div>
         </div>
-        <div className="live-table" />
+        <Table />
       </div>
     );
   }
 }
 
-export default MatchTable;
+export default LiveTableView;
