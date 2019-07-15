@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
-import { ActionType } from './constant';
-import { NAMESPACE } from '../../common/constant';
+import { ActionType } from './constants';
+import { NAMESPACE } from '../../common/constants';
 import * as ReturnDataType from '../../common/interfaces/returnData';
 
 import Predict from './components/Predict';

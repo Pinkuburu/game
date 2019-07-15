@@ -1,4 +1,4 @@
-import { NAMESPACE } from '../common/constant';
+import { NAMESPACE } from '../common/constants';
 import { DvaModel } from '../common/interfaces/model';
 interface IState {
   isLogined: boolean;

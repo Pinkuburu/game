@@ -1,4 +1,4 @@
-import { NAMESPACE } from '../../common/constant';
+import { NAMESPACE } from '../../common/constants';
 
 export const namespace = NAMESPACE.HOME;
 

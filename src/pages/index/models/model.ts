@@ -3,7 +3,7 @@ import _ from 'lodash';
 import Api from '../../../service/request/api';
 import { DvaModel } from '../../../common/interfaces/model';
 
-import { namespace, ActionType } from '../constant';
+import { namespace, ActionType } from '../constants';
 
 function groupMatches(match: []) {
   const groupData = _.groupBy(match, 'game_type');

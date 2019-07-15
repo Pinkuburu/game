@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import { Route, Redirect, withRouter, match } from 'dva/router';
 import { message } from 'antd';
 import { History, Location } from 'history';
-import { NAMESPACE } from '../../../common/constant';
+import { NAMESPACE } from '../../../common/constants';
 
 interface IProps {
   history: History;
