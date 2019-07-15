@@ -1,8 +1,8 @@
 import React from 'react';
 import { Layout, Menu, Dropdown } from 'antd';
 import { connect } from 'dva';
-import imgSet from '../../../components/atoms/Image/imgStore';
-import styles from './header.less';
+import ImageStore from '../../../components/atoms/Image/imgStore';
+import styles from './styles.less';
 
 const gameList = [
   {
@@ -72,13 +72,13 @@ class Header extends React.Component<Props> {
             trigger={['click']}
           >
             <div>
-              <img className="menu_icon mr-2" src={imgSet.iconGame} alt=" " />
+              <img className="menu_icon mr-2" src={ImageStore.iconGame} alt=" " />
               {gameType}
             </div>
           </Dropdown>
           <Dropdown className="menu-item" overlay={Header.getUserList()} placement="bottomCenter">
             <div>
-              <img className="menu_icon mr-2" src={imgSet.userImg} alt=" " />
+              <img className="menu_icon mr-2" src={ImageStore.userImg} alt=" " />
               用户
             </div>
           </Dropdown>

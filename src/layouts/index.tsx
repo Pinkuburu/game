@@ -5,7 +5,7 @@ import { connect } from 'dva';
 import MenuSide from './components/MenuSide/MenuSide';
 import Header from './components/Header/Header';
 
-import styles from './layout.less';
+import styles from './styles.less';
 
 const { Footer, Content } = Layout;
 

@@ -18,13 +18,13 @@ import leagueS from '../../../assets/icon_select_d.png';
 import leagueD from '../../../assets/icon_select_s.png';
 import deleteIcon from '../../../assets/icon_delete.png';
 
-export const imgStore = {
+export const CirGameIcon = {
   dota2: cirDota,
   lol: cirLol,
   csgo: cirCsgo
 };
 
-const imgSet = {
+const ImageStore = {
   logo: iconLogo,
   menuList: [iconSchedule, iconLeague, iconTeam, iconPlayer, iconPredict],
   fade_menuList: [iconScheduleD, iconLeagueD, iconTeamD, iconPlayerD, iconPredictD],
@@ -35,4 +35,4 @@ const imgSet = {
   deleteIcon
 };
 
-export default imgSet;
+export default ImageStore;

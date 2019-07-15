@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './index.less';
+import styles from './styles.less';
 import classnames from 'classnames';
 const PageLoading: React.FC = () => (
   <div className={styles.container}>

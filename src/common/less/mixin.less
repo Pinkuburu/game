@@ -1,0 +1,9 @@
+.font(@color) {
+  color: @color;
+}
+
+.gap(@gap-width) {
+  &:not(:last-child) {
+    margin-right: @gap-width;
+  }
+}

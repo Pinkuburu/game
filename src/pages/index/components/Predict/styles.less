@@ -1,12 +1,12 @@
 @import '../../../../common/less/variable';
-
+@bgImg: '../../../../assets/bg_jryc.svg';
 .container {
   width: 700px;
   background-color: @card_background;
   .panelHeader {
     display: flex;
     height: 70px;
-    background: url('../../../../assets/bg_jryc.svg') no-repeat center / cover;
+    background: url('@{bgImg}') no-repeat center / cover;
     text-align: center;
     color: @nav_font;
     padding-top: 10px;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table } from 'antd';
 import { TableProps } from 'antd/lib/table/interface';
-import styles from './index.less';
+import styles from './styles.less';
 
 interface IProps<T> extends TableProps<T> {}
 

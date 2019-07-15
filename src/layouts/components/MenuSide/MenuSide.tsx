@@ -1,36 +1,35 @@
 import React from 'react';
 import { Menu, Layout } from 'antd';
 import { NavLink, Link } from 'umi';
-import imgSet from '../../../components/atoms/Image/imgStore';
-
+import ImageStore from '../../../components/atoms/Image/imgStore';
+import styles from './styles.less';
 import className from 'classnames';
-import styles from './menu.less';
 
 const moduleList = [
   {
     name: '赛程',
     path: '/',
-    icon: [imgSet.menuList[0], imgSet.fade_menuList[0]]
+    icon: [ImageStore.menuList[0], ImageStore.fade_menuList[0]]
   },
   {
     name: '联赛',
     path: '/league',
-    icon: [imgSet.menuList[1], imgSet.fade_menuList[1]]
+    icon: [ImageStore.menuList[1], ImageStore.fade_menuList[1]]
   },
   {
     name: '战队',
     path: '/team',
-    icon: [imgSet.menuList[2], imgSet.fade_menuList[2]]
+    icon: [ImageStore.menuList[2], ImageStore.fade_menuList[2]]
   },
   {
     name: '选手',
     path: '/player',
-    icon: [imgSet.menuList[3], imgSet.fade_menuList[3]]
+    icon: [ImageStore.menuList[3], ImageStore.fade_menuList[3]]
   },
   {
     name: '预测',
     path: '/predict',
-    icon: [imgSet.menuList[4], imgSet.fade_menuList[4]]
+    icon: [ImageStore.menuList[4], ImageStore.fade_menuList[4]]
   }
 ];
 
@@ -49,7 +48,7 @@ const MenuSide = () => {
         trigger={null}
         width="185"
       >
-        <Link className={styles.logo} to="/" style={{ backgroundImage: imgSet.logo }} />
+        <Link className={styles.logo} to="/" style={{ backgroundImage: ImageStore.logo }} />
         <Menu mode="inline" inlineIndent={40} selectable={false} className={styles.menu}>
           {moduleList.map((module) => (
             <Menu.Item

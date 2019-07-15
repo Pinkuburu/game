@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from './index.less';
+import styles from './styles.less';
 import RefreshIcon from '../../../../components/atoms/RefreshIcon';
 import Table from '../../../../components/atoms/Table';
-import { imgStore } from '../../../../components/atoms/Image/imgStore';
+import { CirGameIcon } from '../../../../components/atoms/Image/imgStore';
 import classnames from 'classnames';
 
 interface IProps {
@@ -31,9 +31,9 @@ class LiveTableView extends React.Component<IProps> {
             <RefreshIcon onRefresh={() => 1} />
           </div>
           <div className={classnames(styles['select-game'], 'f f-ai-c')}>
-            <img src={imgStore.dota2} alt="dota2" className="cur-p" />
-            <img src={imgStore.lol} alt="lol" className="cur-p" />
-            <img src={imgStore.csgo} alt="csgo" className="cur-p" />
+            <img src={CirGameIcon.dota2} alt="dota2" className="cur-p" />
+            <img src={CirGameIcon.lol} alt="lol" className="cur-p" />
+            <img src={CirGameIcon.csgo} alt="csgo" className="cur-p" />
           </div>
         </div>
         <Table />

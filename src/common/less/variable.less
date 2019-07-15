@@ -1,3 +1,5 @@
+@import './mixin.less';
+
 // 参考设计稿
 // 背景颜色
 @main_color: #ca59ff; // 主色
@@ -22,13 +24,3 @@
 @green: #66bb6a; // 验证成功
 @red: #ff4c4c; // 失败的
 @blue: #0a9dfc; // 蓝色方
-
-.font(@color) {
-  color: @color;
-}
-
-.gap(@gap-width) {
-  &:not(:last-child) {
-    margin-right: @gap-width;
-  }
-}

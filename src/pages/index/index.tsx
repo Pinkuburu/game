@@ -9,7 +9,7 @@ import * as ReturnDataType from '../../common/interfaces/returnData';
 
 import Predict from './components/Predict';
 import LiveTableView from './components/LiveTableView';
-import Yo from '../../components/toDelete/ScorePanel';
+// import Yo from '../../components/toDelete/ScorePanel';
 // import Temp from '../../components/toDelete/MatchPanel';
 // import MatchTableView from '../../components/molecules/MatchTableView';
 
@@ -38,7 +38,7 @@ class Home extends React.Component<IProps> {
           <Predict list={predict.list} total={predict.total} />
         </div>
         <LiveTableView data={predict} />
-        <Yo />
+        {/* <Yo /> */}
         {/* <Temp /> */}
         {/* <MatchTableView data={predict} /> */}
       </div>

@@ -24,8 +24,8 @@ const config: IConfig = {
         antd: true,
         dva: { immer: true, hmr: true },
         dynamicImport: {
-          webpackChunkName: true
-          // loadingComponent: './components/molecules/Loading/PageLoading/'
+          webpackChunkName: true,
+          loadingComponent: './components/molecules/Loading/PageLoading/'
         },
         title: '电竞鹰眼玩家服务平台',
         dll: false,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ColumnProps } from 'antd/lib/table';
-import styles from './index.less';
+import styles from './styles.less';
 import Table from '../../../../components/atoms/Table/index';
 import * as ReturnDataType from '../../../../common/interfaces/returnData';
 import PropTypes from 'prop-types';
@@ -94,7 +94,6 @@ class Predict extends React.PureComponent<IProps> {
 
   render() {
     // 可以在这里转化名称
-    console.log(this.props);
     const {
       list,
       total: {
