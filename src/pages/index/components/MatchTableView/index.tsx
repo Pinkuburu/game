@@ -2,7 +2,7 @@ import React from 'react';
 // import { ColumnProps } from 'antd/lib/table';
 import styles from './index.less';
 import RefreshIcon from '../../../../components/atoms/RefreshIcon';
-import { imgStore } from '../../../../utils/imgStore';
+import { imgStore } from '../../../../components/atoms/Image/imgStore';
 import classnames from 'classnames';
 // import Table from '../../atoms/Table/index';
 

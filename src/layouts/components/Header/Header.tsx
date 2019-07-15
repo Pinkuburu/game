@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout, Menu, Dropdown } from 'antd';
 import { connect } from 'dva';
-import imgSet from '../../../utils/imgStore';
+import imgSet from '../../../components/atoms/Image/imgStore';
 import styles from './header.less';
 
 const gameList = [

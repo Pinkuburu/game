@@ -11,9 +11,7 @@ import PropTypes from 'prop-types';
 // import PredictCell from './components/PredictCell';
 // import RecommendTypeCell from './components/RecommendTypeCell';
 
-interface IProps {
-  data: ReturnDataType.PredictOfToday;
-}
+interface IProps extends ReturnDataType.PredictOfToday {}
 
 const columns: ColumnProps<ReturnDataType.PredictResult>[] = [
   {
@@ -61,11 +59,23 @@ const columns: ColumnProps<ReturnDataType.PredictResult>[] = [
 ];
 
 class Predict extends React.PureComponent<IProps> {
+  // 设置默认值
+  static defaultProps = {
+    list: [],
+    total: {
+      finish_match: 0,
+      total_scene: 0,
+      win_rate: 1,
+      rate_of_return: 0
+    }
+  };
+  // 类型检查
   static propTypes = {
-    data: PropTypes.object.isRequired
+    total: PropTypes.object.isRequired,
+    list: PropTypes.array.isRequired
   };
 
-  predictOfTodayItem(
+  buildPredictOfTodayItem(
     classname: string,
     titleLabel: string,
     strongLabel: string | number,
@@ -83,23 +93,25 @@ class Predict extends React.PureComponent<IProps> {
   }
 
   render() {
-    // 设置默认值
+    // 可以在这里转化名称
+    console.log(this.props);
     const {
-      list = [],
+      list,
       total: {
-        finish_match: finishMatch = 0,
-        total_scene: totalScene = 0,
-        win_rate: winRate = 1,
-        rate_of_return: rateOfReturn = 0
-      } = {}
-    } = this.props.data || {};
+        finish_match: finishMatch,
+        total_scene: totalScene,
+        win_rate: winRate,
+        rate_of_return: rateOfReturn
+      }
+    } = this.props;
+
     return (
       <div className={styles.container}>
         <div className={styles.panelHeader}>
           <div className={styles.panelText}>今日预测</div>
-          {this.predictOfTodayItem('time', '场次', finishMatch, `/${totalScene}`)}
-          {this.predictOfTodayItem('winRate', '胜率', winRate, '%')}
-          {this.predictOfTodayItem('beneRate', '收益率', rateOfReturn, '%')}
+          {this.buildPredictOfTodayItem('time', '场次', finishMatch, `/${totalScene}`)}
+          {this.buildPredictOfTodayItem('winRate', '胜率', winRate, '%')}
+          {this.buildPredictOfTodayItem('beneRate', '收益率', rateOfReturn, '%')}
         </div>
         <div className={styles.tableContainer}>
           <Table

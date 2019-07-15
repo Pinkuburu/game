@@ -1,3 +1,6 @@
+/**
+ * title: 电竞鹰眼 - 首页
+ */
 import React from 'react';
 import { connect } from 'dva';
 import { ActionType } from './constants';
@@ -6,6 +9,7 @@ import * as ReturnDataType from '../../common/interfaces/returnData';
 
 import Predict from './components/Predict';
 import LiveTableView from './components/LiveTableView';
+import Yo from '../../components/toDelete/ScorePanel';
 // import Temp from '../../components/toDelete/MatchPanel';
 // import MatchTableView from '../../components/molecules/MatchTableView';
 
@@ -21,12 +25,8 @@ export interface IProps {
 class Home extends React.Component<IProps> {
   componentDidMount() {
     this.props.dispatch({
-      type: ActionType.get_upcomming_list_with_namespace
+      type: ActionType.get_predict_with_namespace
     });
-  }
-
-  componentWillUnmount() {
-    console.log('组件即将注销');
   }
 
   render() {
@@ -35,9 +35,10 @@ class Home extends React.Component<IProps> {
     return (
       <div>
         <div>
-          <Predict data={predict} />
+          <Predict list={predict.list} total={predict.total} />
         </div>
         <LiveTableView data={predict} />
+        <Yo />
         {/* <Temp /> */}
         {/* <MatchTableView data={predict} /> */}
       </div>

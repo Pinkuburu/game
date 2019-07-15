@@ -8,7 +8,7 @@ import ReactTable from 'react-table';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 
-import imgSet, { imgStore } from '../../utils/imgStore';
+import imgSet, { imgStore } from '../atoms/Image/imgStore';
 import ucDisplay from './ucDisplay';
 import './match_panel.less';
 

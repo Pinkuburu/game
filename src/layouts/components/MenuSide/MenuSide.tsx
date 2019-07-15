@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menu, Layout } from 'antd';
 import { NavLink, Link } from 'umi';
-import imgSet from '../../../utils/imgStore';
+import imgSet from '../../../components/atoms/Image/imgStore';
 
 import className from 'classnames';
 import styles from './menu.less';

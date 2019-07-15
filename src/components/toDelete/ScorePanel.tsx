@@ -2,8 +2,7 @@ import React from 'react';
 import { Typography } from 'antd';
 import styled from 'styled-components';
 
-import constant from '../constant';
-import Image from './Image';
+import Image from '../../components/atoms/Image';
 
 const ScorePanelContainer = styled.div`
   padding: 10px 20px;
@@ -29,7 +28,6 @@ const ScorePanelContainer = styled.div`
         .over {
           font-size: 14px;
           line-height: 30px;
-          color: ${constant.menuTextColor};
           background: rgba(255, 255, 255, 0.1);
         }
       }

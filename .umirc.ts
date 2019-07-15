@@ -24,10 +24,10 @@ const config: IConfig = {
         antd: true,
         dva: { immer: true, hmr: true },
         dynamicImport: {
-          webpackChunkName: true,
-          loadingComponent: './components/molecules/Loading/PageLoading.tsx'
+          webpackChunkName: true
+          // loadingComponent: './components/molecules/Loading/PageLoading/'
         },
-        title: 'new_project',
+        title: '电竞鹰眼玩家服务平台',
         dll: false,
         routes: {
           exclude: [
@@ -36,7 +36,7 @@ const config: IConfig = {
             /model\.(t|j)sx?$/,
             /service\.(t|j)sx?$/,
             /components\//,
-            /constant\.(t|j)sx?$/ // 定义一些常量
+            /constants\.(t|j)sx?$/ // 定义一些常量
           ]
         }
       }

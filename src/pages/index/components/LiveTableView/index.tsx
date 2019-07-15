@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './index.less';
 import RefreshIcon from '../../../../components/atoms/RefreshIcon';
 import Table from '../../../../components/atoms/Table';
-import { imgStore } from '../../../../utils/imgStore';
+import { imgStore } from '../../../../components/atoms/Image/imgStore';
 import classnames from 'classnames';
 
 interface IProps {
