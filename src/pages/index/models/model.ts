@@ -84,8 +84,8 @@ const model: DvaModel<IState> = {
     }
   },
   effects: {
-    *[ActionType.get_banners](action, { put }) {
-      const data = yield Api.getSlider();
+    *[ActionType.get_banners](action, { put, call }) {
+      const data = yield call(Api.getSlider);
       yield put({
         type: ActionType.change_banners,
         payload: data
@@ -98,15 +98,15 @@ const model: DvaModel<IState> = {
         payload: data
       });
     },
-    *[ActionType.get_live_list](action, { put }) {
-      const data = yield Api.getLiveList();
+    *[ActionType.get_live_list](action, { put, call }) {
+      const data = yield call(Api.getLiveList);
       yield put({
         type: ActionType.change_live_list,
         payload: data
       });
     },
-    *[ActionType.get_upcomming_list](action, { put }) {
-      const data = yield Api.getUpcommingList();
+    *[ActionType.get_upcomming_list](action, { put, call }) {
+      const data = yield call(Api.getUpcommingList);
       yield put({
         type: ActionType.change_upcomming_list,
         payload: data

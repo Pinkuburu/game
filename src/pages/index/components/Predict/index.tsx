@@ -59,6 +59,10 @@ const columns: ColumnProps<ReturnDataType.PredictResult>[] = [
 ];
 
 class Predict extends React.PureComponent<IProps> {
+  constructor(props: IProps) {
+    super(props);
+    this.buildPredictOfTodayItem = this.buildPredictOfTodayItem.bind(this);
+  }
   // 设置默认值
   static defaultProps = {
     list: [],
@@ -69,6 +73,7 @@ class Predict extends React.PureComponent<IProps> {
       rate_of_return: 0
     }
   };
+
   // 类型检查
   static propTypes = {
     total: PropTypes.object.isRequired,
@@ -103,7 +108,6 @@ class Predict extends React.PureComponent<IProps> {
         rate_of_return: rateOfReturn
       }
     } = this.props;
-
     return (
       <div className={styles.container}>
         <div className={styles.panelHeader}>
