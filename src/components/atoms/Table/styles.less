@@ -1,6 +1,14 @@
 @import '../../../common/less/variable.less';
 
 .container {
+  position: relative;
+  &.hideTable {
+    :global {
+      .ant-table-wrapper {
+        visibility: hidden;
+      }
+    }
+  }
   :global {
     .ant-table-thead tr > th {
       text-align: center;

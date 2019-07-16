@@ -17,6 +17,7 @@ import userImg from '../../../assets/icon_personal.png';
 import leagueS from '../../../assets/icon_select_d.png';
 import leagueD from '../../../assets/icon_select_s.png';
 import deleteIcon from '../../../assets/icon_delete.png';
+import noDataIcon from '../../../assets/icon_no_data.svg';
 
 export const CirGameIcon = {
   dota2: cirDota,
@@ -32,7 +33,8 @@ const ImageStore = {
   cirGameIcon: [cirDota, cirLol, cirCsgo],
   userImg,
   leagueSelect: [leagueS, leagueD],
-  deleteIcon
+  deleteIcon,
+  noDataIcon
 };
 
 export default ImageStore;
