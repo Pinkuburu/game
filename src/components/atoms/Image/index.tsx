@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tooltip } from 'antd';
-
+import styles from './styles.less';
 interface IProps {
   title?: string;
   figure?: string;
@@ -31,6 +31,7 @@ const Image: React.FC<IProps> = (props: IProps) => {
         onError={(e: any) => {
           e.target.src = src;
         }}
+        className={styles.img}
       />
       {(figure || figurePlace || figureStyle) && (
         <span className={figurePlace} style={figureStyle}>

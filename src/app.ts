@@ -6,13 +6,19 @@ const middlewares: any[] = [];
 if (isDevMode()) {
   // eslint-disable-next-line
   const { createLogger } = require('redux-logger');
+
+  // 是否隐藏框架自带的action 比如有关路由和loading的
+  const isHideNativeAction = true;
   const logger = createLogger({
     // 折叠
     collapsed: true,
     // 过滤
-    // 目前只是为了过滤掉@@router/LOCATION_CHANGE
-    predicate: (preState: any, { type }: { type: string }) =>
-      !new RegExp('@@router/LOCATION_CHANGE').test(type)
+    predicate: (preState: any, { type }: { type: string }) => {
+      if (isHideNativeAction) {
+        return !new RegExp('.*@@.*').test(type);
+      }
+      return true;
+    }
   });
   middlewares.push(logger);
 }

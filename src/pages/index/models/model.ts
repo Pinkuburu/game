@@ -84,12 +84,17 @@ const model: DvaModel<IState> = {
     }
   },
   effects: {
+    // 获取轮播图
     *[ActionType.get_banners](action, { put, call }) {
-      const data = yield call(Api.getSlider);
-      yield put({
-        type: ActionType.change_banners,
-        payload: data
-      });
+      try {
+        const data = yield call(Api.getSlider);
+        yield put({
+          type: ActionType.change_banners,
+          payload: data
+        });
+      } catch (error) {
+        console.log(error);
+      }
     },
     *[ActionType.get_predict](action, { put, call }) {
       const data = yield call(Api.getTodayPredict);

@@ -37,3 +37,13 @@ export interface TeamInfoOfPredictResult {
   tag: string;
   custom_logo: string;
 }
+
+// 首页轮播图
+export interface BannersImg {
+  description: string;
+  id: number;
+  img_url: string;
+  is_show_switch: number;
+  tar_url: string;
+  weigh: number;
+}
