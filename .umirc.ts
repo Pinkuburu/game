@@ -81,6 +81,33 @@ const config: IConfig = {
       .use('eslint-loader')
       .loader(require.resolve('eslint-loader'))
       .options(eslintOptions);
+
+    // 按需引入lodash
+    // https://github.com/lodash/lodash-webpack-plugin#readme
+    // TODO:待测试是否成功按需引入
+    // ts tsx文件会有冲突，不知道能否按需引入
+    // 安装的依赖 @babel/core @babel/preset-env babel-plugin-lodash lodash-webpack-plugin
+    config.module
+      .rule('lodash')
+      .test(/\.(js|jsx)$/)
+      // .pre()
+      .exclude.add(/node_modules/)
+      .add(resolveApp('src//pages/.umi/'))
+      .end()
+      .include.add(resolveApp('src'))
+      .end()
+      .use('babel-loader')
+      .loader('babel-loader')
+      .options({
+        plugins: ['lodash'],
+        presets: [['@babel/preset-env', { modules: false, targets: { node: 4 } }]]
+      });
+    config.plugin('lodash').use(require('lodash-webpack-plugin'), [
+      {
+        collections: true,
+        paths: true
+      }
+    ]);
   }
 };
 
