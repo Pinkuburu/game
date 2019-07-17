@@ -58,7 +58,7 @@ const columns: ColumnProps<ReturnDataType.PredictResult>[] = [
   }
 ];
 
-class Predict extends React.PureComponent<IProps> {
+class PredictView extends React.PureComponent<IProps> {
   constructor(props: IProps) {
     super(props);
     this.buildPredictOfTodayItem = this.buildPredictOfTodayItem.bind(this);
@@ -130,4 +130,4 @@ class Predict extends React.PureComponent<IProps> {
   }
 }
 
-export default Predict;
+export default PredictView;
