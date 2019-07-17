@@ -7,12 +7,10 @@ import { ActionType } from './constants';
 import { NAMESPACE } from '../../common/constants';
 import * as ReturnDataType from '../../common/interfaces/returnData';
 import styles from './styles.less';
-import Predict from './components/Predict';
+import Predict from './components/PredictView';
 import LiveTableView from './components/LiveTableView';
 import CarouselView from './components/CarouselView';
-// import Yo from '../../components/toDelete/ScorePanel';
-// import Temp from '../../components/toDelete/MatchPanel';
-// import MatchTableView from '../../components/molecules/MatchTableView';
+import MatchTableView from './components/MatchTableView';
 
 export interface IProps {
   dispatch: (action: any) => void;
@@ -24,6 +22,11 @@ export interface IProps {
 }
 
 class Home extends React.Component<IProps> {
+  constructor(props: IProps) {
+    super(props);
+    this.refreshLiveTableData = this.refreshLiveTableData.bind(this);
+  }
+
   componentDidMount() {
     this.props.dispatch({
       type: ActionType.get_predict_with_namespace
@@ -31,7 +34,15 @@ class Home extends React.Component<IProps> {
     this.props.dispatch({
       type: ActionType.get_banners_with_namespace
     });
+    this.props.dispatch({
+      type: ActionType.get_live_list_with_namespace
+    });
+    this.props.dispatch({
+      type: ActionType.get_upcomming_list_with_namespace
+    });
   }
+
+  refreshLiveTableData() {}
 
   render() {
     // const { predict, liveList, dispatch, UCGroup, UCLeagues } = this.props;
@@ -42,10 +53,8 @@ class Home extends React.Component<IProps> {
           <Predict list={predict.list} total={predict.total} />
           <CarouselView className={styles.carouselViewContainer} imgUrls={banners} />
         </div>
-        <LiveTableView data={predict} />
-        {/* <Yo /> */}
-        {/* <Temp /> */}
-        {/* <MatchTableView data={predict} /> */}
+        <LiveTableView onRefreshData={this.refreshLiveTableData} />
+        <MatchTableView />
       </div>
     );
   }

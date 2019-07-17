@@ -7,7 +7,7 @@ import Header from './components/Header/Header';
 
 import styles from './styles.less';
 
-const { Footer, Content } = Layout;
+const { Content } = Layout;
 
 interface Props {
   children: React.ReactNode;
@@ -19,7 +19,7 @@ const BasicLayout: React.FC<Props> = (props: Props) => {
       <Layout className={styles['web-page']}>
         <Header>这里是头部</Header>
         <Content style={{ padding: '20px' }}>{props.children}</Content>
-        <Footer>这里是底部</Footer>
+        {/* <Footer>这里是底部</Footer> */}
       </Layout>
     </Layout>
   );

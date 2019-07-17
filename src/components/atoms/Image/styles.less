@@ -1,5 +1,28 @@
-.img {
-  display: block;
-  overflow: hidden;
-  width: 100%;
+.figure {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  .img {
+    display: block;
+    overflow: hidden;
+    max-width: 100%;
+  }
+
+  .text {
+    color: white;
+  }
+
+  &.right {
+    flex-direction: row;
+  }
+  &.left {
+    flex-direction: row-reverse;
+  }
+  &.top {
+    flex-direction: column-reverse;
+  }
+  &.bottom {
+    flex-direction: column;
+  }
 }
