@@ -39,7 +39,7 @@ export default class SelectLeague extends React.PureComponent<IProps, IState> {
   isChecked(key: any) {
     return this.state.checkList.includes(key);
   }
-
+  // 清空
   handleClearAllChange() {
     this.setState({
       isCheckAll: false,
@@ -65,6 +65,7 @@ export default class SelectLeague extends React.PureComponent<IProps, IState> {
     }
   }
 
+  // 全选
   handleCheckAllChange(e: CheckboxChangeEvent) {
     const { value, checked } = e.target;
     if (checked) {
@@ -95,7 +96,6 @@ export default class SelectLeague extends React.PureComponent<IProps, IState> {
       </div>
     );
   }
-
   buildCheckAll(leagueList: DataType.LeagueInfo[]) {
     return (
       <CustomCheckbox

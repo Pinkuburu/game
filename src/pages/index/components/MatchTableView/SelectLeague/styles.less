@@ -2,6 +2,9 @@
 @import '../../../../../common/less/mixin.less';
 .selectLeague {
   :global {
+    .ant-card {
+      background-color: @item_first;
+    }
     .ant-card-bordered {
       border: none;
       height: 100%;
@@ -26,7 +29,7 @@
       .ant-card-body {
         padding: 0px 16px;
         background-color: @item_first;
-        height: 100%;
+        height: calc(100% - 40px);
       }
     }
   }
