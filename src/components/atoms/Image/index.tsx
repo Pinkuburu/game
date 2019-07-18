@@ -12,6 +12,7 @@ interface IProps {
   textClassName?: string;
   textPostion?: 'top' | 'left' | 'bottom' | 'right';
   spacing?: number;
+  onClick?: (e: React.MouseEvent) => void;
 }
 // FIXME: 轮播图每次轮播都会有5次render
 const Image: React.FC<IProps> = ({
@@ -23,12 +24,13 @@ const Image: React.FC<IProps> = ({
   text,
   textClassName,
   textPostion = 'right',
-  spacing = 8
+  spacing = 8,
+  onClick
 }: IProps) => {
   const textSpacingStyle = { width: spacing, height: spacing };
   return (
     <Tooltip title={title}>
-      <figure className={classnames(styles.figure, text && styles[textPostion])}>
+      <figure className={classnames(styles.figure, text && styles[textPostion])} onClick={onClick}>
         <img
           src={src}
           height={height}
