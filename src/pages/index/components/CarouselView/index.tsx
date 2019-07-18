@@ -1,13 +1,13 @@
 import React from 'react';
 import { Carousel } from 'antd';
 import Image from '../../../../components/atoms/Image/index';
-import * as ReturnDataType from '../../../../common/interfaces/returnData';
+import * as DataType from '../../../../common/interfaces/dataType';
 import styles from './styles.less';
 import classnames from 'classnames';
 import { Tooltip } from 'antd';
 
 interface IProps {
-  imgUrls: ReturnDataType.BannersImg[];
+  imgUrls: DataType.BannersImg[];
   className?: string;
 }
 interface IState {

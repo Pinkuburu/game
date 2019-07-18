@@ -42,7 +42,7 @@ const Image: React.FC<IProps> = ({
         {text && (
           <React.Fragment>
             <span style={textSpacingStyle} />
-            <figcaption className={classnames(textClassName, styles.text)}>{text}</figcaption>
+            <figcaption className={classnames(styles.figcaption, textClassName)}>{text}</figcaption>
           </React.Fragment>
         )}
       </figure>

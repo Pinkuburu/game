@@ -1,0 +1,53 @@
+@import '../../../../../common/less/variable.less';
+@import '../../../../../common/less/mixin.less';
+.selectLeague {
+  :global {
+    .ant-card-bordered {
+      border: none;
+      height: 100%;
+
+      .ant-card-head {
+        min-height: 40px;
+        height: 40px;
+        padding: 10px 16px;
+        background-color: @item_second;
+
+        .ant-card-head-wrapper {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .ant-card-head-title,
+          .ant-card-extra {
+            padding: 0;
+          }
+        }
+      }
+
+      .ant-card-body {
+        padding: 0px 16px;
+        background-color: @item_first;
+        height: 100%;
+      }
+    }
+  }
+  .mediumFont {
+    #myFont.medium(12px, @nav_font);
+  }
+  .demiFont {
+    #myFont.demi(12px, @nav_font);
+  }
+
+  .checkboxItem {
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .noLeagues {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+}

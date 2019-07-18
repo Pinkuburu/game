@@ -1,3 +1,6 @@
+@import '../../../../common/less/mixin.less';
+@import '../../../../common/less/variable.less';
+
 .tableNoData {
   position: absolute;
   top: 0;
@@ -8,10 +11,6 @@
   justify-content: center;
   align-items: center;
   .text {
-    font-size: 16px;
-    font-family: PingFangSC-Medium;
-    font-weight: 500;
-    color: rgba(208, 208, 208, 1);
-    line-height: 22px;
+    #myFont.medium(16px, @nav_font_gray);
   }
 }

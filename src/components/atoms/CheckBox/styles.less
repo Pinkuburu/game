@@ -1,0 +1,30 @@
+.customCheckbox {
+  :global {
+    .ant-checkbox-wrapper {
+      display: flex;
+      align-items: center;
+      .ant-checkbox {
+        .ant-checkbox-inner {
+          background: url('../../../assets/icon_select_d.svg') center center no-repeat;
+          border: none;
+          &::after {
+            visibility: hidden;
+          }
+        }
+
+        &.ant-checkbox-checked {
+          .ant-checkbox-inner {
+            background: url('../../../assets/icon_select_s.svg') center center no-repeat;
+            &::after {
+              visibility: hidden;
+            }
+          }
+        }
+
+        &::after {
+          border: none;
+        }
+      }
+    }
+  }
+}

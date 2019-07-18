@@ -4,8 +4,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { ActionType } from './constants';
-import { NAMESPACE } from '../../common/constants';
-import * as ReturnDataType from '../../common/interfaces/returnData';
+import * as DataType from '../../common/interfaces/dataType';
 import styles from './styles.less';
 import Predict from './components/PredictView';
 import LiveTableView from './components/LiveTableView';
@@ -14,11 +13,16 @@ import MatchTableView from './components/MatchTableView';
 
 export interface IProps {
   dispatch: (action: any) => void;
-  banners: ReturnDataType.BannersImg[];
-  predict: ReturnDataType.PredictOfToday;
+  banners: DataType.BannersImg[];
+  predict: DataType.PredictOfToday;
   liveList: [];
   UCGroup: {};
-  UCLeagues: {};
+  UCLeagues: {
+    dota2: [];
+    lol: [];
+    csgo: [];
+  };
+  matchTableViewGameType: number;
 }
 
 class Home extends React.Component<IProps> {
@@ -46,7 +50,7 @@ class Home extends React.Component<IProps> {
 
   render() {
     // const { predict, liveList, dispatch, UCGroup, UCLeagues } = this.props;
-    const { predict, banners } = this.props;
+    const { predict, banners, matchTableViewGameType, UCLeagues } = this.props;
     return (
       <div>
         <div className={styles.predictAndCarouselContainer}>
@@ -54,17 +58,25 @@ class Home extends React.Component<IProps> {
           <CarouselView className={styles.carouselViewContainer} imgUrls={banners} />
         </div>
         <LiveTableView onRefreshData={this.refreshLiveTableData} />
-        <MatchTableView />
+        <MatchTableView gameType={matchTableViewGameType} leagueList={UCLeagues.dota2} />
       </div>
     );
   }
 }
 
-export default connect((state: any) => ({
-  predict: state[NAMESPACE.HOME].predict,
-  banners: state[NAMESPACE.HOME].banners,
-  liveList: state[NAMESPACE.HOME].live_list,
-  UCGroup: state[NAMESPACE.HOME].UCGroup,
-  UCLeagues: state[NAMESPACE.HOME].UCLeagues,
-  global: state[NAMESPACE.GLOBAL]
+// 当前页面用到的moel写在这
+interface ConnectState {
+  home: any;
+  match: any;
+  global: any;
+}
+
+export default connect((state: ConnectState) => ({
+  predict: state.home.predict,
+  banners: state.home.banners,
+  liveList: state.home.live_list,
+  UCGroup: state.match.UCGroup,
+  UCLeagues: state.match.UCLeagues,
+  matchTableViewGameType: state.match.gameType,
+  global: state.global
 }))(Home);

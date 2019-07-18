@@ -22,15 +22,15 @@
       display: inline-block;
       line-height: 40px;
       width: 175px;
-      .font(@nav_font);
+      .fontColor(@nav_font);
       &:hover {
-        .font(@main_font);
+        .fontColor(@main_font);
       }
       &.cur-link {
         border-left: 2px solid @hover_font;
         border-radius: 0px 100px 100px 0px;
         background: #464c69;
-        .font(@main_font);
+        .fontColor(@main_font);
         img {
           margin-left: -2px;
         }

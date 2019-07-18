@@ -1,0 +1,22 @@
+@import '../../../../../common/less/variable.less';
+@import '../../../../../common/less/mixin.less';
+
+.tabBar {
+  :global {
+    .ant-tabs-nav-scroll {
+      background-color: @item_first;
+      .ant-tabs-tab {
+        #myFont.medium(14px, @nav_font);
+        &:hover {
+          color: @main_font;
+        }
+        &.ant-tabs-tab-active {
+          color: @main_font;
+        }
+      }
+      .ant-tabs-ink-bar {
+        background-color: @main_color;
+      }
+    }
+  }
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import { ColumnProps } from 'antd/lib/table';
 import styles from './styles.less';
 import Table from '../../../../components/atoms/Table/index';
-import * as ReturnDataType from '../../../../common/interfaces/returnData';
+import * as DataType from '../../../../common/interfaces/dataType';
 import PropTypes from 'prop-types';
 // import GameTypeCell from './components/GameTypeCell';
 // import GameCell from './components/GameCell';
@@ -11,9 +11,9 @@ import PropTypes from 'prop-types';
 // import PredictCell from './components/PredictCell';
 // import RecommendTypeCell from './components/RecommendTypeCell';
 
-interface IProps extends ReturnDataType.PredictOfToday {}
+interface IProps extends DataType.PredictOfToday {}
 
-const columns: ColumnProps<ReturnDataType.PredictResult>[] = [
+const columns: ColumnProps<DataType.PredictResult>[] = [
   {
     title: '游戏类型',
     dataIndex: 'game_type',

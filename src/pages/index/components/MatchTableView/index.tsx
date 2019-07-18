@@ -1,9 +1,13 @@
 import React from 'react';
 import styles from './styles.less';
-import Table from '../../../../components/atoms/Table';
+import TableView from './TableView';
+import SelectLeague from './SelectLeague';
 import TabBar from './TabBar/';
 import Panel from './Panel';
-interface IProps {}
+interface IProps {
+  gameType: number;
+  leagueList: [];
+}
 
 class MatchTableView extends React.Component<IProps> {
   constructor(props: IProps) {
@@ -11,11 +15,15 @@ class MatchTableView extends React.Component<IProps> {
   }
 
   render() {
+    const { leagueList } = this.props;
     return (
       <div className={styles.container}>
         <Panel />
         <TabBar />
-        <Table />
+        <div className={styles.tableContainer}>
+          <SelectLeague leagueList={leagueList} />
+          <TableView />
+        </div>
       </div>
     );
   }

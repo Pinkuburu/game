@@ -47,3 +47,11 @@ export interface BannersImg {
   tar_url: string;
   weigh: number;
 }
+
+// 联赛基本信息
+export interface LeagueInfo {
+  league_name: string;
+  league_img_url: string;
+  league_id: number;
+  count: number;
+}
