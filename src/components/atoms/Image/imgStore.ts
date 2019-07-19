@@ -18,6 +18,11 @@ import leagueS from '../../../assets/icon_select_d.png';
 import leagueD from '../../../assets/icon_select_s.png';
 import deleteIcon from '../../../assets/icon_delete.png';
 import noDataIcon from '../../../assets/icon_no_data.svg';
+import checkPredict from '../../../assets/check-predict.svg';
+import douyu from '../../../assets/douyu_logo.svg';
+import huya from '../../../assets/huya_logo.svg';
+import huomao from '../../../assets/huomao_logo.svg';
+import twitch from '../../../assets/twitch_logo.svg';
 
 export const CirGameIcon = {
   dota2: cirDota,
@@ -34,7 +39,14 @@ const ImageStore = {
   userImg,
   leagueSelect: [leagueS, leagueD],
   deleteIcon,
-  noDataIcon
+  noDataIcon,
+  checkPredict,
+  live: {
+    douyu,
+    huomao,
+    twitch,
+    huya
+  }
 };
 
 export default ImageStore;

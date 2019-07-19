@@ -7,6 +7,7 @@ import Panel from './Panel';
 interface IProps {
   gameType: number;
   leagueList: [];
+  matchList: [];
 }
 
 class MatchTableView extends React.Component<IProps> {
@@ -15,14 +16,14 @@ class MatchTableView extends React.Component<IProps> {
   }
 
   render() {
-    const { leagueList } = this.props;
+    const { leagueList, matchList } = this.props;
     return (
       <div className={styles.container}>
         <Panel />
         <TabBar />
         <div className={styles.tableContainer}>
           <SelectLeague leagueList={leagueList} />
-          <TableView />
+          <TableView dataSource={matchList} />
         </div>
       </div>
     );

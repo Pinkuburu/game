@@ -9,6 +9,8 @@
       }
     }
   }
+
+  // 表头样式
   :global {
     .ant-table-thead tr > th {
       text-align: center;
@@ -17,18 +19,33 @@
       color: @nav_font;
       background: @card_header;
     }
-    .ant-table-tbody > tr {
-      text-align: center;
-      &:nth-child(odd) {
-        background: @item_first;
-      }
-      &:nth-child(even) {
-        background: @item_second;
-      }
-      & > td {
-        min-height: 50px;
-        color: @main_font;
-      }
+  }
+  // 定制行样式
+  .customRow {
+    text-align: center;
+    color: @main_font;
+    min-height: 50px;
+    // 奇偶行颜色
+    // TODO:目前点击展开行后有bug
+    &:nth-child(odd) {
+      background: @item_first;
+    }
+    &:nth-child(even) {
+      background: @item_second;
+    }
+
+    > td {
+      padding: 0;
+    }
+  }
+
+  // hover颜色
+  :global {
+    .ant-table-thead > tr.ant-table-row-hover:not(.ant-table-expanded-row) > td,
+    .ant-table-tbody > tr.ant-table-row-hover:not(.ant-table-expanded-row) > td,
+    .ant-table-thead > tr:hover:not(.ant-table-expanded-row) > td,
+    .ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td {
+      background-color: rgba(0, 0, 0, 0.3);
     }
   }
 }

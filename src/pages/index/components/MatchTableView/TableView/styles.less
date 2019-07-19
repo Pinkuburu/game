@@ -1,25 +1,14 @@
 @import '../../../../../common/less/variable.less';
-.dateTabBar {
-  :global {
-    .ant-tabs-nav-scroll {
-      background-color: @main_background;
-      .ant-tabs-nav {
-        width: 100%;
-        > div:first-child {
-          display: grid;
-          grid-template-columns: repeat(7, 1fr);
-          .ant-tabs-tab {
-            text-align: center;
-            &:not(:last-child) {
-              margin-right: 1px !important;
-            }
-            background-color: @item_second;
-          }
-        }
-      }
-    }
-  }
+
+.rowHeight {
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.tabPane {
-  background-color: red !important;
+
+.liveLinkContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }

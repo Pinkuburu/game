@@ -16,7 +16,11 @@ export interface IProps {
   banners: DataType.BannersImg[];
   predict: DataType.PredictOfToday;
   liveList: [];
-  UCGroup: {};
+  UCGroup: {
+    dota2: any;
+    lol: any;
+    csgo: any;
+  };
   UCLeagues: {
     dota2: [];
     lol: [];
@@ -50,7 +54,7 @@ class Home extends React.Component<IProps> {
 
   render() {
     // const { predict, liveList, dispatch, UCGroup, UCLeagues } = this.props;
-    const { predict, banners, matchTableViewGameType, UCLeagues } = this.props;
+    const { predict, banners, matchTableViewGameType, UCLeagues, UCGroup } = this.props;
     return (
       <div>
         <div className={styles.predictAndCarouselContainer}>
@@ -58,7 +62,11 @@ class Home extends React.Component<IProps> {
           <CarouselView className={styles.carouselViewContainer} imgUrls={banners} />
         </div>
         <LiveTableView onRefreshData={this.refreshLiveTableData} />
-        <MatchTableView gameType={matchTableViewGameType} leagueList={UCLeagues.dota2} />
+        <MatchTableView
+          gameType={matchTableViewGameType}
+          leagueList={UCLeagues.dota2}
+          matchList={UCGroup.lol[294]}
+        />
       </div>
     );
   }
