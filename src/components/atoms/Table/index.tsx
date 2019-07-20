@@ -9,14 +9,15 @@ interface IProps<T> extends TableProps<T> {
   rowClassName?: (record: T, index: number) => string;
 }
 class CustomTable<T> extends React.Component<IProps<T>> {
+
+  static defaultProps = {
+    dataSource: []
+  };
   constructor(props: IProps<T>) {
     super(props);
     this.customRowClassName = this.customRowClassName.bind(this);
   }
 
-  static defaultProps = {
-    dataSource: []
-  };
 
   customRowClassName(record: T, index: number) {
     const { rowClassName } = this.props;

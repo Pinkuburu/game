@@ -159,6 +159,9 @@ interface IState {
   last7Days: any[];
 }
 export default class TableView extends React.PureComponent<IProps, IState> {
+  static defaultProps = {
+    dataSource: []
+  };
   constructor(props: IProps) {
     super(props);
     this.state = {
@@ -166,9 +169,6 @@ export default class TableView extends React.PureComponent<IProps, IState> {
       last7Days: this.getLast7Days()
     };
   }
-  static defaultProps = {
-    dataSource: []
-  };
 
   // 屏幕尺寸变化时Tab下方的活动条不会变(没有render)
   getNext7Days() {
@@ -194,7 +194,7 @@ export default class TableView extends React.PureComponent<IProps, IState> {
     console.dir(dataSource);
     return (
       <div>
-        <DateTabBar defaultActiveKey={'7'}>
+        <DateTabBar defaultActiveKey="7">
           {next7Days.map((item) => (
             <TabPane tab={item.text} key={item.weekKey} />
           ))}

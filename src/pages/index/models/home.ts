@@ -39,7 +39,7 @@ const model: DvaModel<IState> = {
   },
   effects: {
     // 获取轮播图
-    *[ActionType.get_banners](action, { put, call }) {
+    * [ActionType.get_banners](_action, { put, call }) {
       try {
         const data = yield call(Api.getSlider);
         yield put({
@@ -50,14 +50,14 @@ const model: DvaModel<IState> = {
         console.log(error);
       }
     },
-    *[ActionType.get_predict](action, { put, call }) {
+    * [ActionType.get_predict](_action, { put, call }) {
       const data = yield call(Api.getTodayPredict);
       yield put({
         type: ActionType.change_predict,
         payload: data
       });
     },
-    *[ActionType.get_live_list](action, { put, call }) {
+    * [ActionType.get_live_list](_action, { put, call }) {
       const data = yield call(Api.getLiveList);
       yield put({
         type: ActionType.change_live_list,

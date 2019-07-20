@@ -8,7 +8,7 @@ const TableNoData: React.FC = () => (
       width={40}
       height={40}
       src={ImageStore.noDataIcon}
-      text={'暂无数据'}
+      text="暂无数据"
       textClassName={styles.text}
       spacing={9}
     />

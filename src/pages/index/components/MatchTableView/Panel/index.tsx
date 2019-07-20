@@ -15,7 +15,7 @@ export default class Panel extends React.PureComponent<IProps> {
           alt="dota2"
           width={22}
           height={22}
-          text={'Dota2'}
+          text="Dota2"
           textClassName={styles.gameText}
         />
         <Image
@@ -23,7 +23,7 @@ export default class Panel extends React.PureComponent<IProps> {
           alt="lol"
           width={22}
           height={22}
-          text={'LOL'}
+          text="LOL"
           textClassName={styles.gameText}
         />
         <Image
@@ -31,7 +31,7 @@ export default class Panel extends React.PureComponent<IProps> {
           alt="csgo"
           width={22}
           height={22}
-          text={'CSGO'}
+          text="CSGO"
           textClassName={styles.gameText}
         />
       </div>

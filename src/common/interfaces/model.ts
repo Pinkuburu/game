@@ -5,9 +5,7 @@ export interface ReduxAction {
   payload?: any;
 }
 
-export interface ReduxDispatch {
-  (action: ReduxAction): void;
-}
+export type ReduxDispatch = (action: ReduxAction) => void;
 
 // effects相关
 export interface DvaModelEffects {
@@ -16,9 +14,7 @@ export interface DvaModelEffects {
 
 export type DvaModelEffect = DvaModelEffectFn | DvaModelEffectWithTaker;
 
-export interface DvaModelEffectFn {
-  (action: ReduxAction, sagaEffects: ReduxSagaEffects): any;
-}
+export type DvaModelEffectFn = (action: ReduxAction, sagaEffects: ReduxSagaEffects) => any;
 
 export interface ReduxSagaEffects {
   put: ReduxDispatch;
@@ -38,9 +34,7 @@ export interface ReduxSagaTaker {
 }
 
 // reducers相关
-export interface DvaModelReducer<T> {
-  (preState: T, action: ReduxAction): any;
-}
+export type DvaModelReducer<T> = (preState: T, action: ReduxAction) => any;
 
 export interface DvaModelReducers<T> {
   [reducerName: string]: DvaModelReducer<T>;

@@ -18,6 +18,11 @@ interface IState {
 const leagueKey = 'league_id';
 // TODO:抽取组件
 export default class SelectLeague extends React.PureComponent<IProps, IState> {
+
+  static defaultProps = {
+    leagueList: []
+  };
+
   constructor(props: IProps) {
     super(props);
     this.state = {
@@ -32,9 +37,6 @@ export default class SelectLeague extends React.PureComponent<IProps, IState> {
     this.handleCheckAllChange = this.handleCheckAllChange.bind(this);
     this.handleClearAllChange = this.handleClearAllChange.bind(this);
   }
-  static defaultProps = {
-    leagueList: []
-  };
 
   isChecked(key: any) {
     return this.state.checkList.includes(key);

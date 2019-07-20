@@ -11,10 +11,6 @@ interface IProps {
 }
 
 class MatchTableView extends React.Component<IProps> {
-  constructor(props: IProps) {
-    super(props);
-  }
-
   render() {
     const { leagueList, matchList } = this.props;
     return (

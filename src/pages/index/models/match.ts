@@ -109,7 +109,7 @@ const model: DvaModel<IState> = {
     }
   },
   effects: {
-    *[ActionType.get_upcomming_list](action, { put, call }) {
+    * [ActionType.get_upcomming_list](action, { put, call }) {
       const data = yield call(Api.getUpcommingList);
       yield put({
         type: ActionType.change_upcomming_list,

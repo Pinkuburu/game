@@ -59,10 +59,6 @@ const columns: ColumnProps<DataType.PredictResult>[] = [
 ];
 
 class PredictView extends React.PureComponent<IProps> {
-  constructor(props: IProps) {
-    super(props);
-    this.buildPredictOfTodayItem = this.buildPredictOfTodayItem.bind(this);
-  }
   // 设置默认值
   static defaultProps = {
     list: [],
@@ -79,6 +75,11 @@ class PredictView extends React.PureComponent<IProps> {
     total: PropTypes.object.isRequired,
     list: PropTypes.array.isRequired
   };
+
+  constructor(props: IProps) {
+    super(props);
+    this.buildPredictOfTodayItem = this.buildPredictOfTodayItem.bind(this);
+  }
 
   buildPredictOfTodayItem(
     classname: string,

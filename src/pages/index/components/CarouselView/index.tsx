@@ -1,10 +1,9 @@
 import React from 'react';
-import { Carousel } from 'antd';
+import { Carousel, Tooltip } from 'antd';
 import Image from '../../../../components/atoms/Image/index';
 import * as DataType from '../../../../common/interfaces/dataType';
 import styles from './styles.less';
 import classnames from 'classnames';
-import { Tooltip } from 'antd';
 
 interface IProps {
   imgUrls: DataType.BannersImg[];
@@ -17,6 +16,12 @@ interface IState {
 // 可以考虑抽离出来，目前只有首页用上
 // TODO: 无图时的占位图
 class CarouselView extends React.PureComponent<IProps, IState> {
+  static defaultProps = {
+    imgUrls: []
+  };
+
+  carousel: React.RefObject<any>;
+
   constructor(props: IProps) {
     super(props);
     this.state = {
@@ -28,11 +33,7 @@ class CarouselView extends React.PureComponent<IProps, IState> {
     this.beforeChange = this.beforeChange.bind(this);
     this.changeCurrentIndex = this.changeCurrentIndex.bind(this);
   }
-  static defaultProps = {
-    imgUrls: []
-  };
 
-  carousel: React.RefObject<any>;
 
   beforeChange(from: number, to: number) {
     this.setState({ index: to });

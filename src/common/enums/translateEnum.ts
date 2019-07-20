@@ -1,10 +1,10 @@
 import { GameTypeEnum } from './index';
 
-interface translateEnum {
+interface TranslateEnum {
   [fromEnum: number]: string;
 }
 
-export const TranslateGameTypeEnum: translateEnum = {
+export const TranslateGameTypeEnum: TranslateEnum = {
   [GameTypeEnum.ALL]: 'ALL',
   [GameTypeEnum.DOTA2]: 'DOTA2'
 };

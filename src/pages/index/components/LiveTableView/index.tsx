@@ -8,9 +8,7 @@ interface IProps {
 }
 
 class LiveTableView extends React.Component<IProps> {
-  constructor(props: IProps) {
-    super(props);
-  }
+
 
   render() {
     const { onRefreshData } = this.props;

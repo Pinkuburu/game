@@ -21,9 +21,7 @@ class AuthRouter extends React.PureComponent<IProps> {
     return (
       <Route
         {...rest}
-        render={() =>
-          isLogined ? <React.Fragment>{children}</React.Fragment> : <Redirect to="/" />
-        }
+        render={() => (isLogined ? <>{children}</> : <Redirect to="/" />)}
       />
     );
   }
