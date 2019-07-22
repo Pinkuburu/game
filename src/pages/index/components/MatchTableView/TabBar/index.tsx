@@ -1,9 +1,8 @@
 import React from 'react';
-import { Tabs } from 'antd';
 import CustomTab from '../../../../../components/molecules/TabBar';
 import { MatchType, ActionType } from '../../../constants';
+import { Tabs } from 'antd';
 const { TabPane } = Tabs;
-// import styles from './styles.less';
 interface IProps {
   currentMatchType: MatchType;
 }

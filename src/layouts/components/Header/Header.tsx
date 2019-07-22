@@ -1,7 +1,10 @@
 import React from 'react';
 import { Layout, Menu, Dropdown } from 'antd';
+import { ActionType } from '../../../models/constants';
 import { connect } from 'dva';
+import Image from '../../../components/atoms/Image';
 import ImageStore from '../../../components/atoms/Image/imgStore';
+import LoginModal from '../../../components/modals/Login';
 import styles from './styles.less';
 
 const gameList = [
@@ -27,13 +30,63 @@ const userList = [
     name: '退出登录'
   }
 ];
-interface Props {
+interface IProps {
   dispatch: any;
+  isLogined: boolean;
   gameType: any;
 }
 
-class Header extends React.Component<Props> {
-  static getUserList() {
+class Header extends React.PureComponent<IProps> {
+  constructor(props: IProps) {
+    super(props);
+    this.showLoginModal = this.showLoginModal.bind(this);
+  }
+
+  showLoginModal() {
+    this.props.dispatch({
+      type: ActionType.change_modal_r_with_namespace,
+      payload: <LoginModal />
+    });
+  }
+  componentDidMount() {
+    this.showLoginModal();
+  }
+
+  render() {
+    const { gameType } = this.props;
+    return (
+      <div className={styles.container}>
+        <Layout.Header className="layout-header">
+          <Dropdown
+            className="menu-item"
+            overlay={this.buildGameList()}
+            placement="bottomCenter"
+            trigger={['click']}
+          >
+            <div>
+              <img className="menu_icon mr-2" src={ImageStore.iconGame} alt=" " />
+              {gameType}
+            </div>
+          </Dropdown>
+          {this.buildLoginOrUserBtn()}
+        </Layout.Header>
+      </div>
+    );
+  }
+
+  buildLoginOrUserBtn() {
+    const { isLogined } = this.props;
+    return isLogined ? null : (
+      <Image
+        src={ImageStore.userImg}
+        text="用户"
+        className="menu_icon mr-2"
+        onClick={this.showLoginModal}
+      />
+    );
+  }
+
+  buildUserList() {
     return (
       <Menu>
         {userList.map((item) => (
@@ -44,7 +97,7 @@ class Header extends React.Component<Props> {
       </Menu>
     );
   }
-  gameList() {
+  buildGameList() {
     const { dispatch } = this.props;
     return (
       <Menu
@@ -60,32 +113,11 @@ class Header extends React.Component<Props> {
       </Menu>
     );
   }
-  render() {
-    const { gameType } = this.props;
-    return (
-      <div className={styles.container}>
-        <Layout.Header className="layout-header">
-          <Dropdown
-            className="menu-item"
-            overlay={this.gameList()}
-            placement="bottomCenter"
-            trigger={['click']}
-          >
-            <div>
-              <img className="menu_icon mr-2" src={ImageStore.iconGame} alt=" " />
-              {gameType}
-            </div>
-          </Dropdown>
-          <Dropdown className="menu-item" overlay={Header.getUserList()} placement="bottomCenter">
-            <div>
-              <img className="menu_icon mr-2" src={ImageStore.userImg} alt=" " />
-              用户
-            </div>
-          </Dropdown>
-        </Layout.Header>
-      </div>
-    );
-  }
+}
+interface ConnectState {
+  auth: any;
 }
 
-export default connect((state: any) => state.global)(Header);
+export default connect((state: ConnectState) => ({
+  isLogined: state.auth.isLogined
+}))(Header);

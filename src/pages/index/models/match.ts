@@ -47,7 +47,6 @@ function summedByLeagueId(match: DataType.UpcommingMatchInfo[]) {
 function groupMatches(match: []) {
   const dataForMatchTable = groupByLeagueIdAndStartTime(match);
   const dataForSelectedLeagues = summedByLeagueId(match);
-  console.log(dataForSelectedLeagues);
   return {
     // UCGroup,
     // UCLeagues,

@@ -1,0 +1,25 @@
+.modal {
+  background: rgba(16, 16, 16, 0.3);
+  border: 1px solid rgba(151, 151, 151, 1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &.hide {
+    display: none;
+  }
+  .modalBg {
+    background: url('../../../assets/bg_modal.svg') center center no-repeat;
+    background-size: contain;
+    width: 600px;
+    height: 560px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

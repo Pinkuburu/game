@@ -18,7 +18,6 @@ export default class Panel extends React.PureComponent<IProps> {
 
   render() {
     const { currentGameType } = this.props;
-    console.log(currentGameType);
     return (
       <div className={styles.panel}>
         <Image

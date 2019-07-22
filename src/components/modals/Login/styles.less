@@ -1,0 +1,29 @@
+@import '../../../common/less/variable.less';
+.loginContainer {
+  height: 100%;
+  width: 100%;
+  padding: 40px 30px;
+  :global {
+    .ant-tabs-bar {
+      border-color: #393c5b;
+      .ant-tabs-nav-scroll {
+        background-color: transparent;
+        .ant-tabs-nav {
+          width: 100%;
+          > div {
+            display: flex;
+            justify-content: center;
+          }
+          .ant-tabs-tab {
+            margin-right: 0px;
+            width: 40%;
+            text-align: center;
+          }
+          .ant-tabs-ink-bar {
+            margin-left: 40px;
+          }
+        }
+      }
+    }
+  }
+}

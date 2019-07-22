@@ -9,6 +9,7 @@ interface IProps {
   height?: string | number;
   width?: string | number;
   text?: string;
+  className?: string;
   textClassName?: string;
   textPostion?: 'top' | 'left' | 'bottom' | 'right';
   spacing?: number;
@@ -22,6 +23,7 @@ const Image: React.FC<IProps> = ({
   height,
   width,
   text,
+  className,
   textClassName,
   textPostion = 'right',
   spacing = 8,
@@ -30,7 +32,10 @@ const Image: React.FC<IProps> = ({
   const textSpacingStyle = { width: spacing, height: spacing };
   return (
     <Tooltip title={title}>
-      <figure className={classnames(styles.figure, text && styles[textPostion])} onClick={onClick}>
+      <figure
+        className={classnames(styles.figure, text && styles[textPostion], className)}
+        onClick={onClick}
+      >
         <img
           src={src}
           height={height}
