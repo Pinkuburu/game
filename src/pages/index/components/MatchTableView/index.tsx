@@ -4,22 +4,41 @@ import TableView from './TableView';
 import SelectLeague from './SelectLeague';
 import TabBar from './TabBar/';
 import Panel from './Panel';
+import { GameType, MatchType } from '../../constants';
 interface IProps {
   gameType: number;
   leagueList: [];
   matchList: [];
+  currentDate: number;
+  currentGameType: GameType[];
+  currentMatchType: MatchType;
+  currentSelectedLeaguesId: number[];
 }
 
 class MatchTableView extends React.Component<IProps> {
   render() {
-    const { leagueList, matchList } = this.props;
+    const {
+      leagueList,
+      matchList,
+      currentDate,
+      currentGameType,
+      currentMatchType,
+      currentSelectedLeaguesId
+    } = this.props;
     return (
       <div className={styles.container}>
-        <Panel />
-        <TabBar />
+        <Panel currentGameType={currentGameType} />
+        <TabBar currentMatchType={currentMatchType} />
         <div className={styles.tableContainer}>
-          <SelectLeague leagueList={leagueList} />
-          <TableView dataSource={matchList} />
+          <SelectLeague
+            leagueList={leagueList}
+            currentSelectedLeaguesId={currentSelectedLeaguesId}
+          />
+          <TableView
+            dataSource={matchList}
+            currentDate={currentDate}
+            currentMatchType={currentMatchType}
+          />
         </div>
       </div>
     );

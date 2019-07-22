@@ -12,8 +12,9 @@ import styles from './styles.less';
 import { ColumnProps } from 'antd/lib/table';
 import ImageStore from '../../../../../components/atoms/Image/imgStore';
 const { TabPane } = Tabs;
+import { ActionType, MatchType } from '../../../constants';
 
-const predictRowKey = 'match_id';
+const predictRowKey = 'id';
 const week = ['周日', '周一', '周二', '周三', '周四', '周五', '周六', '今天'];
 
 const predictColumns: ColumnProps<DataType.UpcommingMatchInfo>[] = [
@@ -46,19 +47,19 @@ const predictColumns: ColumnProps<DataType.UpcommingMatchInfo>[] = [
   {
     title: '队伍',
     width: 160,
-    dataIndex: 'opponents',
-    key: 'opponents',
+    dataIndex: 'team',
+    key: 'team',
     render: (text, record) => (
       <div>
         <Image
-          src={record.opponents.team_a_info.custom_logo}
-          text={record.opponents.team_a_info.tag}
+          src={record.team_a_info.custom_logo}
+          text={record.team_a_info.tag}
           width={30}
           height={30}
         />
         <Image
-          src={record.opponents.team_b_info.custom_logo}
-          text={record.opponents.team_b_info.tag}
+          src={record.team_b_info.custom_logo}
+          text={record.team_b_info.tag}
           width={30}
           height={30}
         />
@@ -131,7 +132,7 @@ const predictColumns: ColumnProps<DataType.UpcommingMatchInfo>[] = [
           ([key, value]) =>
             value && (
               <a href={value} key={key} target="_blank" rel="noreferrer noopener">
-                <Image src={ImageStore.live[key.split('_')[0]]} width={80} height={40} />
+                <Image src={ImageStore.live[key.split('_')[0] as 'douyu']} width={80} height={40} />
               </a>
             )
         )}
@@ -153,6 +154,8 @@ const predictColumns: ColumnProps<DataType.UpcommingMatchInfo>[] = [
 ];
 interface IProps {
   dataSource: DataType.UpcommingMatchInfo[];
+  currentDate: number;
+  currentMatchType: MatchType;
 }
 interface IState {
   next7Days: any[];
@@ -168,6 +171,8 @@ export default class TableView extends React.PureComponent<IProps, IState> {
       next7Days: this.getNext7Days(),
       last7Days: this.getLast7Days()
     };
+    this.getCurrent7Days = this.getCurrent7Days.bind(this);
+    this.buildTable = this.buildTable.bind(this);
   }
 
   // 屏幕尺寸变化时Tab下方的活动条不会变(没有render)
@@ -175,39 +180,79 @@ export default class TableView extends React.PureComponent<IProps, IState> {
     return Array.from({ length: 7 }, (n, index) => {
       const time = moment().add(index, 'd');
       const weekKey = index ? time.day() : 7;
+      const date = time.date();
       const text = `${time.format('MM-DD')} ${week[weekKey]}`;
-      return { time, weekKey, text };
+      return { time, weekKey, text, date };
     });
   }
   getLast7Days() {
     return Array.from({ length: 7 }, (n, index) => {
       const time = moment().add(-index, 'd');
       const weekKey = index ? time.day() : 7;
+      const date = time.date();
       const text = `${time.format('MM-DD')} ${week[weekKey]}`;
-      return { time, weekKey, text };
+      return { time, weekKey, text, date };
     });
   }
 
+  handleTabChange(activeKey: string) {
+    (window as any).g_app._store.dispatch({
+      type: ActionType.change_current_date_with_namespace,
+      payload: activeKey
+    });
+  }
+
+  getCurrent7Days() {
+    const { currentMatchType } = this.props;
+    const { last7Days, next7Days } = this.state;
+    switch (currentMatchType) {
+      case MatchType.predict:
+        return next7Days;
+      case MatchType.result:
+        return last7Days;
+    }
+    return [];
+  }
+
   render() {
-    const { next7Days } = this.state;
-    const { dataSource } = this.props;
-    console.dir(dataSource);
+    const { dataSource, currentDate } = this.props;
     return (
       <div>
-        <DateTabBar defaultActiveKey="7">
-          {next7Days.map((item) => (
-            <TabPane tab={item.text} key={item.weekKey} />
+        <DateTabBar defaultActiveKey={currentDate.toString()} onChange={this.handleTabChange}>
+          {this.getCurrent7Days().map((item) => (
+            <TabPane tab={item.text} key={item.date} />
           ))}
         </DateTabBar>
-        <Table
-          columns={predictColumns}
-          rowKey={predictRowKey}
-          dataSource={dataSource}
-          pagination={false}
-          // expandRowByClick={true}
-          // expandedRowRender={() => <div>yo</div>}
-        />
+        {this.buildTable()}
       </div>
     );
+  }
+  buildTable() {
+    const { currentMatchType, dataSource } = this.props;
+    switch (currentMatchType) {
+      case MatchType.predict:
+        return (
+          <Table
+            columns={predictColumns}
+            rowKey={predictRowKey}
+            dataSource={dataSource}
+            pagination={false}
+            // expandRowByClick={true}
+            // expandedRowRender={() => <div>yo</div>}
+          />
+        );
+      case MatchType.result:
+        return (
+          <Table
+            columns={predictColumns}
+            rowKey={predictRowKey}
+            dataSource={dataSource}
+            pagination={false}
+            expandRowByClick={true}
+            expandedRowRender={() => <div>yo</div>}
+          />
+        );
+    }
+    return null;
   }
 }

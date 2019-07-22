@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card } from 'antd';
 import { CustomCheckbox } from '../../../../../components/atoms/CheckBox';
+import { ActionType } from '../../../constants';
 import Image from '../../../../../components/atoms/Image';
 import ImgStore from '../../../../../components/atoms/Image/imgStore';
 import * as DataType from '../../../../../common/interfaces/dataType';
@@ -9,16 +10,15 @@ import styles from './styles.less';
 
 interface IProps {
   leagueList: DataType.LeagueInfo[];
+  currentSelectedLeaguesId: number[];
 }
 interface IState {
   checkList: any[];
-  isCheckAll: boolean;
 }
 
 const leagueKey = 'league_id';
 // TODO:抽取组件
 export default class SelectLeague extends React.PureComponent<IProps, IState> {
-
   static defaultProps = {
     leagueList: []
   };
@@ -26,66 +26,61 @@ export default class SelectLeague extends React.PureComponent<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
-      checkList: [],
-      isCheckAll: false
+      checkList: []
     };
     this.buildCheckboxItem = this.buildCheckboxItem.bind(this);
     this.buildCheckAll = this.buildCheckAll.bind(this);
     this.buildClearAll = this.buildClearAll.bind(this);
     this.isChecked = this.isChecked.bind(this);
+    this.isAllChecked = this.isAllChecked.bind(this);
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     this.handleCheckAllChange = this.handleCheckAllChange.bind(this);
     this.handleClearAllChange = this.handleClearAllChange.bind(this);
   }
 
   isChecked(key: any) {
-    return this.state.checkList.includes(key);
+    const { currentSelectedLeaguesId } = this.props;
+    return currentSelectedLeaguesId.includes(key);
   }
-  // 清空
-  handleClearAllChange() {
-    this.setState({
-      isCheckAll: false,
-      checkList: []
-    });
+  isAllChecked() {
+    const { leagueList, currentSelectedLeaguesId } = this.props;
+    return leagueList.length !== 0 && leagueList.length === currentSelectedLeaguesId.length;
   }
 
   handleCheckboxChange(e: CheckboxChangeEvent) {
-    const { value, checked } = e.target;
-    const { checkList } = this.state;
-    const { leagueList } = this.props;
-    const isCheckAll = checkList.length + (checked ? 1 : -1) === leagueList.length;
-    if (checked) {
-      this.setState({
-        checkList: [...checkList, value],
-        isCheckAll
-      });
-    } else {
-      this.setState({
-        checkList: checkList.filter((key) => key !== value),
-        isCheckAll
-      });
-    }
+    const { value } = e.target;
+    (window as any).g_app._store.dispatch({
+      type: ActionType.change_current_slected_leagueId_with_namespace,
+      payload: {
+        leagueId: value
+      }
+    });
+  }
+
+  // 清空
+  handleClearAllChange() {
+    (window as any).g_app._store.dispatch({
+      type: ActionType.change_current_slected_leagueId_with_namespace,
+      payload: {
+        isCheckAll: false
+      }
+    });
   }
 
   // 全选
   handleCheckAllChange(e: CheckboxChangeEvent) {
-    const { value, checked } = e.target;
-    if (checked) {
-      this.setState({
-        checkList: value,
-        isCheckAll: true
-      });
-    } else {
-      this.setState({
-        checkList: [],
-        isCheckAll: false
-      });
-    }
+    const { checked, value } = e.target;
+    (window as any).g_app._store.dispatch({
+      type: ActionType.change_current_slected_leagueId_with_namespace,
+      payload: {
+        isCheckAll: checked,
+        allLeagueId: value
+      }
+    });
   }
 
   render() {
     const { leagueList } = this.props;
-
     return (
       <div className={styles.selectLeague}>
         <Card title={this.buildCheckAll(leagueList)} extra={this.buildClearAll()}>
@@ -102,7 +97,7 @@ export default class SelectLeague extends React.PureComponent<IProps, IState> {
     return (
       <CustomCheckbox
         className={styles.mediumFont}
-        checked={this.state.isCheckAll}
+        checked={this.isAllChecked()}
         onChange={this.handleCheckAllChange}
         value={leagueList.map((league) => league[leagueKey])}
       >

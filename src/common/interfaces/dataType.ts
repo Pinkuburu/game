@@ -74,10 +74,8 @@ export interface UpcommingMatchInfo {
   match_id: number;
   name: string;
   odds: Odd[];
-  opponents: {
-    team_a_info: TeamInfoOfPredictResult;
-    team_b_info: TeamInfoOfPredictResult;
-  };
+  team_a_info: TeamInfoOfPredictResult;
+  team_b_info: TeamInfoOfPredictResult;
   scores: { score: number; team_id: number }[];
   serie_id: number;
   start_time: number;
@@ -86,8 +84,6 @@ export interface UpcommingMatchInfo {
   live_platform?: string;
   pull_live_streaming_url?: string;
   stage_name?: string;
-  team_a_id: number;
-  team_b_id: number;
   winner_id: number;
 }
 

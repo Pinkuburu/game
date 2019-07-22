@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { connect } from 'dva';
-import { ActionType } from './constants';
+import { ActionType, GameType, MatchType } from './constants';
 import * as DataType from '../../common/interfaces/dataType';
 import styles from './styles.less';
 import Predict from './components/PredictView';
@@ -16,16 +16,12 @@ export interface IProps {
   banners: DataType.BannersImg[];
   predict: DataType.PredictOfToday;
   liveList: [];
-  UCGroup: {
-    dota2: any;
-    lol: any;
-    csgo: any;
-  };
-  UCLeagues: {
-    dota2: [];
-    lol: [];
-    csgo: [];
-  };
+  currentGameType: GameType[];
+  currentSelectedLeaguesId: number[];
+  currentMatchType: MatchType;
+  currentDate: number;
+  leagueList: [];
+  matchList: [];
   matchTableViewGameType: number;
 }
 
@@ -53,19 +49,32 @@ class Home extends React.Component<IProps> {
   refreshLiveTableData() {}
 
   render() {
-    // const { predict, liveList, dispatch, UCGroup, UCLeagues } = this.props;
-    const { predict, banners, matchTableViewGameType, UCLeagues, UCGroup } = this.props;
+    const {
+      predict,
+      banners,
+      matchTableViewGameType,
+      leagueList,
+      matchList,
+      currentDate,
+      currentGameType,
+      currentMatchType,
+      currentSelectedLeaguesId
+    } = this.props;
     return (
-      <div>
+      <div className={styles.container}>
         <div className={styles.predictAndCarouselContainer}>
           <Predict list={predict.list} total={predict.total} />
           <CarouselView className={styles.carouselViewContainer} imgUrls={banners} />
         </div>
         <LiveTableView onRefreshData={this.refreshLiveTableData} />
         <MatchTableView
+          currentGameType={currentGameType}
+          currentMatchType={currentMatchType}
+          currentSelectedLeaguesId={currentSelectedLeaguesId}
+          currentDate={currentDate}
           gameType={matchTableViewGameType}
-          leagueList={UCLeagues.dota2}
-          matchList={UCGroup.lol[294]}
+          leagueList={leagueList}
+          matchList={matchList}
         />
       </div>
     );
@@ -83,8 +92,23 @@ export default connect((state: ConnectState) => ({
   predict: state.home.predict,
   banners: state.home.banners,
   liveList: state.home.live_list,
-  UCGroup: state.match.UCGroup,
-  UCLeagues: state.match.UCLeagues,
+  dataForMatchTable: state.match.dataForMatchTable,
+  currentLeagueList: state.match.dataForSelectedLeagues[state.match.currentGameType[0]],
   matchTableViewGameType: state.match.gameType,
+  currentDate: state.match.currentDate[state.match.currentMatchType],
+  currentGameType: state.match.currentGameType,
+  currentMatchType: state.match.currentMatchType,
+  currentSelectedLeaguesId: state.match.currentSelectedLeaguesId,
+  leagueList: state.match.currentGameType
+    .map((gameType: GameType) => state.match.dataForSelectedLeagues[gameType])
+    .flat(),
+  matchList: state.match.currentSelectedLeaguesId
+    .map((leagueId: number) => {
+      const {
+        match: { dataForMatchTable, currentDate, currentMatchType }
+      } = state;
+      return dataForMatchTable[leagueId][currentDate[currentMatchType]] || [];
+    })
+    .flat(),
   global: state.global
 }))(Home);
