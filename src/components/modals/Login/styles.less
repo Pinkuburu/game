@@ -1,8 +1,13 @@
 @import '../../../common/less/variable.less';
+@import '../../../common/less/mixin.less';
+
 .loginContainer {
   height: 100%;
   width: 100%;
   padding: 40px 30px;
+  #myFont.medium(16px, @nav_font);
+  text-align: center;
+
   :global {
     .ant-tabs-bar {
       border-color: #393c5b;
@@ -24,6 +29,64 @@
           }
         }
       }
+    }
+  }
+
+  .loginFormContainer {
+    margin: 0 auto;
+    width: 80%;
+    .icon {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background: center no-repeat;
+      background-size: 30px 30px;
+      transition: all 0.3s;
+      &.phone {
+        background-image: url('../../../assets/icon_phonenum.svg');
+      }
+      &.phoneS {
+        background-image: url('../../../assets/icon_phonenum_s.svg');
+      }
+      &.sms {
+        background-image: url('../../../assets/icon_pin.svg');
+      }
+      &.smsS {
+        background-image: url('../../../assets/icon_pin_s.svg');
+      }
+      &.password {
+        background-image: url('../../../assets/icon_password.svg');
+      }
+      &.passwordS {
+        background-image: url('../../../assets/icon_password_s.svg');
+      }
+    }
+    .sendSMS {
+      width: 126px;
+      height: 100%;
+      background-color: @item_second;
+      transition: all 0.3s;
+      #myFont.medium(16px, @nav_font);
+      &.sendSMSS {
+        background-color: @main_color;
+        color: white;
+      }
+    }
+    .reSendSMS {
+      white-space: nowrap;
+      #myFont.medium(16px, @nav_font);
+    }
+    .aboutPSW {
+      height: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .toggleLoginWay {
+      color: @hover_font;
+      cursor: pointer;
+      height: 40px;
+      line-height: 40px;
     }
   }
 }

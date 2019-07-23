@@ -1,8 +1,9 @@
 import React from 'react';
 import CustomTabBar from '../../molecules/TabBar';
 import styles from './styles.less';
-import { Tabs, Input } from 'antd';
-import GTVertify, { GTVertifyName } from '../../atoms/GTVertify';
+import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
+import { Tabs } from 'antd';
 const { TabPane } = Tabs;
 interface IProps {}
 interface IState {
@@ -12,7 +13,6 @@ interface IState {
 export default class LoginModal extends React.PureComponent<IProps, IState> {
   constructor(props: IProps) {
     super(props);
-
     this.state = {
       loginWithSMS: false,
       canLogin: false
@@ -20,27 +20,14 @@ export default class LoginModal extends React.PureComponent<IProps, IState> {
   }
 
   render() {
+    const { loginWithSMS } = this.state;
     return (
       <CustomTabBar defaultActiveKey="login" className={styles.loginContainer}>
         <TabPane tab="登录" key="login">
-          <div>
-            <Input
-              placeholder="手机号"
-              allowClear={true}
-              height={44}
-              prefix={<span className={styles.icon} />}
-            />
-            <Input
-              placeholder="手机号"
-              allowClear={true}
-              height={44}
-              prefix={<span className={styles.icon} />}
-            />
-          </div>
-          <GTVertify GTVertifyName={GTVertifyName.LOGIN} />
+          <LoginForm />
         </TabPane>
         <TabPane tab="注册" key="register">
-          <div>is</div>
+          <RegisterForm />
         </TabPane>
       </CustomTabBar>
     );

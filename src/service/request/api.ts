@@ -8,5 +8,6 @@ export default {
   getUpcommingList: () => request('hawkeyepc/v1/match/upcoming_leagues_list'), // 联赛预告列表
   getResultList: () => request('hawkeyepc/v1/match/result_list'), // 赛事结果
   getGTVertify: () =>
-    request(`${path.user}/gtcaptcha/v1/start_captcha_servlet?t=${new Date().getTime()}`) // 获取登录框中的验证插件
+    request(`${path.user}/gtcaptcha/v1/start_captcha_servlet?t=${new Date().getTime()}`), // 获取登录框中的验证插件
+  doLogin: (data: any) => request.post(`${path.user}/user/v1/login/do_login`, data)
 };
