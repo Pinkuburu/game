@@ -42,7 +42,7 @@
     align-items: center;
     height: 100%;
   }
-  .icon {
+  .aboutLook {
     display: inline-block;
     width: 30px;
     height: 30px;
@@ -57,6 +57,32 @@
     }
     &.unLook {
       background-image: url('../../../assets/icon_unLook.svg');
+    }
+  }
+  .icon {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: center no-repeat;
+    background-size: 30px 30px;
+    transition: all 0.3s;
+    &.phone {
+      background-image: url('../../../assets/icon_phonenum.svg');
+    }
+    &.phoneS {
+      background-image: url('../../../assets/icon_phonenum_s.svg');
+    }
+    &.sms {
+      background-image: url('../../../assets/icon_pin.svg');
+    }
+    &.smsS {
+      background-image: url('../../../assets/icon_pin_s.svg');
+    }
+    &.password {
+      background-image: url('../../../assets/icon_password.svg');
+    }
+    &.passwordS {
+      background-image: url('../../../assets/icon_password_s.svg');
     }
   }
 }

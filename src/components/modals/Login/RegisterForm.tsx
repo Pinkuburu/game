@@ -5,10 +5,8 @@ import Button from '../../atoms/Button';
 import styles from './styles.less';
 
 import { ActionType } from '../../../models/constants';
-import { isPureNumber, isMobile, isPassword, isSmsCode } from '../../../utils/';
+import { isMobile, isPassword, isSmsCode } from '../../../utils/';
 import Api from '../../../service/request/api';
-import { InputType } from './index';
-import Icon from './components/Icon';
 import SendSmsBtn from './components/SendSmsBtn';
 
 interface IProps {}
@@ -34,26 +32,26 @@ export default class RegisterTabPane extends React.PureComponent<IProps, IState>
       errMsg: ''
     };
     this.GTVerify = React.createRef();
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleMobChange = this.handleMobChange.bind(this);
+    this.handleSmsChange = this.handleSmsChange.bind(this);
+    this.handlePswChange = this.handlePswChange.bind(this);
     this.doRegister = this.doRegister.bind(this);
     this.sendSms = this.sendSms.bind(this);
     this.resetSendSms = this.resetSendSms.bind(this);
     this.handleGTVerifySuccess = this.handleGTVerifySuccess.bind(this);
   }
 
-  handleInputChange(type: InputType, e: React.ChangeEvent<HTMLInputElement>) {
+  handleMobChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { value } = e.target;
-    switch (type) {
-      case InputType.MOB:
-        isPureNumber(value) && this.setState({ mob: value });
-        break;
-      case InputType.PSW:
-        this.setState({ psw: value.trim() });
-        break;
-      case InputType.SMS:
-        isPureNumber(value) && this.setState({ sms: value });
-        break;
-    }
+    this.setState({ mob: value });
+  }
+  handleSmsChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { value } = e.target;
+    this.setState({ sms: value });
+  }
+  handlePswChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { value } = e.target;
+    this.setState({ psw: value });
   }
 
   // 发送验证短信
@@ -128,11 +126,11 @@ export default class RegisterTabPane extends React.PureComponent<IProps, IState>
       <div className={styles.formContainer}>
         <CustomInput
           placeholder="手机号"
-          prefixIcon={<Icon type="phone" />}
-          activePrefixIcon={<Icon type="phoneS" />}
+          inputIcon="Mobile"
+          limit="PureNumber"
           maxLength={11}
           value={mob}
-          onChange={this.handleInputChange.bind(this, InputType.MOB)}
+          onChange={this.handleMobChange}
         />
         <br />
         <GTVerify
@@ -143,25 +141,24 @@ export default class RegisterTabPane extends React.PureComponent<IProps, IState>
         <br />
         <CustomInput
           placeholder="短信验证码"
-          prefixIcon={<Icon type="sms" />}
-          activePrefixIcon={<Icon type="smsS" />}
+          inputIcon="SmsCode"
           suffixIcon={this.buildSendSmsBtn(false, isSendSms)}
           activeSuffixIcon={this.buildSendSmsBtn(canSendSms, isSendSms)}
           value={sms}
+          limit="PureNumber"
           maxLength={6}
           minLength={6}
-          onChange={this.handleInputChange.bind(this, InputType.SMS)}
+          onChange={this.handleSmsChange}
         />
         <br />
         <CustomInput
           placeholder="设置密码8-16个字符"
-          prefixIcon={<Icon type="password" />}
-          activePrefixIcon={<Icon type="passwordS" />}
+          inputIcon="Password"
           type="password"
           value={psw}
           minLength={8}
           maxLength={16}
-          onChange={this.handleInputChange.bind(this, InputType.PSW)}
+          onChange={this.handlePswChange}
         />
         <br />
         {errMsg && <p className={styles.errMsg}>{errMsg}</p>}

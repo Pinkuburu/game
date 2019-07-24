@@ -38,6 +38,10 @@ export function isPassword(password: string) {
   return length >= 8 && length <= 16;
 }
 
+export function hasSpace(str: string) {
+  return matchWithRegExp(/[\s\t\n]+/, str);
+}
+
 function matchWithRegExp(key: RegExp, value: string): boolean {
   return new RegExp(key).test(value);
 }

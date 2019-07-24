@@ -52,13 +52,13 @@ export default class LoginTabPane extends React.PureComponent<IProps, IState> {
     const { value } = e.target;
     switch (type) {
       case InputType.MOB:
-        isPureNumber(value) && this.setState({ mob: value });
+        this.setState({ mob: value });
         break;
       case InputType.PSW:
-        this.setState({ psw: value.trim() });
+        this.setState({ psw: value });
         break;
       case InputType.SMS:
-        isPureNumber(value) && this.setState({ sms: value });
+        this.setState({ sms: value });
         break;
     }
   }
