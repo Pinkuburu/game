@@ -3,21 +3,27 @@ import Api from '../../../service/request/api';
 import styles from './styles.less';
 
 // 使用到的验证框地方
-export enum GTVertifyName {
+export enum GTVerifyName {
   LOGIN = 'captchaLogin',
   REGISTER = 'captchaRegister'
 }
 
 interface IProps {
-  GTVertifyName: GTVertifyName;
+  GTVerifyName: GTVerifyName;
+  onSuccess?: (verifyRes: any) => void;
 }
 interface IState {
   isInited: boolean;
 }
-export default class GTVertify extends React.PureComponent<IProps, IState> {
+export default class GTVerify extends React.PureComponent<IProps, IState> {
   isInited: boolean;
   timer: number;
   captchaObj: any;
+  verifySuccessRes: {
+    geetest_challenge: string;
+    geetest_validate: string;
+    geetest_seccode: string;
+  } | null;
   constructor(props: IProps) {
     super(props);
     this.state = {
@@ -25,6 +31,7 @@ export default class GTVertify extends React.PureComponent<IProps, IState> {
     };
 
     this.captchaObj = null;
+    this.verifySuccessRes = null;
     this.isInited = false;
     this.timer = 0;
     this.handlerEmbed = this.handlerEmbed.bind(this);
@@ -39,12 +46,11 @@ export default class GTVertify extends React.PureComponent<IProps, IState> {
 
   componentWillUnmount() {
     clearInterval(this.timer);
-    this.removeOverCaptcha();
   }
 
   // 初始化验证框
   initCaptcha() {
-    Api.getGTVertify().then((data: any) => {
+    Api.getGTVerify().then((data: any) => {
       (window as any).initGeetest(
         {
           gt: data.gt,
@@ -62,21 +68,27 @@ export default class GTVertify extends React.PureComponent<IProps, IState> {
   }
 
   handlerEmbed(captchaObj: any) {
-    const { GTVertifyName } = this.props;
-    captchaObj.appendTo(`#${GTVertifyName}`);
+    const { GTVerifyName, onSuccess } = this.props;
+    captchaObj.appendTo(`#${GTVerifyName}`);
     captchaObj.onReady(() => {
       this.removeOverCaptcha();
       this.captchaObj = captchaObj;
     });
     captchaObj.onSuccess(() => {
       const res = captchaObj.getValidate();
+      this.verifySuccessRes = res;
+      onSuccess && onSuccess(res);
+    });
+    captchaObj.onError((err: any) => {
+      console.log(err);
+      this.verifySuccessRes = null;
     });
   }
 
   // 移除多余的验证框
   removeOverCaptcha() {
-    const { GTVertifyName } = this.props;
-    const parent = document.querySelector(`#${GTVertifyName}`);
+    const { GTVerifyName } = this.props;
+    const parent = document.querySelector(`#${GTVerifyName}`);
     const childNode = parent && parent.childNodes;
     if (childNode && childNode.length > 1) {
       parent && parent.removeChild(childNode[1]);
@@ -97,7 +109,7 @@ export default class GTVertify extends React.PureComponent<IProps, IState> {
     const { isInited } = this.state;
     return (
       <div className={styles.vertifyContainer}>
-        <div id={this.props.GTVertifyName} className="tc">
+        <div id={this.props.GTVerifyName} className="tc">
           <div className="tc" hidden={isInited}>
             行为验证™ 安全组件加载中
           </div>

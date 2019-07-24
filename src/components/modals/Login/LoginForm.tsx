@@ -1,41 +1,45 @@
 import React from 'react';
 import CustomInput from '../../atoms/Input';
-import GTVertify, { GTVertifyName } from '../../atoms/GTVertify';
+import GTVerify, { GTVerifyName } from '../../atoms/GTVerify';
 import Button from '../../atoms/Button';
 import { CustomCheckbox } from '../../atoms/CheckBox';
-import classnames from 'classnames';
+
 import styles from './styles.less';
 import { ActionType } from '../../../models/constants';
 import { isPureNumber } from '../../../utils/';
+import Api from '../../../service/request/api';
+import { InputType } from './index';
+import Icon from './components/Icon';
+import SendSmsBtn from './components/SendSmsBtn';
 
 interface IProps {}
 interface IState {
   canLogin: boolean;
   loginWithSMS: boolean;
-  tel: string;
+  isSendSMS: boolean;
+  mob: string;
   psw: string;
   sms: string;
 }
 
-enum InputType {
-  TEL,
-  PSW,
-  SMS
-}
-
 export default class LoginTabPane extends React.PureComponent<IProps, IState> {
+  GTVerify: React.RefObject<any>;
   constructor(props: IProps) {
     super(props);
     this.state = {
-      loginWithSMS: false,
+      loginWithSMS: true,
       canLogin: false,
-      tel: '',
+      isSendSMS: false,
+      mob: '',
       psw: '',
       sms: ''
     };
+    this.GTVerify = React.createRef();
     this.handleToggleLoginWayClick = this.handleToggleLoginWayClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.doLogin = this.doLogin.bind(this);
+    this.sendSMS = this.sendSMS.bind(this);
+    this.resetIsSendSMS = this.resetIsSendSMS.bind(this);
   }
 
   handleToggleLoginWayClick() {
@@ -47,8 +51,8 @@ export default class LoginTabPane extends React.PureComponent<IProps, IState> {
   handleInputChange(type: InputType, e: React.ChangeEvent<HTMLInputElement>) {
     const { value } = e.target;
     switch (type) {
-      case InputType.TEL:
-        isPureNumber(value) && this.setState({ tel: value });
+      case InputType.MOB:
+        isPureNumber(value) && this.setState({ mob: value });
         break;
       case InputType.PSW:
         this.setState({ psw: value.trim() });
@@ -59,6 +63,22 @@ export default class LoginTabPane extends React.PureComponent<IProps, IState> {
     }
   }
 
+  // 发送短信验证码
+  sendSMS() {
+    Api.sendSmsForLogin({ mobile: '15602978360' }).then(() => {
+      this.setState({
+        isSendSMS: true
+      });
+    });
+  }
+
+  // 重置获取验证码的状态
+  resetIsSendSMS() {
+    this.setState({
+      isSendSMS: false
+    });
+  }
+
   doLogin() {
     (window as any).g_app._store.dispatch({
       type: ActionType.do_login_with_namespace
@@ -66,22 +86,24 @@ export default class LoginTabPane extends React.PureComponent<IProps, IState> {
   }
 
   render() {
-    const { loginWithSMS, psw, sms, tel } = this.state;
+    const { loginWithSMS, isSendSMS, psw, sms, mob } = this.state;
     return (
-      <div className={styles.loginFormContainer}>
+      <div className={styles.formContainer}>
         <CustomInput
           placeholder="手机号"
-          prefixIcon={this.buildPrefixIcon(styles.phone)}
-          activePrefixIcon={this.buildPrefixIcon(styles.phoneS)}
-          onChange={this.handleInputChange.bind(this, InputType.TEL)}
-          value={tel}
+          prefixIcon={<Icon type="phone" />}
+          activePrefixIcon={<Icon type="phoneS" />}
+          onChange={this.handleInputChange.bind(this, InputType.MOB)}
+          value={mob}
           maxLength={11}
         />
         <br />
-        {this.buildPSW(loginWithSMS, sms, psw)}
+        {this.buildPSW(loginWithSMS, isSendSMS, sms, psw)}
         <br />
-        <GTVertify GTVertifyName={GTVertifyName.LOGIN} />
+        <GTVerify GTVerifyName={GTVerifyName.LOGIN} ref={this.GTVerify} />
+
         {this.buildToggleLoginWay(loginWithSMS)}
+
         <div className={styles.aboutPSW}>
           <CustomCheckbox>记住密码</CustomCheckbox>
           <span>忘记密码</span>
@@ -90,28 +112,23 @@ export default class LoginTabPane extends React.PureComponent<IProps, IState> {
       </div>
     );
   }
-  buildPrefixIcon(className: string) {
-    return <span className={classnames(styles.icon, className)} />;
-  }
-  buildReSendSMS() {
-    return <span className={styles.reSendSMS}>（60秒后重新发送）</span>;
-  }
-  buildPSW(loginWithSMS: boolean, sms: string, psw: string) {
+
+  buildPSW(loginWithSMS: boolean, isSendSms: boolean, sms: string, psw: string) {
     return loginWithSMS ? (
       <CustomInput
         placeholder="短信验证码"
-        prefixIcon={this.buildPrefixIcon(styles.sms)}
-        activePrefixIcon={this.buildPrefixIcon(styles.smsS)}
-        suffixIcon={this.buildSendSMS(false)}
-        activeSuffixIcon={this.buildSendSMS(true)}
+        prefixIcon={<Icon type="sms" />}
+        activePrefixIcon={<Icon type="smsS" />}
+        suffixIcon={<SendSmsBtn isActive={false} isSendSms={isSendSms} />}
+        activeSuffixIcon={<SendSmsBtn isActive={true} isSendSms={isSendSms} />}
         onChange={this.handleInputChange.bind(this, InputType.SMS)}
         value={sms}
       />
     ) : (
       <CustomInput
         placeholder="密码"
-        prefixIcon={this.buildPrefixIcon(styles.password)}
-        activePrefixIcon={this.buildPrefixIcon(styles.passwordS)}
+        prefixIcon={<Icon type="password" />}
+        activePrefixIcon={<Icon type="passwordS" />}
         type="password"
         onChange={this.handleInputChange.bind(this, InputType.PSW)}
         value={psw}
@@ -121,18 +138,8 @@ export default class LoginTabPane extends React.PureComponent<IProps, IState> {
   buildToggleLoginWay(loginWithSMS: boolean) {
     return (
       <span className={styles.toggleLoginWay} onClick={this.handleToggleLoginWayClick}>
-        {loginWithSMS ? '手机验证码登录 ->' : '密码登录 ->'}
+        {loginWithSMS ? '密码登录 ->' : '手机验证码登录 ->'}
       </span>
-    );
-  }
-  buildSendSMS(isActive: boolean) {
-    return (
-      <Button
-        type="Default"
-        className={classnames(styles.sendSMS, { [styles.sendSMSS]: isActive })}
-      >
-        获取验证码
-      </Button>
     );
   }
 }

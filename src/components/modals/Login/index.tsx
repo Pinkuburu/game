@@ -6,23 +6,17 @@ import RegisterForm from './RegisterForm';
 import { Tabs } from 'antd';
 const { TabPane } = Tabs;
 interface IProps {}
-interface IState {
-  canLogin: boolean;
-  loginWithSMS: boolean;
-}
-export default class LoginModal extends React.PureComponent<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
-    this.state = {
-      loginWithSMS: false,
-      canLogin: false
-    };
-  }
 
+export enum InputType {
+  MOB,
+  PSW,
+  SMS
+}
+
+export default class LoginModal extends React.PureComponent<IProps> {
   render() {
-    const { loginWithSMS } = this.state;
     return (
-      <CustomTabBar defaultActiveKey="login" className={styles.loginContainer}>
+      <CustomTabBar defaultActiveKey="register" className={styles.loginContainer}>
         <TabPane tab="登录" key="login">
           <LoginForm />
         </TabPane>

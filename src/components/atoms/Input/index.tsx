@@ -10,22 +10,23 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
   activeSuffixIcon?: React.ReactNode;
 }
 interface IState {
-  isMouseEnter: boolean;
-  isFocus: boolean;
   isShowPSW: boolean;
-  isDone: boolean;
+  isActive: boolean;
 }
 export default class CustomInput extends React.PureComponent<IProps, IState> {
   input: React.RefObject<any>;
-
+  isMouseEnter: boolean;
+  isInputFocus: boolean;
   constructor(props: IProps) {
     super(props);
+    this.isMouseEnter = false;
+    this.isInputFocus = false;
+
     this.state = {
-      isFocus: false,
-      isMouseEnter: false,
       isShowPSW: false,
-      isDone: false
+      isActive: this.isMouseEnter || this.isInputFocus
     };
+
     this.input = React.createRef();
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleInputFocus = this.handleInputFocus.bind(this);
@@ -33,14 +34,16 @@ export default class CustomInput extends React.PureComponent<IProps, IState> {
     this.makeInputFocus = this.makeInputFocus.bind(this);
   }
 
-  handleMouseEnter(isMouseEnter: boolean, e: React.MouseEvent) {
+  handleMouseEnter(isMouseEnter: boolean) {
+    this.isMouseEnter = isMouseEnter;
     this.setState({
-      isMouseEnter
+      isActive: this.isMouseEnter || this.isInputFocus
     });
   }
-  handleInputFocus(isFocus: boolean) {
+  handleInputFocus(isInputFocus: boolean) {
+    this.isInputFocus = isInputFocus;
     this.setState({
-      isFocus
+      isActive: this.isMouseEnter || this.isInputFocus
     });
   }
   handleEyeClick() {
@@ -61,10 +64,11 @@ export default class CustomInput extends React.PureComponent<IProps, IState> {
       suffixIcon,
       activeSuffixIcon,
       type,
+      value,
       ...rest
     } = this.props;
-    const { isFocus, isMouseEnter, isShowPSW } = this.state;
-    const isActive = isMouseEnter || isFocus;
+    const { isActive, isShowPSW } = this.state;
+    // 切换是否显示密码
     const isPSW = type === 'password';
     const newType = isPSW ? (isShowPSW ? 'text' : 'password') : type;
     return (
@@ -77,12 +81,19 @@ export default class CustomInput extends React.PureComponent<IProps, IState> {
         onMouseEnter={this.handleMouseEnter.bind(this, true)}
         onMouseLeave={this.handleMouseEnter.bind(this, false)}
       >
+        {prefixIcon && (
+          <span className={styles.prefix} onClick={this.makeInputFocus}>
+            {/* 已输入或者激活状态下显示激活已激活的图标 */}
+            {value || isActive ? activePrefixIcon || prefixIcon : prefixIcon}
+          </span>
+        )}
         <input
           ref={this.input}
           className={styles.input}
           onFocus={this.handleInputFocus.bind(this, true)}
           onBlur={this.handleInputFocus.bind(this, false)}
           type={newType}
+          value={value}
           {...rest}
         />
         {isPSW && (
@@ -90,11 +101,6 @@ export default class CustomInput extends React.PureComponent<IProps, IState> {
             className={classnames(styles.icon, isShowPSW ? styles.unLook : styles.look)}
             onClick={this.handleEyeClick}
           />
-        )}
-        {prefixIcon && (
-          <span className={styles.prefix} onClick={this.makeInputFocus}>
-            {isActive ? activePrefixIcon || prefixIcon : prefixIcon}
-          </span>
         )}
         {suffixIcon && (
           <span className={styles.suffix}>
