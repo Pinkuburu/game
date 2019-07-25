@@ -58,7 +58,6 @@ export default class GTVerify extends React.PureComponent<IProps, IState> {
           product: 'float', // 产品形式，包括：float，embed，popup。注意只对PC版验证码有效
           offline: !data.success, // 表示用户后台检测极验服务器是否宕机，一般不需要关注
           width: '100%'
-
           // 更多配置参数请参见：http://www.geetest.com/install/sections/idx-client-sdk.html#config
         },
         (captchaObj: any) => this.handlerEmbed(captchaObj)
@@ -68,20 +67,23 @@ export default class GTVerify extends React.PureComponent<IProps, IState> {
 
   handlerEmbed(captchaObj: any) {
     const { GTVerifyName, onSuccess } = this.props;
-    captchaObj.appendTo(`#${GTVerifyName}`);
-    captchaObj.onReady(() => {
-      this.removeOverCaptcha();
-      this.captchaObj = captchaObj;
-    });
-    captchaObj.onSuccess(() => {
-      const res = captchaObj.getValidate();
-      this.verifySuccessRes = res;
-      onSuccess && onSuccess(this.getGTVerifyInfo());
-    });
-    captchaObj.onError((err: any) => {
-      console.log(err);
-      this.verifySuccessRes = null;
-    });
+    const node = document.querySelector(`#${GTVerifyName}`);
+    if (node) {
+      captchaObj.appendTo(`#${GTVerifyName}`);
+      captchaObj.onReady(() => {
+        this.removeOverCaptcha();
+        this.captchaObj = captchaObj;
+      });
+      captchaObj.onSuccess(() => {
+        const res = captchaObj.getValidate();
+        this.verifySuccessRes = res;
+        onSuccess && onSuccess(this.getGTVerifyInfo());
+      });
+      captchaObj.onError((err: any) => {
+        console.log(err);
+        this.verifySuccessRes = null;
+      });
+    }
   }
 
   // 重置验证框

@@ -5,7 +5,7 @@ import Button from '../../atoms/Button';
 import styles from './styles.less';
 
 import { ActionType } from '../../../models/constants';
-import { isMobile, isPassword, isSmsCode } from '../../../utils/';
+import { isMobile, isPassword, isSmsCode, globalDispatch, NAMESPACE } from '../../../utils/';
 import Api from '../../../service/request/api';
 import { InputType } from './index';
 
@@ -69,13 +69,16 @@ export default class RegisterForm extends React.PureComponent<IProps, IState> {
     if (this.canRegister()) {
       const { sms, mob, psw } = this.state;
       const verifyInfo = this.GTVerify.current && this.GTVerify.current.getGTVerifyInfo();
-      verifyInfo &&
-        Api.doRegister({
+      globalDispatch({
+        type: `${NAMESPACE.AUTH}/${ActionType.do_register}`,
+        payload: {
           mobile: mob,
           code: sms,
           password: psw,
+          GTVerify: this.GTVerify.current,
           ...verifyInfo
-        });
+        }
+      });
     }
   }
 
@@ -116,6 +119,10 @@ export default class RegisterForm extends React.PureComponent<IProps, IState> {
     }
     this.setState({ errMsg: '' });
     return true;
+  }
+
+  resetGTVerify() {
+    this.GTVerify.current && this.GTVerify.current.resetGTVerify();
   }
 
   render() {

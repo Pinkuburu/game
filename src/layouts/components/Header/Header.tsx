@@ -1,87 +1,84 @@
 import React from 'react';
+import { GameTypeEnum } from '../../../common/enums';
+import { GameInfo } from '../../../common/constants';
 import { Layout, Menu, Dropdown } from 'antd';
-import { ActionType } from '../../../models/constants';
+import { ActionType, NAMESPACE } from '../../../models/constants';
 import { connect } from 'dva';
 import Image from '../../../components/atoms/Image';
 import ImageStore from '../../../components/atoms/Image/imgStore';
 import LoginModal from '../../../components/modals/Login';
 import styles from './styles.less';
+import classnames from 'classnames';
 
-const gameList = [
-  {
-    name: 'ALL'
-  },
-  {
-    name: 'DOTA2'
-  },
-  {
-    name: 'LOL'
-  },
-  {
-    name: 'CSGO'
-  }
-];
-
-const userList = [
-  {
-    name: '个人中心'
-  },
-  {
-    name: '退出登录'
-  }
-];
 interface IProps {
   dispatch: any;
   isLogined: boolean;
-  gameType: any;
+  gameType: GameTypeEnum;
 }
 
 class Header extends React.PureComponent<IProps> {
   constructor(props: IProps) {
     super(props);
     this.showLoginModal = this.showLoginModal.bind(this);
+    this.handleGameListItemClick = this.handleGameListItemClick.bind(this);
   }
 
   showLoginModal() {
     this.props.dispatch({
-      type: ActionType.change_modal_r_with_namespace,
+      type: `${NAMESPACE.GLOBAL}/${ActionType.change_modal_r}`,
       payload: <LoginModal />
     });
   }
   componentDidMount() {
-    this.showLoginModal();
+    // this.showLoginModal();
+  }
+
+  handleGameListItemClick({ key }: { key: string }) {
+    this.props.dispatch({
+      type: `${NAMESPACE.GLOBAL}/${ActionType.change_game_type_r}`,
+      payload: key
+    });
   }
 
   render() {
-    const { gameType } = this.props;
+    const { isLogined, gameType } = this.props;
     return (
-      <div className={styles.container}>
+      <div className={styles.headerContainer}>
         <Layout.Header className="layout-header">
           <Dropdown
             className="menu-item"
-            overlay={this.buildGameList()}
+            overlayClassName={styles.overlay}
+            overlay={this.buildGameList(gameType)}
             placement="bottomCenter"
             trigger={['click']}
           >
-            <div>
-              <img className="menu_icon mr-2" src={ImageStore.iconGame} alt=" " />
-              {gameType}
-            </div>
+            {this.buildGameTypeIcon(gameType, styles.currentGameType)}
           </Dropdown>
-          {this.buildLoginOrUserBtn()}
+          {isLogined ? this.buildAfterLogined() : this.buildBeforeLogined()}
         </Layout.Header>
       </div>
     );
   }
 
-  buildLoginOrUserBtn() {
-    const { isLogined } = this.props;
-    return isLogined ? null : (
+  buildBeforeLogined() {
+    return (
+      <div className={styles.aboutLogin}>
+        <span onClick={this.showLoginModal}>登录</span>
+        <span onClick={this.showLoginModal}>注册</span>
+      </div>
+    );
+  }
+  buildAfterLogined() {
+    return <Image src={ImageStore.userImg} text="用户" onClick={this.showLoginModal} />;
+  }
+  buildGameTypeIcon(gameType: GameTypeEnum, className?: string) {
+    return (
       <Image
-        src={ImageStore.userImg}
-        text="用户"
-        className="menu_icon mr-2"
-        onClick={this.showLoginModal}
+        src={GameInfo[gameType].icon}
+        text={GameInfo[gameType].text}
+        className={className}
+        width={22}
+        height={22}
       />
     );
   }
@@ -97,17 +94,15 @@ class Header extends React.PureComponent<IProps> {
       </Menu>
     );
   }
-  buildGameList() {
-    const { dispatch } = this.props;
+  buildGameList(currentGameType: GameTypeEnum) {
     return (
-      <Menu
-        onClick={(item) => {
-          dispatch({ type: 'global/selectType', payload: item.key });
-        }}
-      >
-        {gameList.map((game) => (
-          <Menu.Item key={game.name}>
-            <span>{game.name}</span>
+      <Menu>
+        {gameList.map((gameType) => (
+          <Menu.Item key={gameType} onClick={this.handleGameListItemClick}>
+            {this.buildGameTypeIcon(
+              gameType,
+              classnames(styles.gameList, { [styles.active]: gameType === currentGameType })
+            )}
           </Menu.Item>
         ))}
       </Menu>
@@ -116,8 +111,25 @@ class Header extends React.PureComponent<IProps> {
 }
 interface ConnectState {
   auth: any;
+  global: any;
 }
 
 export default connect((state: ConnectState) => ({
-  isLogined: state.auth.isLogined
+  isLogined: state.auth.isLogined,
+  gameType: state.global.gameType
 }))(Header);
+
+const gameList: GameTypeEnum[] = [
+  GameTypeEnum.ALL,
+  GameTypeEnum.DOTA2,
+  GameTypeEnum.LOL,
+  GameTypeEnum.CSGO
+];
+const userList = [
+  {
+    name: '个人中心'
+  },
+  {
+    name: '退出登录'
+  }
+];

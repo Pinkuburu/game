@@ -22,7 +22,7 @@ export enum InputType {
 export default class LoginModal extends React.PureComponent<IProps, IState> {
   constructor(props: IProps) {
     super(props);
-    this.state = { isForget: true };
+    this.state = { isForget: false };
     this.toggle = this.toggle.bind(this);
   }
 

@@ -10,7 +10,7 @@ import iconPredictD from '../../../assets/icon_yuce_d.png';
 import iconTeamD from '../../../assets/icon_zhandui_d.png';
 import iconPlayerD from '../../../assets/icon_xuanshou_d.png';
 import cirDota from '../../../assets/logo_DOTA2.svg';
-import iconGame from '../../../assets/icon_game.png';
+import iconAllGame from '../../../assets/logo_all.svg';
 import cirLol from '../../../assets/logo_LOL.svg';
 import cirCsgo from '../../../assets/logo_CSGO.svg';
 import userImg from '../../../assets/icon_personal.png';
@@ -34,7 +34,7 @@ const ImageStore = {
   logo: iconLogo,
   menuList: [iconSchedule, iconLeague, iconTeam, iconPlayer, iconPredict],
   fade_menuList: [iconScheduleD, iconLeagueD, iconTeamD, iconPlayerD, iconPredictD],
-  iconGame,
+  iconAllGame,
   cirGameIcon: [cirDota, cirLol, cirCsgo],
   userImg,
   leagueSelect: [leagueS, leagueD],

@@ -11,8 +11,8 @@ const Modal: React.FC<IProps> = ({ modal }: IProps) => {
   return (
     <div className={classnames(styles.modal, modal || styles.hide)}>
       <div className={styles.modalBg}>
-        <CloseBtn />
         {modal}
+        <CloseBtn />
       </div>
     </div>
   );

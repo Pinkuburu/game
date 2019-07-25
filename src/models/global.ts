@@ -1,29 +1,22 @@
 /* eslint-disabled no-param-reassign */
-import { NAMESPACE } from '../common/constants';
+import { GameTypeEnum } from '../common/enums';
 import { DvaModel } from '../common/interfaces/model';
 import { ActionType } from './constants';
 interface IState {
-  gameType: string;
+  gameType: GameTypeEnum;
   modal: React.ReactNode;
 }
 const model: DvaModel<IState> = {
-  namespace: NAMESPACE.GLOBAL,
   state: {
-    gameType: 'ALL',
+    gameType: GameTypeEnum.ALL,
     modal: null
   },
   reducers: {
     [ActionType.change_game_type_r](state, { payload: gameType }) {
-      return {
-        ...state,
-        gameType
-      };
+      return { ...state, gameType: Number(gameType) };
     },
     [ActionType.change_modal_r](state, { payload: modal }) {
-      return {
-        ...state,
-        modal
-      };
+      return { ...state, modal };
     }
   }
 };

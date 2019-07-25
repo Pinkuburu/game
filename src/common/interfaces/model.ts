@@ -53,7 +53,7 @@ export interface DvaModelSubscriptions {
 
 // 总的model
 export interface DvaModel<T> {
-  namespace: string;
+  namespace?: string;
   state?: T;
   reducers?: DvaModelReducers<T>;
   effects?: DvaModelEffects;

@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './styles.less';
-import { ActionType } from '../../../models/constants';
+import { ActionType, NAMESPACE } from '../../../models/constants';
 import { globalDispatch } from '../../../utils';
 
 function close() {
   globalDispatch({
-    type: ActionType.change_modal_r_with_namespace,
+    type: `${NAMESPACE.GLOBAL}/${ActionType.change_modal_r}`,
     payload: null
   });
 }

@@ -5,7 +5,7 @@ import Button from '../../atoms/Button';
 import styles from './styles.less';
 
 import { ActionType } from '../../../models/constants';
-import { isMobile, isPassword, isSmsCode } from '../../../utils/';
+import { isMobile, isPassword, isSmsCode, globalDispatch, NAMESPACE } from '../../../utils/';
 import Api from '../../../service/request/api';
 import { InputType } from './index';
 import classnames from 'classnames';
@@ -77,7 +77,6 @@ export default class ForgetForm extends React.PureComponent<IProps, IState> {
     }
     return false;
   }
-
   // 确认身份
   async doIdentify() {
     if (this.canIdentify()) {
@@ -96,6 +95,7 @@ export default class ForgetForm extends React.PureComponent<IProps, IState> {
       }
     }
   }
+
   // 重设密码
   async doResetPassword() {
     if (this.canResetPassword()) {
