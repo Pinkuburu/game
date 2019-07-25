@@ -36,7 +36,7 @@ class Header extends React.PureComponent<IProps> {
   handleGameListItemClick({ key }: { key: string }) {
     this.props.dispatch({
       type: `${NAMESPACE.GLOBAL}/${ActionType.change_game_type_r}`,
-      payload: key
+      payload: key as GameTypeEnum
     });
   }
 

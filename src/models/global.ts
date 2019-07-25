@@ -13,7 +13,7 @@ const model: DvaModel<IState> = {
   },
   reducers: {
     [ActionType.change_game_type_r](state, { payload: gameType }) {
-      return { ...state, gameType: Number(gameType) };
+      return { ...state, gameType };
     },
     [ActionType.change_modal_r](state, { payload: modal }) {
       return { ...state, modal };
