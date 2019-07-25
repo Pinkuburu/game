@@ -1,9 +1,10 @@
 import React from 'react';
 import styles from './styles.less';
 import { ActionType } from '../../../models/constants';
+import { globalDispatch } from '../../../utils';
 
 function close() {
-  (window as any).g_app._store.dispatch({
+  globalDispatch({
     type: ActionType.change_modal_r_with_namespace,
     payload: null
   });

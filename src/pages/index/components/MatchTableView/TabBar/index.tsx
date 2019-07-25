@@ -3,12 +3,14 @@ import CustomTab from '../../../../../components/molecules/TabBar';
 import { MatchType, ActionType } from '../../../constants';
 import { Tabs } from 'antd';
 const { TabPane } = Tabs;
+import { globalDispatch } from '../../../../../utils';
+
 interface IProps {
   currentMatchType: MatchType;
 }
 
 function handleMatchTypeChange(matchType: any) {
-  (window as any).g_app._store.dispatch({
+  globalDispatch({
     type: ActionType.change_current_match_type_with_namespace,
     payload: matchType
   });

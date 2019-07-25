@@ -3,7 +3,7 @@ import CustomInput from '../../atoms/Input';
 import GTVerify, { GTVerifyName } from '../../atoms/GTVerify';
 import Button from '../../atoms/Button';
 import { CustomCheckbox } from '../../atoms/CheckBox';
-import { isMobile, isPassword, isSmsCode } from '../../../utils/';
+import { isMobile, isPassword, isSmsCode, globalDispatch } from '../../../utils/';
 import styles from './styles.less';
 import { ActionType } from '../../../models/constants';
 import Api from '../../../service/request/api';
@@ -100,7 +100,7 @@ export default class LoginForm extends React.PureComponent<IProps, IState> {
         partOfLoginParams.password = psw;
       }
       verifyInfo &&
-        (window as any).g_app._store.dispatch({
+        globalDispatch({
           type: ActionType.do_login_with_namespace,
           payload: {
             mobile: mob,

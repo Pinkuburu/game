@@ -7,6 +7,7 @@ import ImgStore from '../../../../../components/atoms/Image/imgStore';
 import * as DataType from '../../../../../common/interfaces/dataType';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import styles from './styles.less';
+import { globalDispatch } from '../../../../../utils';
 
 interface IProps {
   leagueList: DataType.LeagueInfo[];
@@ -49,7 +50,7 @@ export default class SelectLeague extends React.PureComponent<IProps, IState> {
 
   handleCheckboxChange(e: CheckboxChangeEvent) {
     const { value } = e.target;
-    (window as any).g_app._store.dispatch({
+    globalDispatch({
       type: ActionType.change_current_slected_leagueId_with_namespace,
       payload: {
         leagueId: value
@@ -59,7 +60,7 @@ export default class SelectLeague extends React.PureComponent<IProps, IState> {
 
   // 清空
   handleClearAllChange() {
-    (window as any).g_app._store.dispatch({
+    globalDispatch({
       type: ActionType.change_current_slected_leagueId_with_namespace,
       payload: {
         isCheckAll: false
@@ -70,7 +71,7 @@ export default class SelectLeague extends React.PureComponent<IProps, IState> {
   // 全选
   handleCheckAllChange(e: CheckboxChangeEvent) {
     const { checked, value } = e.target;
-    (window as any).g_app._store.dispatch({
+    globalDispatch({
       type: ActionType.change_current_slected_leagueId_with_namespace,
       payload: {
         isCheckAll: checked,

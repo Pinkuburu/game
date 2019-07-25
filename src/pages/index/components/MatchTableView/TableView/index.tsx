@@ -6,6 +6,7 @@ import moment from 'moment';
 import Table from '../../../../../components/atoms/Table';
 import DateTabBar from '../../../../../components/molecules/TabBar/DateTabBar';
 import Image from '../../../../../components/atoms/Image';
+import { globalDispatch } from '../../../../../utils';
 import * as DataType from '../../../../../common/interfaces/dataType';
 
 import styles from './styles.less';
@@ -196,7 +197,7 @@ export default class TableView extends React.PureComponent<IProps, IState> {
   }
 
   handleTabChange(activeKey: string) {
-    (window as any).g_app._store.dispatch({
+    globalDispatch({
       type: ActionType.change_current_date_with_namespace,
       payload: activeKey
     });

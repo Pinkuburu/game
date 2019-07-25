@@ -5,12 +5,13 @@ import { GameType, ActionType } from '../../../constants';
 import Image from '../../../../../components/atoms/Image';
 import styles from './styles.less';
 import classnames from 'classnames';
+import { globalDispatch } from '../../../../../utils';
 interface IProps {
   currentGameType: GameType[];
 }
 export default class Panel extends React.PureComponent<IProps> {
   handleGameTypeChange(gameType: any) {
-    (window as any).g_app._store.dispatch({
+    globalDispatch({
       type: ActionType.change_current_game_type_with_namespace,
       payload: gameType
     });
