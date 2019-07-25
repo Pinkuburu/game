@@ -27,7 +27,7 @@ export default class ForgetForm extends React.PureComponent<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
-      mob: '15602978360',
+      mob: '',
       psw: '',
       sms: '',
       errMsg: '',
@@ -97,19 +97,17 @@ export default class ForgetForm extends React.PureComponent<IProps, IState> {
   }
 
   // 重设密码
-  async doResetPassword() {
+  doResetPassword() {
     if (this.canResetPassword()) {
       const { sms, mob, psw } = this.state;
-      try {
-        await Api.doRestPassword({
+      globalDispatch({
+        type: `${NAMESPACE.AUTH}/${ActionType.do_reset_password}`,
+        payload: {
           mobile: mob,
           code: sms,
           password: psw
-        });
-      } catch (error) {
-        const { msg = '未知错误' } = error;
-        this.setState({ errMsg: msg });
-      }
+        }
+      });
     }
   }
 

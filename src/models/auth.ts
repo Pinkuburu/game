@@ -44,7 +44,8 @@ const model: DvaModel<IState> = {
     *[ActionType.do_reset_password]({ payload: { data } }, { put, call }) {
       console.log(data);
       const res = yield call(Api.doRestPassword, data);
-      yield put({ type: ActionType.do_login_success_r });
+      globalCloseModal();
+      // yield put({ type: ActionType.do_login_success_r });
     },
     // 忘记密码前要进行检查
     *[ActionType.check_for_forget]({ payload: { data } }, { put, call }) {

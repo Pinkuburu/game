@@ -10,7 +10,7 @@ interface IProps {
   onClick?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined;
 }
 
-const Button: React.FC<IProps> = ({
+const CustomButton: React.FC<IProps> = ({
   disabled,
   children,
   className,
@@ -30,4 +30,4 @@ const Button: React.FC<IProps> = ({
   </button>
 );
 
-export default Button;
+export default CustomButton;

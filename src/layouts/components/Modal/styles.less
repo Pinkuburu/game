@@ -1,7 +1,5 @@
 .modal {
   position: absolute;
-  // background: url('../../../assets/bg_transparent.png') repeat fixed;
-  background-color: rgba(0, 0, 0, 0.3);
   top: 0;
   left: 0;
   right: 0;
@@ -10,18 +8,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
   &::before {
     content: '';
     position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-image: linear-gradient(90deg, rgb(83, 81, 81, 0.5), 31px, transparent 0);
+    background-size: 41px 100%, 61px 100%, 83px 100%;
     filter: blur(5px);
     z-index: -1;
-    background-size: cover;
-    width: 100%;
-    height: 100%;
-    background: inherit;
-    top: 0px;
-    left: 0px;
-    overflow: hidden;
   }
 
   &.hide {

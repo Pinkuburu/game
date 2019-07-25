@@ -30,7 +30,7 @@ class Header extends React.PureComponent<IProps> {
     });
   }
   componentDidMount() {
-    // this.showLoginModal();
+    this.showLoginModal();
   }
 
   handleGameListItemClick({ key }: { key: string }) {

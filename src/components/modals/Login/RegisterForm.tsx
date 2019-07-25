@@ -121,10 +121,6 @@ export default class RegisterForm extends React.PureComponent<IProps, IState> {
     return true;
   }
 
-  resetGTVerify() {
-    this.GTVerify.current && this.GTVerify.current.resetGTVerify();
-  }
-
   render() {
     const { mob, psw, sms, errMsg } = this.state;
     return (
