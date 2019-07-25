@@ -3,52 +3,55 @@ import CustomInput from '../../atoms/Input';
 import GTVerify, { GTVerifyName } from '../../atoms/GTVerify';
 import Button from '../../atoms/Button';
 import { CustomCheckbox } from '../../atoms/CheckBox';
-
+import { isMobile, isPassword, isSmsCode } from '../../../utils/';
 import styles from './styles.less';
 import { ActionType } from '../../../models/constants';
-import { isPureNumber } from '../../../utils/';
 import Api from '../../../service/request/api';
 import { InputType } from './index';
-import Icon from './components/Icon';
-import SendSmsBtn from './components/SendSmsBtn';
+import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 
-interface IProps {}
+interface IProps {
+  toggle: () => void;
+}
 interface IState {
-  canLogin: boolean;
   loginWithSMS: boolean;
-  isSendSMS: boolean;
+  isRememberMe: boolean;
   mob: string;
   psw: string;
   sms: string;
+  errMsg: string;
 }
 
-export default class LoginTabPane extends React.PureComponent<IProps, IState> {
-  GTVerify: React.RefObject<any>;
+export default class LoginForm extends React.PureComponent<IProps, IState> {
+  GTVerify: React.RefObject<GTVerify>;
   constructor(props: IProps) {
     super(props);
     this.state = {
       loginWithSMS: true,
-      canLogin: false,
-      isSendSMS: false,
+      isRememberMe: false,
       mob: '',
       psw: '',
-      sms: ''
+      sms: '',
+      errMsg: ''
     };
     this.GTVerify = React.createRef();
     this.handleToggleLoginWayClick = this.handleToggleLoginWayClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleRememberMeChange = this.handleRememberMeChange.bind(this);
     this.doLogin = this.doLogin.bind(this);
     this.sendSMS = this.sendSMS.bind(this);
-    this.resetIsSendSMS = this.resetIsSendSMS.bind(this);
   }
 
+  // 切换登录方式
   handleToggleLoginWayClick() {
+    // 重置图形验证
+    this.GTVerify.current && this.GTVerify.current.resetGTVerify();
     this.setState({
       loginWithSMS: !this.state.loginWithSMS
     });
   }
 
-  handleInputChange(type: InputType, e: React.ChangeEvent<HTMLInputElement>) {
+  handleInputChange(e: React.ChangeEvent<HTMLInputElement>, type: InputType) {
     const { value } = e.target;
     switch (type) {
       case InputType.MOB:
@@ -62,84 +65,159 @@ export default class LoginTabPane extends React.PureComponent<IProps, IState> {
         break;
     }
   }
+  handleRememberMeChange(e: CheckboxChangeEvent) {
+    const { checked } = e.target;
+    this.setState({ isRememberMe: checked });
+  }
 
   // 发送短信验证码
-  sendSMS() {
-    Api.sendSmsForLogin({ mobile: '15602978360' }).then(() => {
-      this.setState({
-        isSendSMS: true
-      });
-    });
+  async sendSMS() {
+    if (this.canSendSms()) {
+      const { mob } = this.state;
+      try {
+        await Api.sendSmsForLogin({ mobile: mob });
+        return true;
+      } catch (err) {
+        const { msg = '未知错误' } = err;
+        this.setState({ errMsg: msg });
+        return false;
+      }
+    }
+    return false;
   }
 
-  // 重置获取验证码的状态
-  resetIsSendSMS() {
-    this.setState({
-      isSendSMS: false
-    });
-  }
-
+  // 登录
   doLogin() {
-    (window as any).g_app._store.dispatch({
-      type: ActionType.do_login_with_namespace
-    });
+    if (this.canLogin()) {
+      const { sms, mob, psw, loginWithSMS } = this.state;
+      const verifyInfo = this.GTVerify.current && this.GTVerify.current.getGTVerifyInfo();
+      const partOfLoginParams: any = {};
+      if (loginWithSMS) {
+        partOfLoginParams.login_type = 1;
+        partOfLoginParams.code = sms;
+      } else {
+        partOfLoginParams.login_type = 2;
+        partOfLoginParams.password = psw;
+      }
+      verifyInfo &&
+        (window as any).g_app._store.dispatch({
+          type: ActionType.do_login_with_namespace,
+          payload: {
+            mobile: mob,
+            GTVerify: this.GTVerify.current,
+            ...partOfLoginParams,
+            ...verifyInfo
+          }
+        });
+    }
+  }
+
+  // 是否可以发送短信
+  canSendSms(): boolean {
+    const { mob } = this.state;
+    if (!isMobile(mob)) {
+      this.setState({ errMsg: '请输入正确的手机号' });
+      return false;
+    }
+    const verifyRes = this.GTVerify.current && this.GTVerify.current.verifySuccessRes;
+    if (!verifyRes) {
+      this.setState({ errMsg: '请先进行图形验证' });
+      return false;
+    }
+    this.setState({ errMsg: '' });
+    return true;
+  }
+
+  // 是否可以进行登录
+  canLogin(): boolean {
+    const { mob, sms, psw, loginWithSMS } = this.state;
+    if (!isMobile(mob)) {
+      this.setState({ errMsg: '请先输入正确的手机号' });
+      return false;
+    }
+    if (loginWithSMS) {
+      if (!isSmsCode(sms)) {
+        this.setState({ errMsg: '请先输入正确的短信验证码' });
+        return false;
+      }
+    } else {
+      if (!isPassword(psw)) {
+        this.setState({ errMsg: '请先输入正确的密码' });
+        return false;
+      }
+    }
+    if (!(this.GTVerify.current && this.GTVerify.current.verifySuccessRes)) {
+      this.setState({ errMsg: '请先进行图形验证' });
+      return false;
+    }
+    this.setState({ errMsg: '' });
+    return true;
   }
 
   render() {
-    const { loginWithSMS, isSendSMS, psw, sms, mob } = this.state;
+    const { loginWithSMS, psw, sms, mob, errMsg, isRememberMe } = this.state;
+    const { toggle } = this.props;
     return (
       <div className={styles.formContainer}>
         <CustomInput
           placeholder="手机号"
-          prefixIcon={<Icon type="phone" />}
-          activePrefixIcon={<Icon type="phoneS" />}
-          onChange={this.handleInputChange.bind(this, InputType.MOB)}
+          limit="PureNumber"
+          inputIcon="Mobile"
+          tag={InputType.MOB}
+          onChange={this.handleInputChange}
           value={mob}
           maxLength={11}
         />
         <br />
-        {this.buildPSW(loginWithSMS, isSendSMS, sms, psw)}
+        {/* 用三元运算会导致后面切换的sufix图标不变 */}
+        {loginWithSMS && this.buildSmsInput(sms)}
+        {!loginWithSMS && this.buildPswInput(psw)}
         <br />
         <GTVerify GTVerifyName={GTVerifyName.LOGIN} ref={this.GTVerify} />
-
-        {this.buildToggleLoginWay(loginWithSMS)}
-
+        <span className={styles.toggle} onClick={this.handleToggleLoginWayClick}>
+          {loginWithSMS ? '密码登录 ->' : '手机验证码登录 ->'}
+        </span>
         <div className={styles.aboutPSW}>
-          <CustomCheckbox>记住密码</CustomCheckbox>
-          <span>忘记密码</span>
+          <CustomCheckbox checked={isRememberMe} onChange={this.handleRememberMeChange}>
+            记住密码
+          </CustomCheckbox>
+          <span onClick={toggle}>忘记密码</span>
         </div>
+        {errMsg && <p className={styles.errMsg}>{errMsg}</p>}
+
         <Button onClick={this.doLogin}>登录</Button>
       </div>
     );
   }
 
-  buildPSW(loginWithSMS: boolean, isSendSms: boolean, sms: string, psw: string) {
-    return loginWithSMS ? (
+  buildSmsInput(sms: string) {
+    return (
       <CustomInput
         placeholder="短信验证码"
-        prefixIcon={<Icon type="sms" />}
-        activePrefixIcon={<Icon type="smsS" />}
-        suffixIcon={<SendSmsBtn isActive={false} isSendSms={isSendSms} />}
-        activeSuffixIcon={<SendSmsBtn isActive={true} isSendSms={isSendSms} />}
-        onChange={this.handleInputChange.bind(this, InputType.SMS)}
+        limit="PureNumber"
+        inputIcon="SmsCode"
+        withSendSmsBtn={true}
+        maxLength={6}
+        tag={InputType.SMS}
+        onChange={this.handleInputChange}
+        sendSms={this.sendSMS}
         value={sms}
-      />
-    ) : (
-      <CustomInput
-        placeholder="密码"
-        prefixIcon={<Icon type="password" />}
-        activePrefixIcon={<Icon type="passwordS" />}
-        type="password"
-        onChange={this.handleInputChange.bind(this, InputType.PSW)}
-        value={psw}
       />
     );
   }
-  buildToggleLoginWay(loginWithSMS: boolean) {
+
+  buildPswInput(psw: string) {
     return (
-      <span className={styles.toggleLoginWay} onClick={this.handleToggleLoginWayClick}>
-        {loginWithSMS ? '密码登录 ->' : '手机验证码登录 ->'}
-      </span>
+      <CustomInput
+        placeholder="密码"
+        type="password"
+        minLength={8}
+        maxLength={16}
+        inputIcon="Password"
+        tag={InputType.PSW}
+        onChange={this.handleInputChange}
+        value={psw}
+      />
     );
   }
 }

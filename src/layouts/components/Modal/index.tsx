@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './styles.less';
 import { connect } from 'dva';
 import classnames from 'classnames';
+import CloseBtn from './CloseBtn';
 interface IProps {
   modal?: React.ReactNode;
 }
@@ -9,7 +10,10 @@ interface IProps {
 const Modal: React.FC<IProps> = ({ modal }: IProps) => {
   return (
     <div className={classnames(styles.modal, modal || styles.hide)}>
-      <div className={styles.modalBg}>{modal}</div>
+      <div className={styles.modalBg}>
+        <CloseBtn />
+        {modal}
+      </div>
     </div>
   );
 };

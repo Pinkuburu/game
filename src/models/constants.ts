@@ -11,5 +11,7 @@ export const ActionType = {
 
   // auth相关
   do_login: 'do_login',
-  do_login_with_namespace: `${AUTH}/do_login`
+  do_login_success_r: 'do_login_success_r',
+  do_login_with_namespace: `${AUTH}/do_login`,
+  do_login_success_r_with_namespace: `${AUTH}/do_login_success_r`
 };

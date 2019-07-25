@@ -2,23 +2,25 @@ import React from 'react';
 import { hasSpace, isPureNumber } from '../../../utils';
 import styles from './styles.less';
 import classnames from 'classnames';
-import Icon from './Icon';
+import Icon from './components/Icon';
+import SendSmsBtn from './components/SendSmsBtn';
 
-type OnValueChange = (event: React.ChangeEvent<HTMLInputElement>) => void;
+type OnValueChange = (event: React.ChangeEvent<HTMLInputElement>, tag?: any) => void;
 
 interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  prefixIcon?: React.ReactNode;
-  suffixIcon?: React.ReactNode;
-  activePrefixIcon?: React.ReactNode;
-  activeSuffixIcon?: React.ReactNode;
   onChange?: OnValueChange;
+  tag?: any;
   noSpace?: boolean; // 是否允许空格
   limit?: 'PureNumber'; // 输入限制
   inputIcon?: 'Mobile' | 'Password' | 'SmsCode'; // 默认图标
+  // 发送验证码按钮相关
+  withSendSmsBtn?: boolean; // 是否显示发送验证码按钮
+  sendSms?: () => Promise<boolean>; // 发送按钮操作,通过返回布尔值决定是否开始倒数
 }
 interface IState {
-  isShowPSW: boolean;
-  isActive: boolean;
+  isShowPSW: boolean; // 是否明文显示
+  isActive: boolean; // 是否为激活状态
+  isSendedSms: boolean; // 是否已发送验证码
   prefixIcon?: React.ReactNode;
   suffixIcon?: React.ReactNode;
   activePrefixIcon?: React.ReactNode;
@@ -39,7 +41,8 @@ export default class CustomInput extends React.PureComponent<IProps, IState> {
 
     this.state = {
       isShowPSW: false,
-      isActive: this.isMouseEnter || this.isInputFocus
+      isActive: this.isMouseEnter || this.isInputFocus,
+      isSendedSms: false
     };
 
     this.input = React.createRef();
@@ -48,6 +51,8 @@ export default class CustomInput extends React.PureComponent<IProps, IState> {
     this.handleEyeClick = this.handleEyeClick.bind(this);
     this.makeInputFocus = this.makeInputFocus.bind(this);
     this.limitValue = this.limitValue.bind(this);
+    this.setIsSendedSms = this.setIsSendedSms.bind(this);
+    this.resetIsSendedSms = this.resetIsSendedSms.bind(this);
   }
   componentDidMount() {
     this.initIconIfNeed();
@@ -98,7 +103,7 @@ export default class CustomInput extends React.PureComponent<IProps, IState> {
 
   // 进行一些输入的限制
   limitValue(e: React.ChangeEvent<HTMLInputElement>) {
-    const { onChange, noSpace, limit } = this.props;
+    const { onChange, noSpace, limit, tag } = this.props;
     const { value } = e.target;
     // 空格限制
     if (noSpace && hasSpace(value)) {
@@ -111,28 +116,48 @@ export default class CustomInput extends React.PureComponent<IProps, IState> {
         isPass = isPureNumber(value);
         break;
     }
-    isPass && onChange && onChange(e);
+    isPass && onChange && onChange(e, tag);
+  }
+
+  // 发送验证码按钮相关
+  setIsSendedSms() {
+    const { sendSms } = this.props;
+    sendSms &&
+      sendSms().then((isSuccess) => {
+        this.setState({ isSendedSms: isSuccess });
+      });
+  }
+  resetIsSendedSms() {
+    this.setState({ isSendedSms: false });
   }
 
   render() {
     const {
-      className,
-      // prefixIcon,
-      // activePrefixIcon,
-      suffixIcon,
-      activeSuffixIcon,
-      type,
-      value,
-      onChange,
+      // 不想要传入input中的属性需要取出来
       limit,
-      noSpace, // 不想要传入input中的属性需要取出来
+      withSendSmsBtn,
+      noSpace,
+      className,
+      sendSms,
+      inputIcon,
+      // 这边是想在传入input前进行一些修改的属性
+      type,
+      onChange,
+      value,
       ...rest
     } = this.props;
-    const { isActive, isShowPSW, prefixIcon, activePrefixIcon } = this.state;
+    const {
+      isActive,
+      isShowPSW,
+      prefixIcon,
+      activePrefixIcon,
+      suffixIcon,
+      activeSuffixIcon,
+      isSendedSms
+    } = this.state;
     // 切换是否显示密码
     const isPSW = type === 'password';
     const newType = isPSW ? (isShowPSW ? 'text' : 'password') : type;
-    console.log(rest);
     return (
       <div
         className={classnames(
@@ -170,8 +195,20 @@ export default class CustomInput extends React.PureComponent<IProps, IState> {
             {isActive ? activeSuffixIcon || suffixIcon : suffixIcon}
           </span>
         )}
+        {withSendSmsBtn && (
+          <span className={styles.suffix}>{this.buildSendSmsBtn(isActive, isSendedSms)}</span>
+        )}
       </div>
     );
   }
-  buildIcon() {}
+  buildSendSmsBtn(isActive: boolean, isSendedSms: boolean) {
+    return (
+      <SendSmsBtn
+        isActive={isActive}
+        isSendedSms={isSendedSms}
+        onClick={this.setIsSendedSms}
+        onCountDownEnd={this.resetIsSendedSms}
+      />
+    );
+  }
 }

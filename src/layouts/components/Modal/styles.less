@@ -28,6 +28,7 @@
     display: none;
   }
   .modalBg {
+    position: relative;
     background: url('../../../assets/bg_modal.svg') center center no-repeat;
     background-size: 100% 100%;
     width: 600px;
@@ -35,5 +36,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .closeBtn {
+    position: absolute;
+    right: 25px;
+    top: 10px;
+    background: url('../../../assets/modal_close.svg') center center no-repeat;
+    background-size: 100% 100%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
   }
 }

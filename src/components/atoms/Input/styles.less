@@ -85,4 +85,19 @@
       background-image: url('../../../assets/icon_password_s.svg');
     }
   }
+  .sendSMS {
+    width: 126px;
+    height: 100%;
+    background-color: @item_second;
+    transition: all 0.3s;
+    #myFont.medium(16px, @nav_font);
+    &.sendSMSS {
+      background-color: @main_color;
+      color: white;
+    }
+  }
+  .reSendSMS {
+    white-space: nowrap;
+    #myFont.medium(16px, @nav_font);
+  }
 }

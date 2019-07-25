@@ -1,9 +1,19 @@
-// todo: num类型可能需要具体化
-export function percent(num: any, fix = 0) {
-  const n = parseFloat(num);
-  if (!n) return 0;
-  const tar = n * 100;
-  return tar.toFixed(fix);
+// // todo: num类型可能需要具体化
+// export function percent(num: any, fix = 0) {
+//   const n = parseFloat(num);
+//   if (!n) return 0;
+//   const tar = n * 100;
+//   return tar.toFixed(fix);
+// }
+
+// 访问全局state
+export function globalStore() {
+  return (window as any).g_app._store;
+}
+
+// 全局dispatch方法
+export function globalDispatch(action: { type: string; payload?: any }) {
+  (window as any).g_app._store.dispatch(action);
 }
 
 // 判断是否为开发环境

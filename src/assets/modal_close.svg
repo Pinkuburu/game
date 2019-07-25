@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  preserveAspectRatio="none" >
+    <!-- Generator: Sketch 52.3 (67297) - http://www.bohemiancoding.com/sketch -->
+    <title>合并形状</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M10,7.49306757 L14.6245682,3.38234026 L16.6176597,5.62456822 L12.257799,9.5 L16.6176597,13.3754318 L14.6245682,15.6176597 L10,11.5069324 L5.37543178,15.6176597 L3.38234026,13.3754318 L7.74220102,9.5 L3.38234026,5.62456822 L5.37543178,3.38234026 L10,7.49306757 Z" id="path-1"></path>
+        <filter x="-52.9%" y="-40.9%" width="205.8%" height="214.4%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="7.0.0登录/注册" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="7.0.0注册_默认" transform="translate(-1215.000000, -165.000000)" fill-rule="nonzero">
+            <g id="分组-10" transform="translate(661.000000, 158.000000)">
+                <g id="分组-9">
+                    <g id="分组-2" transform="translate(554.000000, 7.000000)">
+                        <g id="合并形状">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                            <use fill="#0348E8" xlink:href="#path-1"></use>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

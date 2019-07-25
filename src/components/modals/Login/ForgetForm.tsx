@@ -8,28 +8,35 @@ import { ActionType } from '../../../models/constants';
 import { isMobile, isPassword, isSmsCode } from '../../../utils/';
 import Api from '../../../service/request/api';
 import { InputType } from './index';
+import classnames from 'classnames';
 
-interface IProps {}
+interface IProps {
+  toggle: () => void;
+}
 interface IState {
+  isVerifySmsCode: boolean;
   mob: string;
   psw: string;
+  rePsw: string;
   sms: string;
   errMsg: String;
 }
 
-export default class RegisterForm extends React.PureComponent<IProps, IState> {
+export default class ForgetForm extends React.PureComponent<IProps, IState> {
   GTVerify: React.RefObject<GTVerify>;
   constructor(props: IProps) {
     super(props);
     this.state = {
-      mob: '',
+      mob: '15602978360',
       psw: '',
       sms: '',
-      errMsg: ''
+      errMsg: '',
+      rePsw: '',
+      isVerifySmsCode: false
     };
     this.GTVerify = React.createRef();
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.doRegister = this.doRegister.bind(this);
+    this.onClick = this.onClick.bind(this);
     this.sendSms = this.sendSms.bind(this);
   }
 
@@ -45,15 +52,22 @@ export default class RegisterForm extends React.PureComponent<IProps, IState> {
       case InputType.SMS:
         this.setState({ sms: value });
         break;
+      case InputType.REPSW:
+        this.setState({ rePsw: value });
+        break;
     }
   }
-
+  // 点击了下一步或者重设密码
+  onClick() {
+    const { isVerifySmsCode } = this.state;
+    isVerifySmsCode ? this.doResetPassword() : this.doIdentify();
+  }
   // 发送验证短信
   async sendSms() {
     if (this.canSendSms()) {
       const { mob } = this.state;
       try {
-        await Api.sendSmsForRegister({ mobile: mob });
+        await Api.sendSmsForForget({ mobile: mob });
         return true;
       } catch (err) {
         const { msg = '未知错误' } = err;
@@ -64,18 +78,38 @@ export default class RegisterForm extends React.PureComponent<IProps, IState> {
     return false;
   }
 
-  // 注册
-  doRegister() {
-    if (this.canRegister()) {
-      const { sms, mob, psw } = this.state;
+  // 确认身份
+  async doIdentify() {
+    if (this.canIdentify()) {
+      const { sms, mob } = this.state;
       const verifyInfo = this.GTVerify.current && this.GTVerify.current.getGTVerifyInfo();
-      verifyInfo &&
-        Api.doRegister({
+      try {
+        verifyInfo &&
+          (await Api.checkForForget({
+            mobile: mob,
+            code: sms,
+            ...verifyInfo
+          }));
+        this.setState({ isVerifySmsCode: true });
+      } catch (error) {
+        this.GTVerify.current && this.GTVerify.current.resetGTVerify();
+      }
+    }
+  }
+  // 重设密码
+  async doResetPassword() {
+    if (this.canResetPassword()) {
+      const { sms, mob, psw } = this.state;
+      try {
+        await Api.doRestPassword({
           mobile: mob,
           code: sms,
-          password: psw,
-          ...verifyInfo
+          password: psw
         });
+      } catch (error) {
+        const { msg = '未知错误' } = error;
+        this.setState({ errMsg: msg });
+      }
     }
   }
 
@@ -95,19 +129,15 @@ export default class RegisterForm extends React.PureComponent<IProps, IState> {
     return true;
   }
 
-  // 是否可以进行注册
-  canRegister(): boolean {
-    const { mob, sms, psw } = this.state;
+  // 可以进行身份验证
+  canIdentify(): boolean {
+    const { mob, sms } = this.state;
     if (!isMobile(mob)) {
       this.setState({ errMsg: '请先输入正确的手机号' });
       return false;
     }
     if (!isSmsCode(sms)) {
       this.setState({ errMsg: '请先输入正确的短信验证码' });
-      return false;
-    }
-    if (!isPassword(psw)) {
-      this.setState({ errMsg: '请先设置正确的密码' });
       return false;
     }
     if (!(this.GTVerify.current && this.GTVerify.current.verifySuccessRes)) {
@@ -118,10 +148,42 @@ export default class RegisterForm extends React.PureComponent<IProps, IState> {
     return true;
   }
 
+  // 是否可以重设密码
+  canResetPassword(): boolean {
+    const { psw, rePsw } = this.state;
+    if (!isPassword(psw)) {
+      this.setState({ errMsg: '请先设置正确的密码' });
+      return false;
+    }
+    if (rePsw !== psw) {
+      this.setState({ errMsg: '两次密码输入不一致' });
+      return false;
+    }
+    this.setState({ errMsg: '' });
+    return true;
+  }
+
   render() {
-    const { mob, psw, sms, errMsg } = this.state;
+    const { mob, psw, sms, errMsg, rePsw, isVerifySmsCode } = this.state;
+    const { toggle } = this.props;
     return (
-      <div className={styles.formContainer}>
+      <div className={classnames(styles.formContainer, styles.forgetForm)}>
+        <div className={styles.title}>{isVerifySmsCode ? '忘记密码' : '重置密码'}</div>
+        {isVerifySmsCode
+          ? this.buildAfterVerifySmsCode(psw, rePsw)
+          : this.buildBeforeVerifySmsCode(mob, sms)}
+        <span className={styles.toggle} onClick={toggle}>
+          {'密码登录 ->'}
+        </span>
+        {errMsg && <p className={styles.errMsg}>{errMsg}</p>}
+        <Button onClick={this.onClick}>{isVerifySmsCode ? '保存' : '下一步'}</Button>
+      </div>
+    );
+  }
+
+  buildBeforeVerifySmsCode(mob: string, sms: string) {
+    return (
+      <>
         <CustomInput
           placeholder="手机号"
           inputIcon="Mobile"
@@ -132,7 +194,7 @@ export default class RegisterForm extends React.PureComponent<IProps, IState> {
           onChange={this.handleInputChange}
         />
         <br />
-        <GTVerify GTVerifyName={GTVerifyName.REGISTER} ref={this.GTVerify} />
+        <GTVerify GTVerifyName={GTVerifyName.FORGET} ref={this.GTVerify} />
         <br />
         <CustomInput
           placeholder="短信验证码"
@@ -146,7 +208,12 @@ export default class RegisterForm extends React.PureComponent<IProps, IState> {
           onChange={this.handleInputChange}
           sendSms={this.sendSms}
         />
-        <br />
+      </>
+    );
+  }
+  buildAfterVerifySmsCode(psw: string, rePws: string) {
+    return (
+      <>
         <CustomInput
           placeholder="设置密码8-16个字符"
           inputIcon="Password"
@@ -158,9 +225,17 @@ export default class RegisterForm extends React.PureComponent<IProps, IState> {
           onChange={this.handleInputChange}
         />
         <br />
-        {errMsg && <p className={styles.errMsg}>{errMsg}</p>}
-        <Button onClick={this.doRegister}>注册</Button>
-      </div>
+        <CustomInput
+          placeholder="设置密码8-16个字符"
+          inputIcon="Password"
+          type="password"
+          value={rePws}
+          minLength={8}
+          maxLength={16}
+          tag={InputType.REPSW}
+          onChange={this.handleInputChange}
+        />
+      </>
     );
   }
 }

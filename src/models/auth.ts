@@ -11,17 +11,25 @@ const model: DvaModel<IState> = {
   state: {
     isLogined: false
   },
-  reducers: {},
+  reducers: {
+    [ActionType.do_login_success_r](state, action) {
+      return {
+        ...state,
+        isLogined: true
+      };
+    }
+  },
   effects: {
-    *[ActionType.do_login](action, { put, call }) {
-      const data = yield call(Api.doLogin);
-      // mobile: this.state.mob,
-      // login_type: 1,
-      // code: this.state.verifyCode,
-      // yield put({
-      //   type: ActionType.change_upcomming_list,
-      //   payload: data
-      // });
+    *[ActionType.do_login]({ payload: { GTVerify, ...data } }, { put, call }) {
+      console.log(data);
+      try {
+        const res = yield call(Api.doLogin, data);
+        yield put({
+          type: ActionType.do_login_success_r
+        });
+      } catch (e) {
+        GTVerify && GTVerify.resetGTVerify();
+      }
     }
   },
   subscriptions: {}

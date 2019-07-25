@@ -5,7 +5,8 @@ import styles from './styles.less';
 // 使用到的验证框地方
 export enum GTVerifyName {
   LOGIN = 'captchaLogin',
-  REGISTER = 'captchaRegister'
+  REGISTER = 'captchaRegister',
+  FORGET = 'captchaForget'
 }
 
 interface IProps {
@@ -19,18 +20,15 @@ export default class GTVerify extends React.PureComponent<IProps, IState> {
   isInited: boolean;
   timer: number;
   captchaObj: any;
-  verifySuccessRes: {
-    geetest_challenge: string;
-    geetest_validate: string;
-    geetest_seccode: string;
-  } | null;
+  captchaData: any;
+  verifySuccessRes: any; // 可以用来判读是否已进行图形校验
   constructor(props: IProps) {
     super(props);
     this.state = {
       isInited: false
     };
-
     this.captchaObj = null;
+    this.captchaData = null;
     this.verifySuccessRes = null;
     this.isInited = false;
     this.timer = 0;
@@ -51,6 +49,7 @@ export default class GTVerify extends React.PureComponent<IProps, IState> {
   // 初始化验证框
   initCaptcha() {
     Api.getGTVerify().then((data: any) => {
+      this.captchaData = data;
       (window as any).initGeetest(
         {
           gt: data.gt,
@@ -77,12 +76,25 @@ export default class GTVerify extends React.PureComponent<IProps, IState> {
     captchaObj.onSuccess(() => {
       const res = captchaObj.getValidate();
       this.verifySuccessRes = res;
-      onSuccess && onSuccess(res);
+      onSuccess && onSuccess(this.getGTVerifyInfo());
     });
     captchaObj.onError((err: any) => {
       console.log(err);
       this.verifySuccessRes = null;
     });
+  }
+
+  // 重置验证框
+  resetGTVerify() {
+    if (this.captchaObj) {
+      this.captchaObj.reset();
+      this.verifySuccessRes = null;
+    }
+  }
+
+  // api中所需要携带图形验证参数
+  getGTVerifyInfo() {
+    return Object.assign(this.captchaData || {}, this.verifySuccessRes || {});
   }
 
   // 移除多余的验证框
