@@ -24,14 +24,11 @@ class Header extends React.PureComponent<IProps> {
     this.handleGameListItemClick = this.handleGameListItemClick.bind(this);
   }
 
-  showLoginModal() {
+  showLoginModal(activeKey: 'login' | 'register') {
     this.props.dispatch({
       type: `${NAMESPACE.GLOBAL}/${ActionType.change_modal_r}`,
-      payload: <LoginModal />
+      payload: <LoginModal defaultActiveKey={activeKey} />
     });
-  }
-  componentDidMount() {
-    this.showLoginModal();
   }
 
   handleGameListItemClick({ key }: { key: string }) {
@@ -62,13 +59,13 @@ class Header extends React.PureComponent<IProps> {
   buildBeforeLogined() {
     return (
       <div className={styles.aboutLogin}>
-        <span onClick={this.showLoginModal}>登录</span>
-        <span onClick={this.showLoginModal}>注册</span>
+        <span onClick={this.showLoginModal.bind(this, 'login')}>登录</span>
+        <span onClick={this.showLoginModal.bind(this, 'register')}>注册</span>
       </div>
     );
   }
   buildAfterLogined() {
-    return <Image src={ImageStore.userImg} text="用户" onClick={this.showLoginModal} />;
+    return <Image src={ImageStore.userImg} text="用户" />;
   }
   buildGameTypeIcon(gameType: GameTypeEnum, className?: string) {
     return (

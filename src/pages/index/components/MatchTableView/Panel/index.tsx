@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { CirGameIcon } from '../../../../../components/atoms/Image/imgStore';
-import { GameType, ActionType } from '../../../constants';
+import { GameTypeEnum } from '../../../../../common/enums';
+import { ActionType } from '../../../constants';
 import Image from '../../../../../components/atoms/Image';
 import styles from './styles.less';
 import classnames from 'classnames';
 import { globalDispatch } from '../../../../../utils';
 interface IProps {
-  currentGameType: GameType[];
+  currentGameType: GameTypeEnum[];
 }
 export default class Panel extends React.PureComponent<IProps> {
   handleGameTypeChange(gameType: any) {
@@ -27,9 +28,9 @@ export default class Panel extends React.PureComponent<IProps> {
           width={22}
           height={22}
           text="Dota2"
-          onClick={this.handleGameTypeChange.bind(this, GameType.dota2)}
+          onClick={this.handleGameTypeChange.bind(this, GameTypeEnum.DOTA2)}
           textClassName={classnames(styles.gameText, {
-            [styles.gameTextActive]: currentGameType.includes(GameType.dota2)
+            [styles.gameTextActive]: currentGameType.includes(GameTypeEnum.DOTA2)
           })}
         />
         <Image
@@ -38,9 +39,9 @@ export default class Panel extends React.PureComponent<IProps> {
           width={22}
           height={22}
           text="LOL"
-          onClick={this.handleGameTypeChange.bind(this, GameType.lol)}
+          onClick={this.handleGameTypeChange.bind(this, GameTypeEnum.LOL)}
           textClassName={classnames(styles.gameText, {
-            [styles.gameTextActive]: currentGameType.includes(GameType.lol)
+            [styles.gameTextActive]: currentGameType.includes(GameTypeEnum.LOL)
           })}
         />
         <Image
@@ -49,9 +50,9 @@ export default class Panel extends React.PureComponent<IProps> {
           width={22}
           height={22}
           text="CSGO"
-          onClick={this.handleGameTypeChange.bind(this, GameType.csgo)}
+          onClick={this.handleGameTypeChange.bind(this, GameTypeEnum.CSGO)}
           textClassName={classnames(styles.gameText, {
-            [styles.gameTextActive]: currentGameType.includes(GameType.csgo)
+            [styles.gameTextActive]: currentGameType.includes(GameTypeEnum.CSGO)
           })}
         />
       </div>

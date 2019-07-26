@@ -1,13 +1,12 @@
 import React from 'react';
 import CustomTabBar, { CustomTabPane } from '../../molecules/Tabs';
-import styles from './styles.less';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import ForgetForm from './ForgetForm';
 
-import { Tabs } from 'antd';
-const { TabPane } = Tabs;
-interface IProps {}
+interface IProps {
+  defaultActiveKey?: 'login' | 'register';
+}
 interface IState {
   isForget: boolean;
 }
@@ -20,6 +19,10 @@ export enum InputType {
 }
 
 export default class LoginModal extends React.PureComponent<IProps, IState> {
+  static defaultProps = {
+    defaultActiveKey: 'login'
+  };
+
   constructor(props: IProps) {
     super(props);
     this.state = { isForget: true };
@@ -31,6 +34,7 @@ export default class LoginModal extends React.PureComponent<IProps, IState> {
   }
 
   render() {
+    const { defaultActiveKey } = this.props;
     const { isForget } = this.state;
     return (
       <>
@@ -38,7 +42,7 @@ export default class LoginModal extends React.PureComponent<IProps, IState> {
           <ForgetForm toggle={this.toggle} />
         ) : (
           <CustomTabBar
-            defaultActiveKey="login"
+            defaultActiveKey={defaultActiveKey as string}
             isTabBarFullContainer={true}
             tabBarHeight="Big"
             isTabFullTabBar={true}

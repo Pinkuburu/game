@@ -4,13 +4,14 @@ import TableView from './TableView';
 import SelectLeague from './SelectLeague';
 import TabBar from './TabBar/';
 import Panel from './Panel';
-import { GameType, MatchType } from '../../constants';
+import { GameTypeEnum } from '../../../../common/enums';
+import { MatchType } from '../../constants';
 interface IProps {
   gameType: number;
   leagueList: [];
   matchList: [];
   currentDate: number;
-  currentGameType: GameType[];
+  currentGameType: GameTypeEnum[];
   currentMatchType: MatchType;
   currentSelectedLeaguesId: number[];
 }

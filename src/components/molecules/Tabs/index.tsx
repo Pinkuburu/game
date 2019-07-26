@@ -23,6 +23,7 @@ interface IProps {
   tabBarHeight?: 'Normal' | 'Big'; // 导航栏高度normal: 40 big: 60
   isTabFullTabBar?: boolean; // Tab是否均分整个container
   isTabBarFullContainer?: boolean; // tab(包括content)是否占据整个container
+  onTabPaneChange?: (tabkey: string) => void; // tabPane的点击回调
 }
 
 interface IState {
@@ -103,10 +104,12 @@ export default class CustomTabBar extends React.PureComponent<IProps, IState> {
 
   // 切换Tab
   handleLiClick(tabInfo: TabInfo) {
+    const { onTabPaneChange } = this.props;
     this.setState({
       activeKey: tabInfo.key,
       activeIndex: tabInfo.index
     });
+    onTabPaneChange && onTabPaneChange(tabInfo.key);
   }
 
   render() {

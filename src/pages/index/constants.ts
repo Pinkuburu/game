@@ -41,9 +41,4 @@ export enum MatchType {
   predict = 'predict',
   result = 'result'
 }
-// 游戏类型
-export enum GameType {
-  dota2 = 'dota2',
-  csgo = 'csgo',
-  lol = 'lol'
-}
+

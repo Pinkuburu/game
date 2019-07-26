@@ -4,7 +4,8 @@ import moment from 'moment';
 import Api from '../../../service/request/api';
 import { DvaModel } from '../../../common/interfaces/model';
 import * as DataType from '../../../common/interfaces/dataType';
-import { PAGE_NAMESPACE, ActionType, MatchType, GameType } from '../constants';
+import { GameTypeEnum } from '../../../common/enums'
+import { PAGE_NAMESPACE, ActionType, MatchType, } from '../constants';
 
 // 根据game_type进行分组
 // [...] => {dota2:[...]}
@@ -63,7 +64,7 @@ interface IState {
   dResultList: [];
   resultLeagueList: [];
   currentSelectedLeaguesId: number[]; // 当前已选联赛ID
-  currentGameType: GameType[]; // 当前游戏类型
+  currentGameType: GameTypeEnum[]; // 当前游戏类型
   currentMatchType: MatchType; // 当前比赛类型
   currentDate: {
     [MatchType.predict]: number;
@@ -75,7 +76,7 @@ const model: DvaModel<IState> = {
   namespace: PAGE_NAMESPACE.MATCH,
   state: {
     upcomingList: [],
-    currentGameType: [GameType.dota2],
+    currentGameType: [GameTypeEnum.DOTA2],
     currentMatchType: MatchType.predict,
     currentDate: {
       [MatchType.predict]: moment().date(),
@@ -83,9 +84,9 @@ const model: DvaModel<IState> = {
     },
     currentSelectedLeaguesId: [],
     dataForSelectedLeagues: {
-      [GameType.dota2]: [],
-      [GameType.lol]: [],
-      [GameType.csgo]: []
+      [GameTypeEnum.DOTA2]: [],
+      [GameTypeEnum.LOL]: [],
+      [GameTypeEnum.CSGO]: []
     },
     dataForMatchTable: {},
 
