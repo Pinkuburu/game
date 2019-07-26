@@ -7,51 +7,38 @@
   padding: 40px 30px;
 
   text-align: center;
+}
 
-  :global {
-    .ant-tabs-bar {
-      border-color: #393c5b;
-      .ant-tabs-nav-scroll {
-        background-color: transparent;
-        .ant-tabs-nav {
-          width: 100%;
-          > div {
-            display: flex;
-            justify-content: center;
-          }
-          .ant-tabs-tab {
-            margin-right: 0px;
-            width: 40%;
-            text-align: center;
-          }
-          .ant-tabs-ink-bar {
-            margin-left: 40px;
-          }
-        }
-      }
-    }
-  }
+// 忘记密码
+.forgetForm {
+  #myFont.medium(16px, @nav_font);
+  width: 80%;
+  overflow: hidden;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 20px;
 }
 
 .formContainer {
-  overflow: hidden;
   margin: 0 auto;
-  width: 80%;
+  width: 400px;
+  text-align: center;
   #myFont.medium(16px, @nav_font);
 
-  &.forgetForm {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    padding: 40px 30px;
-  }
-
-  .title {
-    height: 45px;
-  }
-
-  button {
+  .button {
+    width: 200px;
+    display: block;
     margin: 0 auto;
+    margin-top: 54px;
+  }
+
+  .aboutInput {
+    margin-top: 24px;
+    &:first-child {
+      margin-top: 67px;
+    }
   }
 
   .aboutPSW {
@@ -67,8 +54,10 @@
     cursor: pointer;
     height: 40px !important;
     line-height: 40px !important;
+    user-select: none;
   }
   .errMsg {
     color: @red;
+    margin: 0;
   }
 }

@@ -32,23 +32,9 @@
     }
   }
 }
-.overlay {
-  ul {
-    background-color: @item_second;
-    li {
-      &:hover {
-        background-color: @item_second;
-      }
-    }
-  }
-  .gameList {
-    #myFont.medium(14px, @nav_font);
-    justify-content: flex-start;
-    &.active {
-      color: @main_font;
-    }
-    &:hover {
-      color: @hover_font;
-    }
+.gameList {
+  justify-content: flex-start;
+  &.active {
+    color: @main_font;
   }
 }

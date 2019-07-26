@@ -1,0 +1,15 @@
+@import '../../../common/less/variable.less';
+@import '../../../common/less/mixin.less';
+
+.customOverlay {
+  ul {
+    background-color: @item_second;
+    li {
+      #myFont.medium(14px, @nav_font);
+      &:hover {
+        background-color: @item_second;
+        color: @hover_font;
+      }
+    }
+  }
+}

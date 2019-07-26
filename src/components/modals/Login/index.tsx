@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomTabBar from '../../molecules/TabBar';
+import CustomTabBar, { CustomTabPane } from '../../molecules/Tabs';
 import styles from './styles.less';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
@@ -22,7 +22,7 @@ export enum InputType {
 export default class LoginModal extends React.PureComponent<IProps, IState> {
   constructor(props: IProps) {
     super(props);
-    this.state = { isForget: false };
+    this.state = { isForget: true };
     this.toggle = this.toggle.bind(this);
   }
 
@@ -37,13 +37,18 @@ export default class LoginModal extends React.PureComponent<IProps, IState> {
         {isForget ? (
           <ForgetForm toggle={this.toggle} />
         ) : (
-          <CustomTabBar defaultActiveKey="login" className={styles.loginContainer}>
-            <TabPane tab="登录" key="login">
+          <CustomTabBar
+            defaultActiveKey="login"
+            isTabBarFullContainer={true}
+            tabBarHeight="Big"
+            isTabFullTabBar={true}
+          >
+            <CustomTabPane tab="登录" key="login">
               <LoginForm toggle={this.toggle} />
-            </TabPane>
-            <TabPane tab="注册" key="register">
+            </CustomTabPane>
+            <CustomTabPane tab="注册" key="register">
               <RegisterForm />
-            </TabPane>
+            </CustomTabPane>
           </CustomTabBar>
         )}
       </>

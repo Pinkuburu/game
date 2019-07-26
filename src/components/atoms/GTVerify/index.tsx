@@ -1,7 +1,7 @@
 import React from 'react';
 import Api from '../../../service/request/api';
 import styles from './styles.less';
-
+import classnames from 'classnames';
 // 使用到的验证框地方
 export enum GTVerifyName {
   LOGIN = 'captchaLogin',
@@ -10,6 +10,7 @@ export enum GTVerifyName {
 }
 
 interface IProps {
+  className?: string;
   GTVerifyName: GTVerifyName;
   onSuccess?: (verifyRes: any) => void;
 }
@@ -120,9 +121,10 @@ export default class GTVerify extends React.PureComponent<IProps, IState> {
   }
 
   render() {
+    const { className } = this.props;
     const { isInited } = this.state;
     return (
-      <div className={styles.vertifyContainer}>
+      <div className={classnames(styles.vertifyContainer, className)}>
         <div id={this.props.GTVerifyName} className="tc">
           <div className="tc" hidden={isInited}>
             行为验证™ 安全组件加载中

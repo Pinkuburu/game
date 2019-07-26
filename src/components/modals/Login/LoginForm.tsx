@@ -166,13 +166,16 @@ export default class LoginForm extends React.PureComponent<IProps, IState> {
           onChange={this.handleInputChange}
           value={mob}
           maxLength={11}
+          className={styles.aboutInput}
         />
-        <br />
         {/* 用三元运算会导致后面切换的sufix图标不变 */}
         {loginWithSMS && this.buildSmsInput(sms)}
         {!loginWithSMS && this.buildPswInput(psw)}
-        <br />
-        <GTVerify GTVerifyName={GTVerifyName.LOGIN} ref={this.GTVerify} />
+        <GTVerify
+          GTVerifyName={GTVerifyName.LOGIN}
+          ref={this.GTVerify}
+          className={styles.aboutInput}
+        />
         <span className={styles.toggle} onClick={this.handleToggleLoginWayClick}>
           {loginWithSMS ? '密码登录 ->' : '手机验证码登录 ->'}
         </span>
@@ -184,7 +187,9 @@ export default class LoginForm extends React.PureComponent<IProps, IState> {
         </div>
         {errMsg && <p className={styles.errMsg}>{errMsg}</p>}
 
-        <Button onClick={this.doLogin}>登录</Button>
+        <Button onClick={this.doLogin} className={styles.button}>
+          登录
+        </Button>
       </div>
     );
   }
@@ -201,6 +206,7 @@ export default class LoginForm extends React.PureComponent<IProps, IState> {
         onChange={this.handleInputChange}
         sendSms={this.sendSMS}
         value={sms}
+        className={styles.aboutInput}
       />
     );
   }
@@ -215,6 +221,7 @@ export default class LoginForm extends React.PureComponent<IProps, IState> {
         inputIcon="Password"
         tag={InputType.PSW}
         onChange={this.handleInputChange}
+        className={styles.aboutInput}
         value={psw}
       />
     );

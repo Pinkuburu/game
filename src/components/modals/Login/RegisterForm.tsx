@@ -133,10 +133,13 @@ export default class RegisterForm extends React.PureComponent<IProps, IState> {
           value={mob}
           tag={InputType.MOB}
           onChange={this.handleInputChange}
+          className={styles.aboutInput}
         />
-        <br />
-        <GTVerify GTVerifyName={GTVerifyName.REGISTER} ref={this.GTVerify} />
-        <br />
+        <GTVerify
+          GTVerifyName={GTVerifyName.REGISTER}
+          ref={this.GTVerify}
+          className={styles.aboutInput}
+        />
         <CustomInput
           placeholder="短信验证码"
           inputIcon="SmsCode"
@@ -148,8 +151,8 @@ export default class RegisterForm extends React.PureComponent<IProps, IState> {
           tag={InputType.SMS}
           onChange={this.handleInputChange}
           sendSms={this.sendSms}
+          className={styles.aboutInput}
         />
-        <br />
         <CustomInput
           placeholder="设置密码8-16个字符"
           inputIcon="Password"
@@ -159,10 +162,13 @@ export default class RegisterForm extends React.PureComponent<IProps, IState> {
           maxLength={16}
           tag={InputType.PSW}
           onChange={this.handleInputChange}
+          className={styles.aboutInput}
         />
-        <br />
+
         {errMsg && <p className={styles.errMsg}>{errMsg}</p>}
-        <Button onClick={this.doRegister}>注册</Button>
+        <Button onClick={this.doRegister} className={styles.button}>
+          注册
+        </Button>
       </div>
     );
   }

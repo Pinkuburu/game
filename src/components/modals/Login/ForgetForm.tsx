@@ -2,6 +2,8 @@ import React from 'react';
 import CustomInput from '../../atoms/Input';
 import GTVerify, { GTVerifyName } from '../../atoms/GTVerify';
 import Button from '../../atoms/Button';
+import CustomTabBar, { CustomTabPane } from '../../molecules/Tabs';
+
 import styles from './styles.less';
 
 import { ActionType } from '../../../models/constants';
@@ -165,17 +167,31 @@ export default class ForgetForm extends React.PureComponent<IProps, IState> {
     const { mob, psw, sms, errMsg, rePsw, isVerifySmsCode } = this.state;
     const { toggle } = this.props;
     return (
-      <div className={classnames(styles.formContainer, styles.forgetForm)}>
-        <div className={styles.title}>{isVerifySmsCode ? '忘记密码' : '重置密码'}</div>
-        {isVerifySmsCode
-          ? this.buildAfterVerifySmsCode(psw, rePsw)
-          : this.buildBeforeVerifySmsCode(mob, sms)}
-        <span className={styles.toggle} onClick={toggle}>
-          {'密码登录 ->'}
-        </span>
-        {errMsg && <p className={styles.errMsg}>{errMsg}</p>}
-        <Button onClick={this.onClick}>{isVerifySmsCode ? '保存' : '下一步'}</Button>
-      </div>
+      <CustomTabBar
+        defaultActiveKey="forget"
+        isTabBarFullContainer={true}
+        tabBarHeight="Big"
+        isTabFullTabBar={true}
+      >
+        <CustomTabPane
+          tab={isVerifySmsCode ? '忘记密码' : '重置密码'}
+          key="forget"
+          withoutActiveLine={true}
+        >
+          <div className={styles.formContainer}>
+            {isVerifySmsCode
+              ? this.buildAfterVerifySmsCode(psw, rePsw)
+              : this.buildBeforeVerifySmsCode(mob, sms)}
+            <span className={styles.toggle} onClick={toggle}>
+              {'密码登录 ->'}
+            </span>
+            {errMsg && <p className={styles.errMsg}>{errMsg}</p>}
+            <Button className={styles.button} onClick={this.onClick}>
+              {isVerifySmsCode ? '保存' : '下一步'}
+            </Button>
+          </div>
+        </CustomTabPane>
+      </CustomTabBar>
     );
   }
 
@@ -190,10 +206,13 @@ export default class ForgetForm extends React.PureComponent<IProps, IState> {
           value={mob}
           tag={InputType.MOB}
           onChange={this.handleInputChange}
+          className={styles.aboutInput}
         />
-        <br />
-        <GTVerify GTVerifyName={GTVerifyName.FORGET} ref={this.GTVerify} />
-        <br />
+        <GTVerify
+          GTVerifyName={GTVerifyName.FORGET}
+          ref={this.GTVerify}
+          className={styles.aboutInput}
+        />
         <CustomInput
           placeholder="短信验证码"
           inputIcon="SmsCode"
@@ -205,6 +224,7 @@ export default class ForgetForm extends React.PureComponent<IProps, IState> {
           tag={InputType.SMS}
           onChange={this.handleInputChange}
           sendSms={this.sendSms}
+          className={styles.aboutInput}
         />
       </>
     );

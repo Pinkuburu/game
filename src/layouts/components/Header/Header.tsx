@@ -1,12 +1,13 @@
 import React from 'react';
 import { GameTypeEnum } from '../../../common/enums';
 import { GameInfo } from '../../../common/constants';
-import { Layout, Menu, Dropdown } from 'antd';
+import { Layout, Menu } from 'antd';
 import { ActionType, NAMESPACE } from '../../../models/constants';
 import { connect } from 'dva';
 import Image from '../../../components/atoms/Image';
 import ImageStore from '../../../components/atoms/Image/imgStore';
 import LoginModal from '../../../components/modals/Login';
+import CustomDropdown from '../../../components/molecules/Dropdown';
 import styles from './styles.less';
 import classnames from 'classnames';
 
@@ -45,15 +46,13 @@ class Header extends React.PureComponent<IProps> {
     return (
       <div className={styles.headerContainer}>
         <Layout.Header className="layout-header">
-          <Dropdown
-            className="menu-item"
-            overlayClassName={styles.overlay}
+          <CustomDropdown
             overlay={this.buildGameList(gameType)}
             placement="bottomCenter"
             trigger={['click']}
           >
             {this.buildGameTypeIcon(gameType, styles.currentGameType)}
-          </Dropdown>
+          </CustomDropdown>
           {isLogined ? this.buildAfterLogined() : this.buildBeforeLogined()}
         </Layout.Header>
       </div>
