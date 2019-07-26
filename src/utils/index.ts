@@ -1,5 +1,6 @@
 import { NAMESPACE } from '../common/constants';
 import { ActionType } from '../models/constants';
+import { message } from 'antd'
 export { NAMESPACE };
 // // todo: num类型可能需要具体化
 // export function percent(num: any, fix = 0) {
@@ -27,13 +28,19 @@ export function globalCloseModal() {
   });
 }
 
+// 全局的消息提示
+// 暂时用antd的message。后面若是设计稿相关样式改动较大。再考虑自己写组件
+export function globalMessage(msg: string, type: 'warn' | 'success' | 'error' = 'warn') {
+  message[type](msg);
+}
+
 // 判断是否为开发环境
 export function isDevMode(): boolean {
   if (process.env.NODE_ENV === 'development') {
-    // eslint-disable-next-line
+    // eslint-disable-next-line 
     isDevMode = () => true;
   } else {
-    // eslint-disable-next-line
+    // eslint-disable-next-line 
     isDevMode = () => false;
   }
   return isDevMode();

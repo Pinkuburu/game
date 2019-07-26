@@ -1,6 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { message as AntdMessage } from 'antd';
-import { isDevMode } from '../../../utils';
+import { isDevMode, globalMessage } from '../../../utils';
 
 type ResponseInterceptor = (value: AxiosResponse) => AxiosResponse | Promise<AxiosResponse>;
 
@@ -12,10 +11,10 @@ export const responseInterceptor: ResponseInterceptor = (response) => {
     console.log(response.data);
     console.groupEnd();
   }
-  // status为0时是请求成功
+  // status不为0时为未返回正确结果
   if (response.data.status !== 0) {
-    const { status, msg, message } = response.data;
-    AntdMessage.warning(`${status || '未知状态'}: ${msg || message}`);
+    const { msg, message } = response.data;
+    globalMessage(`${msg || message}`, 'warn')
     return Promise.reject(response.data);
   }
   return response.data && response.data.data;
