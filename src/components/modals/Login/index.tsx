@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomTabBar, { CustomTabPane } from '../../molecules/Tabs';
+import CustomTabBar, { CustomTabPane } from '../../molecules/TabBar';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import ForgetForm from './ForgetForm';

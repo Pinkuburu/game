@@ -4,7 +4,7 @@ import Link from 'umi/link';
 import moment from 'moment';
 
 import Table from '../../../../../components/atoms/Table';
-import DateTabBar from '../../../../../components/molecules/TabBar/DateTabBar';
+import CustomTabBar, { CustomTabPane } from '../../../../../components/molecules/TabBar';
 import Image from '../../../../../components/atoms/Image';
 import { globalDispatch } from '../../../../../utils';
 import * as DataType from '../../../../../common/interfaces/dataType';
@@ -12,7 +12,6 @@ import * as DataType from '../../../../../common/interfaces/dataType';
 import styles from './styles.less';
 import { ColumnProps } from 'antd/lib/table';
 import ImageStore from '../../../../../components/atoms/Image/imgStore';
-const { TabPane } = Tabs;
 import { ActionType, MatchType } from '../../../constants';
 
 const predictRowKey = 'id';
@@ -216,20 +215,24 @@ export default class TableView extends React.PureComponent<IProps, IState> {
   }
 
   render() {
-    const { dataSource, currentDate } = this.props;
+    const { dataSource, currentMatchType, currentDate } = this.props;
     return (
       <div>
-        <DateTabBar defaultActiveKey={currentDate.toString()} onChange={this.handleTabChange}>
+        <CustomTabBar
+          defaultActiveKey={currentDate.toString()}
+          onChange={this.handleTabChange}
+          withTabBarBottomBorder={false}
+          isTabFullTabBar={true}
+        >
           {this.getCurrent7Days().map((item) => (
-            <TabPane tab={item.text} key={item.date} />
+            <CustomTabPane tab={item.text} key={item.date} />
           ))}
-        </DateTabBar>
-        {this.buildTable()}
+        </CustomTabBar>
+        {this.buildTable(dataSource, currentMatchType)}
       </div>
     );
   }
-  buildTable() {
-    const { currentMatchType, dataSource } = this.props;
+  buildTable(dataSource: DataType.UpcommingMatchInfo[], currentMatchType: MatchType) {
     switch (currentMatchType) {
       case MatchType.predict:
         return (

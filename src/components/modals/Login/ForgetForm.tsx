@@ -2,7 +2,7 @@ import React from 'react';
 import CustomInput from '../../atoms/Input';
 import GTVerify, { GTVerifyName } from '../../atoms/GTVerify';
 import Button from '../../atoms/Button';
-import CustomTabBar, { CustomTabPane } from '../../molecules/Tabs';
+import CustomTabBar, { CustomTabPane } from '../../molecules/TabBar';
 
 import styles from './styles.less';
 
