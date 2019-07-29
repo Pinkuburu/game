@@ -56,6 +56,7 @@ export default class CustomInput extends React.PureComponent<IProps, IState> {
     this.resetIsSendedSms = this.resetIsSendedSms.bind(this);
   }
   componentDidMount() {
+    // TODO: 修改调用位置 或者修改逻辑。否则icon会无法及时切换
     this.initIconIfNeed();
   }
 

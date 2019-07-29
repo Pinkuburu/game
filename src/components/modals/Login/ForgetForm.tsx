@@ -10,7 +10,6 @@ import { ActionType } from '../../../models/constants';
 import { isMobile, isPassword, isSmsCode, globalDispatch, NAMESPACE } from '../../../utils/';
 import Api from '../../../service/request/api';
 import { InputType } from './index';
-import classnames from 'classnames';
 
 interface IProps {
   toggle: () => void;

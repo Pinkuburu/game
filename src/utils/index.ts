@@ -1,18 +1,12 @@
 import { NAMESPACE } from '../common/constants';
 import { ActionType } from '../models/constants';
+import { Storage, StorageKey } from './storage';
 import { message } from 'antd';
 export { NAMESPACE };
-// // todo: num类型可能需要具体化
-// export function percent(num: any, fix = 0) {
-//   const n = parseFloat(num);
-//   if (!n) return 0;
-//   const tar = n * 100;
-//   return tar.toFixed(fix);
-// }
 
 // 访问全局state
 export function globalStore() {
-  return (window as any).g_app._store;
+  return (window as any).g_app._store.getState();
 }
 
 // 全局dispatch方法
@@ -32,6 +26,16 @@ export function globalCloseModal() {
 // 暂时用antd的message。后面若是设计稿相关样式改动较大。再考虑自己写组件
 export function globalMessage(msg: string, type: 'warn' | 'success' | 'error' = 'warn') {
   message[type](msg);
+}
+
+// 如果可以则登录
+export function tryLoginIfNeedLogin() {
+  if (!globalStore()[NAMESPACE.AUTH].isLogined && Storage.get(StorageKey.REFRESH_TOKEN)) {
+    // 直接登录
+    globalDispatch({
+      type: `${NAMESPACE.AUTH}/${ActionType.get_user_info}`
+    });
+  }
 }
 
 // 判断是否为开发环境

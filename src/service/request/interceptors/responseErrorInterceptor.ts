@@ -1,5 +1,5 @@
 import { notification } from 'antd';
-import { isDevMode } from '../../../utils'
+import { isDevMode } from '../../../utils';
 
 type ResponseErrorInterceptor = (error: any) => any;
 
@@ -10,6 +10,12 @@ export const responseErrorInterceptor: ResponseErrorInterceptor = (error) => {
   if (error.response && error.response.data) {
     errMsg = error.response.data.msg || error.response.data.message;
     errStatus = error.response.data.status || '';
+    if (isDevMode) {
+      console.log(error.response);
+    }
+    if (errStatus === 90000) {
+      // TODO: 重新获取token
+    }
   }
   if (isDevMode) {
     notification.error({

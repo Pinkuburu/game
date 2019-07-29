@@ -3,7 +3,6 @@ import styles from '../styles.less';
 import classnames from 'classnames';
 import Button from '../../../atoms/Button';
 import CustomCountDown from '../../../atoms/CountDown';
-
 interface IProps {
   isSendedSms: boolean;
   isActive: boolean;

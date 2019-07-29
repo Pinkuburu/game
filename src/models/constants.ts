@@ -10,7 +10,6 @@ export const ActionType = {
   do_register: 'do_register',
   do_reset_password: 'do_reset_password',
   check_for_forget: 'check_for_forget',
-  send_sms_code: 'send_sms_code',
   get_user_info: 'get_user_info',
 
   do_logout_r: 'do_logout_r',

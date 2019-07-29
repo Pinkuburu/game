@@ -1,16 +1,18 @@
 import React from 'react';
+import { connect } from 'dva';
+import router from 'umi/router';
+import { Layout, Menu } from 'antd';
+import classnames from 'classnames';
 import { GameTypeEnum } from '../../../common/enums';
 import { GameInfo } from '../../../common/constants';
-import { Layout, Menu } from 'antd';
 import { ActionType, NAMESPACE } from '../../../models/constants';
 import { Storage, StorageKey } from '../../../utils/storage';
-import { connect } from 'dva';
+
 import Image from '../../../components/atoms/Image';
 import ImageStore from '../../../components/atoms/Image/imgStore';
 import LoginModal from '../../../components/modals/Login';
 import CustomDropdown from '../../../components/molecules/Dropdown';
 import styles from './styles.less';
-import classnames from 'classnames';
 
 interface IProps {
   dispatch: any;
@@ -24,15 +26,6 @@ class Header extends React.PureComponent<IProps> {
     this.showLoginModal = this.showLoginModal.bind(this);
     this.handleGameListItemClick = this.handleGameListItemClick.bind(this);
     this.handleUserListItemClick = this.handleUserListItemClick.bind(this);
-  }
-
-  componentDidMount() {
-    if (Storage.get(StorageKey.REFRESH_TOKEN)) {
-      // 直接登录
-      this.props.dispatch({
-        type: `${NAMESPACE.AUTH}/${ActionType.get_user_info}`
-      });
-    }
   }
 
   showLoginModal(activeKey: 'login' | 'register') {
@@ -51,7 +44,7 @@ class Header extends React.PureComponent<IProps> {
   handleUserListItemClick({ key }: { key: string }) {
     switch (key as 'user' | 'logout') {
       case 'user':
-        // TODO:去用户中心
+        router.push('/user');
         break;
       case 'logout':
         this.props.dispatch({
