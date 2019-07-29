@@ -9,7 +9,7 @@ import Api from '../service/request/api';
 interface IState {
   isLogined: boolean;
   userInfo: DataType.UserInfo;
-  userMemberInfo: any[];
+  userMemberInfo: DataType.UserMemberInfo[];
 }
 const model: DvaModel<IState> = {
   state: { isLogined: false, userInfo: { avatar: '', name: '', uid: 0 }, userMemberInfo: [] },

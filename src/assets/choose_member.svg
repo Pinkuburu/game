@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="716px" height="191px" viewBox="0 0 716 191" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.1 (81669) - https://sketch.com -->
+    <title>分组 18</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M8,0 L651,0 C655.418278,-8.11624501e-16 659,3.581722 659,8 L659,155 C659,159.418278 655.418278,163 651,163 L8,163 C3.581722,163 5.41083001e-16,159.418278 0,155 L0,8 C-5.41083001e-16,3.581722 3.581722,8.11624501e-16 8,0 Z" id="path-1"></path>
+        <filter x="-0.9%" y="-3.7%" width="101.8%" height="107.4%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feMorphology radius="4" operator="erode" in="SourceAlpha" result="shadowInner"></feMorphology>
+            <feOffset dx="0" dy="0" in="shadowInner" result="shadowInner"></feOffset>
+            <feComposite in="shadowOffsetOuter1" in2="shadowInner" operator="out" result="shadowOffsetOuter1"></feComposite>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.790752647   0 0 0 0 0.349155619   0 0 0 0 1  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="6.0.0个人中心" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="6.0.0个人中心_成为会员" transform="translate(-72.000000, -288.000000)">
+            <g id="分组-19" transform="translate(72.000000, 288.000000)">
+                <g id="分组">
+                    <g id="分组-16" transform="translate(29.000000, 0.000000)">
+                        <g id="Mask">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                            <path stroke="#CA59FF" stroke-width="4" d="M8,2 C4.6862915,2 2,4.6862915 2,8 L2,155 C2,158.313708 4.6862915,161 8,161 L651,161 C654.313708,161 657,158.313708 657,155 L657,8 C657,4.6862915 654.313708,2 651,2 L8,2 Z" stroke-linejoin="square"></path>
+                        </g>
+                        <path d="M595.496874,-7.121983e-10 L651,-7.121983e-10 C655.418278,-7.12199112e-10 659,3.581722 659,8 L659,64.432 L595.496874,-7.121983e-10 Z" id="Mask-Copy-2" fill="#CA59FF"></path>
+                        <path d="M649.994365,9.35447761 C649.994365,11.6604478 649.990608,13.9645522 650,16.2686567 C650,16.5093284 649.898563,16.5783582 649.703203,16.6921642 C648.996901,17.0988806 648.284963,17.511194 647.642528,18.005597 C645.852353,19.375 644.289471,20.9869403 642.812999,22.6772388 C641.379731,24.3208955 640.091105,26.0746269 638.956514,27.9365672 C638.853198,28.1063433 638.759275,28.2817164 638.661595,28.4533582 C638.567672,28.6175373 638.477505,28.7835821 638.355405,29 C636.373626,25.641791 633.482671,23.3563433 630,21.6753731 C630.349394,21.4738806 630.664976,21.2873134 630.982436,21.1063433 C632.105757,20.4664179 633.230957,19.8283582 634.350521,19.1809701 C634.544003,19.0671642 634.662346,19.0373134 634.848314,19.2350746 C636.048652,20.5335821 637.271532,21.8097015 638.486898,23.0932836 C638.537616,23.1473881 638.597727,23.1940299 638.663473,23.255597 C641.267024,17.6026119 644.727153,12.6455224 649.994365,9 L649.994365,9.35447761 Z" id="Fill-1" fill="#EEEEEE"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

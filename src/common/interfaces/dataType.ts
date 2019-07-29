@@ -107,4 +107,10 @@ export interface UserInfo {
   avatar: string;
   name: string;
   uid: number;
+  mobile: string;
+}
+// 用户会员信息
+export interface UserMemberInfo {
+  expire: number;
+  member_product_type_id: number;
 }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.2 (81672) - https://sketch.com -->
+    <title>camera-相机</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M16.35,15 L4.65,15 C4.29101491,15 4,14.7512693 4,14.4444444 L4,7.22222223 C4,6.91539736 4.29101491,6.66666667 4.65,6.66666667 L6.98089999,6.66666667 L8.74057999,5.16288889 C8.86239713,5.05868126 9.02764976,5 9.2,5 L11.8,5 C11.9724403,5 12.1377992,5.05862682 12.25968,5.16288889 L14.0191,6.66666667 L16.35,6.66666667 C16.5223907,6.66666667 16.6877208,6.72519825 16.8096194,6.82938513 C16.9315181,6.933572 17,7.07487973 17,7.22222223 L17,14.4444444 C17,14.7512693 16.7089851,15 16.35,15 Z M8,10.5 C7.99994079,11.3931442 8.47642515,12.2184689 9.24995216,12.6650581 C10.0234792,13.1116473 10.9765208,13.1116473 11.7500478,12.6650581 C12.5235749,12.2184689 13.0000592,11.3931442 13,10.5 C13.0000592,9.60685576 12.5235749,8.78153112 11.7500478,8.33494191 C10.9765208,7.8883527 10.0234792,7.8883527 9.24995216,8.33494191 C8.47642515,8.78153112 7.99994079,9.60685576 8,10.5 Z" id="path-1"></path>
+        <filter x="-53.8%" y="-50.0%" width="207.7%" height="240.0%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="6.0.0个人中心" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="6.0.0个人中心_成为会员" transform="translate(-162.000000, -232.000000)" fill-rule="nonzero">
+            <g id="camera-相机" transform="translate(162.000000, 232.000000)">
+                <g id="合并形状">
+                    <g>
+                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                        <use fill="#EEEEEE" xlink:href="#path-1"></use>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
