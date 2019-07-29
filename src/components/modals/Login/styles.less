@@ -1,0 +1,63 @@
+@import '../../../common/less/variable.less';
+@import '../../../common/less/mixin.less';
+
+.loginContainer {
+  height: 100%;
+  width: 100%;
+  padding: 40px 30px;
+
+  text-align: center;
+}
+
+// 忘记密码
+.forgetForm {
+  #myFont.medium(16px, @nav_font);
+  width: 80%;
+  overflow: hidden;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 20px;
+}
+
+.formContainer {
+  margin: 0 auto;
+  width: 400px;
+  text-align: center;
+  #myFont.medium(16px, @nav_font);
+
+  .button {
+    width: 200px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 54px;
+  }
+
+  .aboutInput {
+    margin-top: 24px;
+    &:first-child {
+      margin-top: 67px;
+    }
+  }
+
+  .aboutPSW {
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+  .toggle {
+    color: @hover_font;
+    display: inline-block;
+    cursor: pointer;
+    height: 40px !important;
+    line-height: 40px !important;
+    user-select: none;
+  }
+  .errMsg {
+    color: @red;
+    margin: 0;
+  }
+}

@@ -1,0 +1,59 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // TODO: 毛玻璃效果
+  background-color: rgba(0, 0, 0, 0.7);
+
+  &::before {
+    content: '';
+    position: absolute;
+    // background: url('../../../assets/bg_transparent.png') center repeat;
+    // background-size: 50px 50px;
+    filter: blur(5px);
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+  }
+
+  &.hide {
+    display: none;
+  }
+  .modalBg {
+    position: relative;
+    background: url('../../../assets/bg_modal.svg') center center no-repeat;
+    background-size: 100% 100%;
+    width: 600px;
+    height: 560px;
+    padding: 34px 33px;
+  }
+  .closeBtn {
+    position: absolute;
+    right: 25px;
+    top: 10px;
+    background: url('../../../assets/modal_close.svg') center center no-repeat;
+    background-size: 100% 100%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+}
+
+// :global {
+//   #root {
+//     filter: blur(5px);
+//     z-index: 900;
+//     &::before {
+//       filter: blur(5px);
+//       z-index: 900;
+//     }
+//   }
+// }

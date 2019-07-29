@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.3 (67297) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_select_d</title>
+    <desc>Created with Sketch.</desc>
+    <g id="1.0.0首页" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1.0.2首页_赛程结果" transform="translate(-96.000000, -1033.000000)" fill="#020C1A" fill-rule="nonzero">
+            <g id="分组-2" transform="translate(96.000000, 1033.000000)">
+                <g id="分组" transform="translate(3.000000, 3.000000)">
+                    <path d="M9.33915235,0.0591444444 L10.5391524,0.0591444444 L11.6,0.940855556 L10.4,0.940855556 L9.06084765,0.940855556 L8,0.0591444444 L9.33915235,0.0591444444 Z M11.6,0 L12.8783687,0 L14,0.934294428 L14,2 L11.6,0 Z" id="合并形状"></path>
+                    <polygon id="路径" points="0.0139539422 11.197427 0 1 6.61290008 1 7.77963993 2.19025701 11.8189891 2.19025701 13 3.39474535 13 14 2.79073079 14"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

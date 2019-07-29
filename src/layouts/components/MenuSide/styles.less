@@ -1,0 +1,48 @@
+@import '../../../common/less/variable.less';
+
+.container {
+  .menu-side {
+    background: @item_second;
+    overflow: hidden;
+    height: 100%;
+    .logo {
+      display: inline-block;
+      height: 60px;
+    }
+    .menu {
+      background: @item_second;
+      border: none;
+    }
+    .menu-list-item {
+      height: auto;
+      margin: 0;
+      padding: 0 !important;
+    }
+    .nav-link {
+      display: inline-block;
+      line-height: 40px;
+      width: 175px;
+      .fontColor(@nav_font);
+      &:hover {
+        .fontColor(@main_font);
+      }
+      &.cur-link {
+        border-left: 2px solid @hover_font;
+        border-radius: 0px 100px 100px 0px;
+        background: #464c69;
+        .fontColor(@main_font);
+        img {
+          margin-left: -2px;
+        }
+      }
+      &.close {
+        background: inherit;
+      }
+      img {
+        height: 40px;
+        width: 40px;
+        vertical-align: top;
+      }
+    }
+  }
+}

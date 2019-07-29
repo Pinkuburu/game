@@ -1,0 +1,46 @@
+@import '../../../../common/less/variable';
+@bgImg: '../../../../assets/bg_jryc.svg';
+.container {
+  background-color: @card_background;
+  .panelHeader {
+    display: flex;
+    height: 70px;
+    background: url('@{bgImg}') no-repeat center / cover;
+    text-align: center;
+    color: @nav_font;
+    padding-top: 10px;
+    p {
+      margin: 0;
+    }
+    .panelText {
+      flex: 1 1 200px;
+      font-size: 30px;
+      color: white;
+    }
+    .time {
+      flex: 1 1 160px;
+    }
+    .winRate {
+      flex: 1 1 140px;
+    }
+    .beneRate {
+      flex: 1 1 200px;
+    }
+    .time,
+    .winRate,
+    .beneRate {
+      .strong {
+        color: @hover_font;
+        font-size: 28px;
+      }
+      .normal {
+        color: @nav_font_gray;
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+.tableContainer {
+  padding: 0 20px 25px 20px;
+}

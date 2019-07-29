@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.3 (67297) - http://www.bohemiancoding.com/sketch -->
+    <title>logo_DOTA2</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#F0330B" offset="0%"></stop>
+            <stop stop-color="#F0330B" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="1.0.0首页" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1.0.2首页_赛程结果" transform="translate(-105.000000, -932.000000)">
+            <g id="dota2_3" transform="translate(80.000000, 913.000000)">
+                <g id="分组-2" transform="translate(25.000000, 19.000000)">
+                    <g id="分组-40">
+                        <circle id="椭圆形" fill="url(#linearGradient-1)" cx="11" cy="11" r="9.16666667"></circle>
+                        <path d="M6.11111111,7.38214076 L14.6749505,15.6144286 C16.2093235,16.1399101 17.0499079,15.401344 17.1967034,13.3987304 C15.6499342,11.9629834 12.4140533,9.57408521 7.48906082,6.23203584 C6.99911135,6.07080287 6.65754937,6.07080287 6.46437488,6.23203584 C6.27120038,6.39326882 6.15344579,6.77663713 6.11111111,7.38214076 Z" id="路径-6" fill="#FFFFFF"></path>
+                        <polygon id="路径-7" fill="#FFFFFF" points="11 6.38276859 11.8611468 6.02130684 14.2233135 5.5 15.4455357 6.38276859 15.1286633 7.86055614 15.1286633 9.08836346"></polygon>
+                        <polygon id="路径-7-copy" fill="#FFFFFF" transform="translate(8.333879, 14.016404) scale(-1, -1) translate(-8.333879, -14.016404) " points="6.11111111 13.1049908 6.97225786 12.7435291 9.33442462 12.2222222 10.5566468 13.1049908 10.2397744 14.5827784 10.2397744 15.8105857"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

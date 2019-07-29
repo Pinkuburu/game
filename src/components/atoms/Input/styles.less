@@ -1,0 +1,103 @@
+@import '../../../common/less/variable.less';
+@import '../../../common/less/mixin.less';
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  background-color: @live_background;
+  transition: all 0.3s;
+  border: 1px solid transparent;
+
+  &.inputContainerActive {
+    border: 1px solid @input_active;
+    box-shadow: 0px 0px 4px 0px rgba(155, 63, 244, 1);
+    .prefix {
+      background-color: @input_active;
+    }
+  }
+
+  .input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: 0;
+    background-color: @live_background;
+    transition: all 0.3s;
+    padding: 0 16px;
+    caret-color: @main_color;
+    #myFont.medium(16px, @main_font);
+  }
+  .prefix {
+    width: 44px;
+    background-color: @item_second;
+    transition: all 0.3s;
+  }
+  .suffix,
+  .prefix,
+  .icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  .aboutLook {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: center no-repeat;
+    background-size: 100% 100%;
+    transition: all 0.3s;
+    margin-right: 20px;
+    margin-left: 4px;
+    cursor: pointer;
+    &.look {
+      background-image: url('../../../assets/icon_look.svg');
+    }
+    &.unLook {
+      background-image: url('../../../assets/icon_unLook.svg');
+    }
+  }
+  .icon {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: center no-repeat;
+    background-size: 30px 30px;
+    transition: all 0.3s;
+    &.phone {
+      background-image: url('../../../assets/icon_phonenum.svg');
+    }
+    &.phoneS {
+      background-image: url('../../../assets/icon_phonenum_s.svg');
+    }
+    &.sms {
+      background-image: url('../../../assets/icon_pin.svg');
+    }
+    &.smsS {
+      background-image: url('../../../assets/icon_pin_s.svg');
+    }
+    &.password {
+      background-image: url('../../../assets/icon_password.svg');
+    }
+    &.passwordS {
+      background-image: url('../../../assets/icon_password_s.svg');
+    }
+  }
+  .sendSMS {
+    width: 126px;
+    height: 100%;
+    background-color: @item_second;
+    transition: all 0.3s;
+    #myFont.medium(16px, @nav_font);
+    &.sendSMSS {
+      background-color: @main_color;
+      color: white;
+    }
+  }
+  .reSendSMS {
+    white-space: nowrap;
+    #myFont.medium(16px, @nav_font);
+  }
+}

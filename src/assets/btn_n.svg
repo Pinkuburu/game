@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128px" height="40px" viewBox="0 0 128 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none">
+    <!-- Generator: Sketch 52.3 (67297) - http://www.bohemiancoding.com/sketch -->
+    <title>btn_n</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="50%" x2="100%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#9B3FF4" offset="0%"></stop>
+            <stop stop-color="#F3A4FF" offset="49.9447387%"></stop>
+            <stop stop-color="#9B3FF4" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-2" x="0" y="0" width="128" height="40"></rect>
+        <filter x="-5.5%" y="-17.5%" width="110.9%" height="135.0%" filterUnits="objectBoundingBox" id="filter-3">
+            <feMorphology radius="2" operator="erode" in="SourceAlpha" result="shadowSpreadInner1"></feMorphology>
+            <feGaussianBlur stdDeviation="6" in="shadowSpreadInner1" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="0" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.760784314   0 0 0 0 0.509803922   0 0 0 0 1  0 0 0 0.4 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <radialGradient cx="50%" cy="100%" fx="50%" fy="100%" r="72.4112401%" gradientTransform="translate(0.500000,1.000000),scale(0.074074,1.000000),rotate(90.000000),scale(1.000000,5.674195),translate(-0.500000,-1.000000)" id="radialGradient-4">
+            <stop stop-color="#E9AFFB" offset="0%"></stop>
+            <stop stop-color="#E9AFFB" stop-opacity="0" offset="100%"></stop>
+        </radialGradient>
+        <filter x="-7.4%" y="-100.0%" width="114.8%" height="300.0%" filterUnits="objectBoundingBox" id="filter-5">
+            <feGaussianBlur stdDeviation="2" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+    </defs>
+    <g id="0.0.0颜色标准、控件" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="登录注册_控件" transform="translate(-893.000000, -151.000000)">
+            <g id="分组-7" transform="translate(799.000000, 34.000000)">
+                <g id="btm_d" transform="translate(94.000000, 117.000000)">
+                    <g id="分组">
+                        <g id="Rectangle">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                            <rect stroke="url(#linearGradient-1)" stroke-width="1" stroke-linejoin="square" x="0.5" y="0.5" width="127" height="39"></rect>
+                        </g>
+                        <path d="M24.8101467,40 C24.2788851,39.6768901 24,39.3424658 24,39 C24,36.2385763 42.1324676,34 64.5,34 C86.8675324,34 105,36.2385763 105,39 C105,39.3424658 104.721115,39.6768901 104.189853,40 L24.8101467,40 Z" id="Combined-Shape" fill="url(#radialGradient-4)" filter="url(#filter-5)"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,40 @@
+@import '../../../common/less/variable.less';
+@import '../../../common/less/mixin.less';
+
+.headerContainer {
+  #myFont.medium(14px, @nav_font);
+  :global {
+    .layout-header {
+      justify-content: flex-end;
+      display: flex;
+    }
+  }
+
+  .currentGameType {
+    padding: 0 20px;
+    cursor: pointer;
+    &:hover {
+      color: @main_font;
+    }
+  }
+
+  .aboutLogin {
+    width: 120px;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    span {
+      cursor: pointer;
+      &:hover {
+        color: @main_font;
+      }
+    }
+  }
+}
+.gameList {
+  justify-content: flex-start;
+  &.active {
+    color: @main_font;
+  }
+}

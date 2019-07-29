@@ -1,0 +1,14 @@
+@import '../../../../../common/less/variable.less';
+@import '../../../../../common/less/mixin.less';
+
+.panel {
+  height: 60px;
+  display: grid;
+  grid-template-columns: repeat(3, 130px) 1fr;
+  .gameText {
+    #myFont.demi(14px, @nav_font);
+    &.gameTextActive {
+      color: @nav_font_gray;
+    }
+  }
+}

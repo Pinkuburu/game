@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.3 (67297) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_saicheng_s</title>
+    <desc>Created with Sketch.</desc>
+    <g id="1.0.0首页" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1.0.1首页" transform="translate(0.000000, -61.000000)" fill-rule="nonzero">
+            <g id="分组-2">
+                <g id="liansai_icon-copy-7" transform="translate(0.000000, 61.000000)">
+                    <g id="saicheng_icon_d">
+                        <g id="Icon_Real-Time">
+                            <path d="M14.5,18 L19,18 L19,29 L14.5,29 C11.4624339,29 9,26.5375661 9,23.5 L9,23.5 C9,20.4624339 11.4624339,18 14.5,18 Z" id="Rectangle" fill="#9B3FF4" opacity="0.5"></path>
+                            <path d="M22.5,30 C17.2532949,30 13,25.7467051 13,20.5 C13,15.2532949 17.2532949,11 22.5,11 C27.7467051,11 32,15.2532949 32,20.5 C32,25.7467051 27.7467051,30 22.5,30 Z M28,21.04 L21.96,21.04 L21.96,15 C21.96,14.4698066 21.5301934,14.04 21,14.04 C20.4698066,14.04 20.04,14.4698066 20.04,15 L20.04,22.96 L28,22.96 C28.5301934,22.96 28.96,22.5301934 28.96,22 C28.96,21.4698066 28.5301934,21.04 28,21.04 Z" id="合并形状" fill="#CA59FF"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

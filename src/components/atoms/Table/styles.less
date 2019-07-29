@@ -1,0 +1,74 @@
+@import '../../../common/less/variable.less';
+
+.container {
+  position: relative;
+  &.hideTable {
+    :global {
+      .ant-table-wrapper {
+        visibility: hidden;
+      }
+    }
+  }
+
+  // 表头样式
+  :global {
+    .ant-table-thead tr > th {
+      text-align: center;
+      padding: 0;
+      line-height: 30px;
+      color: @nav_font;
+      background: @card_header;
+    }
+  }
+  // 定制行样式
+  .customRow {
+    text-align: center;
+    color: @main_font;
+    min-height: 50px;
+    // 奇偶行颜色
+    // TODO:目前点击展开行后有bug
+    &:nth-child(odd) {
+      background: @item_first;
+    }
+    &:nth-child(even) {
+      background: @item_second;
+    }
+
+    > td {
+      padding: 0;
+    }
+  }
+
+  // hover颜色
+  :global {
+    .ant-table-thead > tr.ant-table-row-hover:not(.ant-table-expanded-row) > td,
+    .ant-table-tbody > tr.ant-table-row-hover:not(.ant-table-expanded-row) > td,
+    .ant-table-thead > tr:hover:not(.ant-table-expanded-row) > td,
+    .ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+// 未测试
+// 防止超长字段
+// .ant-table-thead tr {
+//   display: flex;
+// }
+// .ant-table-thead th {
+//   flex: 1;
+// }
+// .ant-table-row {
+//   display: flex;
+// }
+// .ant-table-row td {
+//   flex: 1;
+//   overflow: auto;
+// }
+// .ant-table-row td::-webkit-scrollbar {
+//   display: none;
+// }
+// .columns {
+//   display: flex;
+//   align-items: center;
+//   width: 0;
+// }

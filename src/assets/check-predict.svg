@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="101px" height="29px" viewBox="0 0 101 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.3 (67297) - http://www.bohemiancoding.com/sketch -->
+    <title>预测 copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="99.9998543%" y1="50.0001815%" x2="-4.08857224e-05%" y2="50.0001815%" id="linearGradient-1">
+            <stop stop-color="#0049E8" offset="0%"></stop>
+            <stop stop-color="#CF14FF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="98.7015356%" y1="50.0001815%" x2="-4.08857224e-05%" y2="50.0001815%" id="linearGradient-2">
+            <stop stop-color="#212F51" offset="0%"></stop>
+            <stop stop-color="#342150" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="1.0.0首页" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1.0.2首页_赛程结果" transform="translate(-440.000000, -295.000000)">
+            <g id="预测赛1-copy-2" transform="translate(80.000000, 284.000000)">
+                <g id="分组-2-copy" transform="translate(360.000000, 11.000000)">
+                    <path d="M78.538387,1 L88.11233,1 L91.6009411,4.5028717 L91.6009411,22.8365846 L87.4705481,26.3791639 L25.4533627,26.3791639 L23.4884317,27.7571532 L15.4437761,27.7079779 L15.4163791,9.99040113 L19.6618783,2.87574565 L75.8237456,2.56538412 L78.538387,1 Z M16.0735844,26.6313864 L23.1866984,26.6313864 L25.1398954,25.270562 L87.1324153,25.1882849 L90.6667653,22.450508 L90.6667653,5.13421668 L87.5902836,2.10906579 L78.9972131,2.10906579 L76.2825717,3.85704053 L20.0488632,4.16786598 L16.0735844,11.1746723 L16.0735844,26.6313864 Z M15,7.30510845 L18.8005908,1.69754891 L31.6719662,1.69754891 L31.6719662,2.06582409 L19.0108062,2.06582409 L15.0885847,7.71571186 L15,7.30510845 Z M87.7134126,28 L72.754637,28 L72.754637,27.7571532 L87.7134126,27.7079779 L93,23.086243 L92.9969636,23.359156 L87.7134126,28 Z" id="合并形状" fill="url(#linearGradient-1)"></path>
+                    <polygon id="路径-copy" fill="url(#linearGradient-2)" points="16 27 16 11.2421988 19.9969593 4.09890433 75.5373573 3.78202419 78.2668039 2 87.9067396 2 91 4.81323378 91 22.7376807 87.4463742 25.5287878 25.1157572 25.6126676 23.1519078 27"></polygon>
+                    <text id="查看预测" fill="#CA59FF" fill-rule="nonzero" font-family="MFYiHei_Noncommercial-Regular, MF YiHei (Noncommercial)" font-size="12" font-weight="normal" letter-spacing="0.48">
+                        <tspan x="26" y="20">查看预测</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

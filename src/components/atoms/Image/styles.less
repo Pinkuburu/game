@@ -1,0 +1,30 @@
+.figure {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  cursor: pointer;
+  .img {
+    display: block;
+    overflow: hidden;
+    max-width: 100%;
+  }
+
+  &.right {
+    flex-direction: row;
+  }
+  &.left {
+    flex-direction: row-reverse;
+  }
+  &.top {
+    flex-direction: column-reverse;
+  }
+  &.bottom {
+    flex-direction: column;
+  }
+  .figcaption {
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+  }
+}

@@ -1,0 +1,24 @@
+// TODO:删除
+.fontColor(@color) {
+  color: @color;
+}
+
+#myFont {
+  // 使用 #myFont.medium()
+  // font-family:PingFangSC-Medium;
+  .medium(@fontSize:14px;@color:white) {
+    font-size: @fontSize;
+    color: @color;
+    font-family: PingFangSC-Medium;
+    font-weight: 500;
+  }
+
+  // 使用 #myFont.demi()
+  // Industry-DemiBold
+  .demi(@fontSize:14px;@color:white) {
+    font-size: @fontSize;
+    color: @color;
+    font-family: Industry-DemiBold;
+    font-weight: 600;
+  }
+}

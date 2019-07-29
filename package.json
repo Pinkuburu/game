@@ -1,0 +1,82 @@
+{
+  "private": true,
+  "scripts": {
+    "start": "umi dev",
+    "build": "umi build",
+    "test": "umi test",
+    "lint:es": "eslint --ext .js src mock tests",
+    "lint:ts": "tslint \"src/**/*.ts\" \"src/**/*.tsx\"",
+    "precommit": "lint-staged"
+  },
+  "dependencies": {
+    "@types/classnames": "^2.2.9",
+    "@types/styled-components": "^4.1.15",
+    "antd": "^3.15.0",
+    "axios": "^0.19.0",
+    "classnames": "^2.2.6",
+    "dayjs": "^1.8.14",
+    "dva": "^2.5.0-beta.2",
+    "lodash": "^4.17.11",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-lazy-load": "^3.0.13",
+    "react-table": "^6.10.0",
+    "styled-components": "^4.2.0",
+    "umi-request": "^1.0.7"
+  },
+  "devDependencies": {
+    "@aimake/eslint-config": "^1.1.2",
+    "@babel/core": "^7.5.4",
+    "@babel/preset-env": "^7.5.4",
+    "@types/jest": "^23.3.12",
+    "@types/lodash": "^4.14.135",
+    "@types/react": "^16.7.18",
+    "@types/react-dom": "^16.0.11",
+    "@types/react-test-renderer": "^16.0.3",
+    "@types/redux-logger": "^3.0.7",
+    "@typescript-eslint/eslint-plugin": "^1.12.0",
+    "@typescript-eslint/parser": "^1.12.0",
+    "babel-eslint": "^9.0.0",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-lodash": "^3.3.4",
+    "eslint": "^5.16.0",
+    "eslint-config-alloy": "^2.0.5",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-config-umi": "^1.4.0",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-plugin-flowtype": "^2.50.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.2",
+    "eslint-plugin-typescript": "^0.14.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.2.2",
+    "lodash-webpack-plugin": "^0.11.5",
+    "react-test-renderer": "^16.7.0",
+    "redux-logger": "^3.0.6",
+    "tslint": "^5.12.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.5.3",
+    "umi": "^2.6.1",
+    "umi-plugin-react": "^1.6.0",
+    "umi-types": "^0.2.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "tslint --fix",
+      "git add"
+    ],
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  }
+}

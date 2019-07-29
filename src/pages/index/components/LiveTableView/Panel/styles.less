@@ -1,0 +1,23 @@
+@import '../../../../../common/less/mixin.less';
+@import '../../../../../common/less/variable.less';
+
+.panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .panelLeft {
+    display: flex;
+    align-items: center;
+  }
+  .font {
+    margin: 0 33px 0 15px;
+    #myFont.medium(16px, @nav_font_gray);
+  }
+
+  .selectGame {
+    padding-right: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 30px;
+  }
+}

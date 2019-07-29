@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.3 (67297) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_yuce_s</title>
+    <desc>Created with Sketch.</desc>
+    <g id="1.0.0首页" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1.0.1首页" transform="translate(0.000000, -261.000000)" fill-rule="nonzero">
+            <g id="分组-2">
+                <g id="分组-copy-15" transform="translate(0.000000, 261.000000)">
+                    <g id="Icon_Acquisition">
+                        <path d="M21.0587876,18.857801 C21.3603744,17.2315235 22.7863683,16 24.5,16 C26.4329966,16 28,17.5670034 28,19.5 C28,21.4329966 26.4329966,23 24.5,23 C22.7812372,23 21.3518372,21.7610903 21.0561088,20.1275796 C17.3197852,20.3989574 14.7421345,21.3631869 13.2930301,23 L14,23 L14,28 L9,28 L9,23 L12.0240687,23 C13.1958665,21.204297 15.2943478,20.0199755 18.2992157,19.4333804 C15.8440982,18.8077584 13.9930658,17.6637732 12.7591718,16 L9,16 L9,11 L14,11 L14,15.9227771 C15.518804,17.5727594 17.8642749,18.5519149 21.0587876,18.857801 Z" id="合并形状" fill="#CA59FF"></path>
+                        <ellipse id="Oval-Copy-18" fill="#9B3FF4" opacity="0.5" cx="24" cy="19.5" rx="7" ry="7.5"></ellipse>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
