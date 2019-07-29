@@ -75,7 +75,7 @@ export default class RegisterForm extends React.PureComponent<IProps, IState> {
           mobile: mob,
           code: sms,
           password: psw,
-          GTVerify: this.GTVerify.current,
+          onError: () => this.GTVerify.current && this.GTVerify.current.resetGTVerify(),
           ...verifyInfo
         }
       });

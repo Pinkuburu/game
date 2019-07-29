@@ -1,5 +1,6 @@
 import request from './request';
 import path from './path';
+import { Storage, StorageKey } from '../../utils/storage';
 
 export default {
   // ======================================= 首页相关
@@ -33,5 +34,9 @@ export default {
   checkForForget: (data: {
     mobile: string;
     code: string; // 还有图形验证相关参数
-  }) => request.post(`${path.user}/user/v1/forget/check`, data) // 重设密码前检查身份
+  }) => request.post(`${path.user}/user/v1/forget/check`, data), // 重设密码前检查身份
+  getUserInfo: () =>
+    request(`${path.user}/user/v1/get_user_info`, {
+      headers: { token: Storage.get(StorageKey.REFRESH_TOKEN) }
+    }) // 获取用户信息
 };

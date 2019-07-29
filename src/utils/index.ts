@@ -1,6 +1,6 @@
 import { NAMESPACE } from '../common/constants';
 import { ActionType } from '../models/constants';
-import { message } from 'antd'
+import { message } from 'antd';
 export { NAMESPACE };
 // // todo: num类型可能需要具体化
 // export function percent(num: any, fix = 0) {
@@ -17,7 +17,7 @@ export function globalStore() {
 
 // 全局dispatch方法
 export function globalDispatch(action: { type: string; payload?: any }) {
-  (window as any).g_app._store.dispatch(action);
+  return (window as any).g_app._store.dispatch(action);
 }
 
 // 全局关闭Modal的方法
@@ -37,10 +37,10 @@ export function globalMessage(msg: string, type: 'warn' | 'success' | 'error' = 
 // 判断是否为开发环境
 export function isDevMode(): boolean {
   if (process.env.NODE_ENV === 'development') {
-    // eslint-disable-next-line 
+    // eslint-disable-next-line
     isDevMode = () => true;
   } else {
-    // eslint-disable-next-line 
+    // eslint-disable-next-line
     isDevMode = () => false;
   }
   return isDevMode();

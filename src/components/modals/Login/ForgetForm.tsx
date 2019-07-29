@@ -84,17 +84,17 @@ export default class ForgetForm extends React.PureComponent<IProps, IState> {
     if (this.canIdentify()) {
       const { sms, mob } = this.state;
       const verifyInfo = this.GTVerify.current && this.GTVerify.current.getGTVerifyInfo();
-      try {
-        verifyInfo &&
-          (await Api.checkForForget({
-            mobile: mob,
-            code: sms,
-            ...verifyInfo
-          }));
-        this.setState({ isVerifySmsCode: true });
-      } catch (error) {
-        this.GTVerify.current && this.GTVerify.current.resetGTVerify();
-      }
+
+      globalDispatch({
+        type: `${NAMESPACE.AUTH}/${ActionType.check_for_forget}`,
+        payload: {
+          onSuccess: () => this.setState({ isVerifySmsCode: true }),
+          onError: () => this.GTVerify.current && this.GTVerify.current.resetGTVerify(),
+          mobile: mob,
+          code: sms,
+          ...verifyInfo
+        }
+      });
     }
   }
 
@@ -241,8 +241,8 @@ export default class ForgetForm extends React.PureComponent<IProps, IState> {
           maxLength={16}
           tag={InputType.PSW}
           onChange={this.handleInputChange}
+          className={styles.aboutInput}
         />
-        <br />
         <CustomInput
           placeholder="设置密码8-16个字符"
           inputIcon="Password"
@@ -252,6 +252,7 @@ export default class ForgetForm extends React.PureComponent<IProps, IState> {
           maxLength={16}
           tag={InputType.REPSW}
           onChange={this.handleInputChange}
+          className={styles.aboutInput}
         />
       </>
     );

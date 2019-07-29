@@ -1,5 +1,6 @@
 import React from 'react';
-import { hasSpace, isPureNumber } from '../../../utils';
+import { hasSpace, isPureNumber, globalMessage } from '../../../utils';
+
 import styles from './styles.less';
 import classnames from 'classnames';
 import Icon from './components/Icon';
@@ -124,6 +125,7 @@ export default class CustomInput extends React.PureComponent<IProps, IState> {
     const { sendSms } = this.props;
     sendSms &&
       sendSms().then((isSuccess) => {
+        isSuccess && globalMessage('发送成功', 'success');
         this.setState({ isSendedSms: isSuccess });
       });
   }

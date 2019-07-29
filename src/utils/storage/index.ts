@@ -11,19 +11,32 @@ export const Storage = {
     if (isDevMode) {
       console.log(`存储了 key = ${key} value = ${value}`);
     }
-    JSON.stringify(value);
+    const jsonValue = JSON.stringify(value);
     if (inSession) {
-      sessionStorage.setItem(key, value);
+      sessionStorage.setItem(key, jsonValue);
     } else {
-      localStorage.setItem(key, value);
+      localStorage.setItem(key, jsonValue);
     }
   },
 
   get: (key: string, inSession: boolean = false) => {
-    const item = localStorage.getItem(key);
+    let item = null;
+    if (inSession) {
+      item = sessionStorage.getItem(key);
+    } else {
+      item = localStorage.getItem(key);
+    }
     if (item) {
       return JSON.parse(item);
     }
     return null;
+  },
+
+  remove: (key: string, inSession: boolean = false) => {
+    if (inSession) {
+      sessionStorage.removeItem(key);
+    } else {
+      localStorage.removeItem(key);
+    }
   }
 };

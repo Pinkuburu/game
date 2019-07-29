@@ -101,3 +101,10 @@ export interface Odd {
   ljj: number;
   sb: number;
 }
+
+// 用户信息
+export interface UserInfo {
+  avatar: string;
+  name: string;
+  uid: number;
+}

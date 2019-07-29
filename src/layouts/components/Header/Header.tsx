@@ -3,6 +3,7 @@ import { GameTypeEnum } from '../../../common/enums';
 import { GameInfo } from '../../../common/constants';
 import { Layout, Menu } from 'antd';
 import { ActionType, NAMESPACE } from '../../../models/constants';
+import { Storage, StorageKey } from '../../../utils/storage';
 import { connect } from 'dva';
 import Image from '../../../components/atoms/Image';
 import ImageStore from '../../../components/atoms/Image/imgStore';
@@ -22,6 +23,16 @@ class Header extends React.PureComponent<IProps> {
     super(props);
     this.showLoginModal = this.showLoginModal.bind(this);
     this.handleGameListItemClick = this.handleGameListItemClick.bind(this);
+    this.handleUserListItemClick = this.handleUserListItemClick.bind(this);
+  }
+
+  componentDidMount() {
+    if (Storage.get(StorageKey.REFRESH_TOKEN)) {
+      // 直接登录
+      this.props.dispatch({
+        type: `${NAMESPACE.AUTH}/${ActionType.get_user_info}`
+      });
+    }
   }
 
   showLoginModal(activeKey: 'login' | 'register') {
@@ -36,6 +47,18 @@ class Header extends React.PureComponent<IProps> {
       type: `${NAMESPACE.GLOBAL}/${ActionType.change_game_type_r}`,
       payload: key as GameTypeEnum
     });
+  }
+  handleUserListItemClick({ key }: { key: string }) {
+    switch (key as 'user' | 'logout') {
+      case 'user':
+        // TODO:去用户中心
+        break;
+      case 'logout':
+        this.props.dispatch({
+          type: `${NAMESPACE.AUTH}/${ActionType.do_logout_r}`
+        });
+        break;
+    }
   }
 
   render() {
@@ -65,7 +88,11 @@ class Header extends React.PureComponent<IProps> {
     );
   }
   buildAfterLogined() {
-    return <Image src={ImageStore.userImg} text="用户" />;
+    return (
+      <CustomDropdown overlay={this.buildUserList()} placement="bottomCenter" trigger={['click']}>
+        <Image src={ImageStore.userImg} text="用户" />
+      </CustomDropdown>
+    );
   }
   buildGameTypeIcon(gameType: GameTypeEnum, className?: string) {
     return (
@@ -83,7 +110,7 @@ class Header extends React.PureComponent<IProps> {
     return (
       <Menu>
         {userList.map((item) => (
-          <Menu.Item key={item.name}>
+          <Menu.Item key={item.key} onClick={this.handleUserListItemClick}>
             <span>{item.name}</span>
           </Menu.Item>
         ))}
@@ -123,9 +150,11 @@ const gameList: GameTypeEnum[] = [
 ];
 const userList = [
   {
-    name: '个人中心'
+    name: '个人中心',
+    key: 'user'
   },
   {
-    name: '退出登录'
+    name: '退出登录',
+    key: 'logout'
   }
 ];

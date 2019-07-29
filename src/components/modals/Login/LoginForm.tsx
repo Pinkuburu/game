@@ -27,7 +27,7 @@ export default class LoginForm extends React.PureComponent<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
-      loginWithSMS: true,
+      loginWithSMS: false,
       isRememberMe: false,
       mob: '',
       psw: '',
@@ -102,8 +102,8 @@ export default class LoginForm extends React.PureComponent<IProps, IState> {
       globalDispatch({
         type: `${NAMESPACE.AUTH}/${ActionType.do_login}`,
         payload: {
+          onError: () => this.GTVerify.current && this.GTVerify.current.resetGTVerify(),
           mobile: mob,
-          GTVerify: this.GTVerify.current,
           ...partOfLoginParams,
           ...verifyInfo
         }

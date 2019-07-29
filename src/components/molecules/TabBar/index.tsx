@@ -58,6 +58,7 @@ export default class CustomTabBar extends React.PureComponent<IProps, IState> {
   }
 
   // 初始化Tab的一些信息
+  // TODO: 需要修改调用位置，不然初始的activeIndex不为第一个时会有动画效果
   initAboutTab() {
     const { children, defaultActiveKey } = this.props;
     if (children) {
@@ -166,24 +167,3 @@ export default class CustomTabBar extends React.PureComponent<IProps, IState> {
     );
   }
 }
-
-interface ILi {
-  onClick?: Function;
-  item: TabInfo;
-  className: string;
-}
-
-const Li: React.FC<ILi> = ({ onClick, item }) => (
-  <li
-    key={item.tab}
-    // className={classnames(styles[`border${activeBorderPosition}`], {
-    //   [styles.active]: item.key === activeKey,
-    //   [styles.activeWithMark]: activeWithMark,
-    //   [styles.disabled]: item.disabled,
-    //   [styles.withoutActiveLine]: item.withoutActiveLine
-    // })}
-    // onClick={this.handleLiClick.bind(this, item)}
-  >
-    {item.tab}
-  </li>
-);
