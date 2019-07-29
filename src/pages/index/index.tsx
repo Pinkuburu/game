@@ -3,7 +3,8 @@
  */
 import React from 'react';
 import { connect } from 'dva';
-import { ActionType, GameType, MatchType } from './constants';
+import { ActionType, MatchType } from './constants';
+import { GameTypeEnum } from '../../common/enums';
 import * as DataType from '../../common/interfaces/dataType';
 import styles from './styles.less';
 import Predict from './components/PredictView';
@@ -16,7 +17,7 @@ export interface IProps {
   banners: DataType.BannersImg[];
   predict: DataType.PredictOfToday;
   liveList: [];
-  currentGameType: GameType[];
+  currentGameType: GameTypeEnum[];
   currentSelectedLeaguesId: number[];
   currentMatchType: MatchType;
   currentDate: number;
@@ -100,7 +101,7 @@ export default connect((state: ConnectState) => ({
   currentMatchType: state.match.currentMatchType,
   currentSelectedLeaguesId: state.match.currentSelectedLeaguesId,
   leagueList: state.match.currentGameType
-    .map((gameType: GameType) => state.match.dataForSelectedLeagues[gameType])
+    .map((gameType: GameTypeEnum) => state.match.dataForSelectedLeagues[gameType])
     .flat(),
   matchList: state.match.currentSelectedLeaguesId
     .map((leagueId: number) => {
