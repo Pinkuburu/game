@@ -5,7 +5,8 @@ import BasicInfo from './BasicInfo';
 import Image from '../../../components/atoms/Image';
 import ImgStore from '../../../components/atoms/Image/imgStore';
 import RadioGroup from '../../../components/atoms/RadioGroup';
-import { CustomCheckbox } from '../../../components/atoms/CheckBox';
+import CheckboxGroup from '../../../components/atoms/CheckBoxGroup';
+import { Checkbox } from 'antd';
 
 enum PayWay {
   aliPay,
@@ -56,7 +57,9 @@ export default class Member extends React.Component<IProps, IState> {
               <RadioGroup options={gameTypeOptions} />
             </div>
             <div>
-              <CustomCheckbox>接受并同意</CustomCheckbox>
+              <CheckboxGroup>
+                <Checkbox>接受并同意</Checkbox>
+              </CheckboxGroup>
               <a>《电竞鹰眼会员条款》</a>
             </div>
           </div>
