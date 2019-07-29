@@ -19,11 +19,23 @@ import leagueD from '../../../assets/icon_select_s.png';
 import deleteIcon from '../../../assets/icon_delete.png';
 import noDataIcon from '../../../assets/icon_no_data.svg';
 import checkPredict from '../../../assets/check-predict.svg';
-import douyu from '../../../assets/douyu_logo.svg';
-import huya from '../../../assets/huya_logo.svg';
-import huomao from '../../../assets/huomao_logo.svg';
-import twitch from '../../../assets/twitch_logo.svg';
-
+import douyu from '../../../assets/douyu_logo.svg'; // 斗鱼logo
+import huya from '../../../assets/huya_logo.svg'; // 虎牙logo
+import huomao from '../../../assets/huomao_logo.svg'; // 火猫logo
+import twitch from '../../../assets/twitch_logo.svg'; // twitchlogo
+import privileges from '../../../assets/privileges.svg'; // 会员特权
+import privileges1 from '../../../assets/privileges1.svg'; // 联赛预测
+import privileges2 from '../../../assets/privileges2.svg'; // 全面数据
+import privileges3 from '../../../assets/privileges3.svg'; // 直播推荐
+import privileges4 from '../../../assets/privileges4.svg'; // 个性标识
+import privileges5 from '../../../assets/privileges5.svg'; // 功能尝鲜
+import iconCamera from '../../../assets/icon_camera.svg'; // 相机
+import iconEdit from '../../../assets/icon_edit.svg'; // 编辑
+import iconMember from '../../../assets/icon_member.svg'; // 会员
+import iconMobile from '../../../assets/icon_mobile.svg'; // 手机
+import weekMember from '../../../assets/week_member.svg'; // 周会员
+import monthMember from '../../../assets/month_member.svg'; // 月会员
+import chooseMember from '../../../assets/choose_member.svg'; // 选择周/月会员
 export const CirGameIcon = {
   dota2: cirDota,
   lol: cirLol,
@@ -41,12 +53,15 @@ const ImageStore = {
   deleteIcon,
   noDataIcon,
   checkPredict,
-  live: {
-    douyu,
-    huomao,
-    twitch,
-    huya
-  }
+  live: { douyu, huomao, twitch, huya },
+  privileges: { privileges, privileges1, privileges2, privileges3, privileges4, privileges5 },
+  camera: iconCamera,
+  edit: iconEdit,
+  member: iconMember,
+  mobile: iconMobile,
+  weekMember,
+  monthMember,
+  chooseMember
 };
 
 export default ImageStore;

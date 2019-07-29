@@ -1,0 +1,44 @@
+@import '../../../common/less/variable.less';
+@import '../../../common/less/mixin.less';
+
+.userContainer {
+  padding: 40px;
+  background-color: @card_background;
+  &:nth-child(2) {
+    margin-top: 20px;
+  }
+}
+
+.privilegesList {
+  margin-top: 20px;
+  .item:not(:first-child) {
+    margin-left: 95px;
+  }
+}
+
+.basicInfoContainer {
+  #myFont.medium(16px, @nav_font);
+  display: flex;
+  .textInfoContainer {
+    margin-left: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    .name {
+      font-size: 28px;
+      color: @main_font;
+      display: flex;
+      align-items: center;
+    }
+    .mobAndTime {
+      display: flex;
+      align-items: center;
+      .timeLabel {
+        margin-left: 50px;
+      }
+      .expiredTime {
+        color: @hover_font;
+      }
+    }
+  }
+}

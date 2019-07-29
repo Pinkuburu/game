@@ -2,6 +2,7 @@ import React from 'react';
 import { Tooltip } from 'antd';
 import styles from './styles.less';
 import classnames from 'classnames';
+
 interface IProps {
   title?: string;
   alt?: string;

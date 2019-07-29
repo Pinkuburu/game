@@ -1,8 +1,8 @@
-/**
- * title: 个人中心
- * Routes:
- *   - ./src/components/molecules/Authorized
- */
+// /**
+//  * title: 个人中心
+//  * Routes:
+//  *   - ./src/components/molecules/Authorized
+//  */
 import React from 'react';
 import { connect } from 'dva';
 import CustomTabBar, { CustomTabPane } from '../../components/molecules/TabBar';
@@ -16,8 +16,14 @@ enum PersonalCenterPageEnum {
   Suggestion = 'suggestion'
 }
 
-class PersonalCenter extends React.Component<{}> {
+interface IProps {
+  userInfo: any;
+  userMemberInfo: any[];
+}
+
+class PersonalCenter extends React.Component<IProps> {
   render() {
+    const { userInfo, userMemberInfo } = this.props;
     return (
       <CustomTabBar
         defaultActiveKey={PersonalCenterPageEnum.Member}
@@ -26,7 +32,7 @@ class PersonalCenter extends React.Component<{}> {
         withTabBarBottomBorder={false}
       >
         <CustomTabPane key={PersonalCenterPageEnum.Member} tab="成为会员">
-          <Member />
+          <Member userInfo={userInfo} userMemberInfo={userMemberInfo} />
         </CustomTabPane>
         <CustomTabPane key={PersonalCenterPageEnum.Account} tab="账号安全">
           <Account />
@@ -39,6 +45,11 @@ class PersonalCenter extends React.Component<{}> {
   }
 }
 
-interface ConnectState {}
+interface ConnectState {
+  auth: any;
+}
 
-export default connect((state: ConnectState) => ({}))(PersonalCenter);
+export default connect((state: ConnectState) => ({
+  userInfo: state.auth.userInfo,
+  userMemberInfo: state.auth.userMemberInfo
+}))(PersonalCenter);

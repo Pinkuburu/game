@@ -1,0 +1,43 @@
+@import '../../../common/less/variable.less';
+@import '../../../common/less/mixin.less';
+.customRadioGroup {
+  :global {
+    .ant-radio-wrapper {
+      display: inline-flex;
+      align-items: center;
+      #myFont.medium(16px, @nav_font);
+      // 激活时的字体颜色
+      &.ant-radio-wrapper-checked {
+        color: @main_font;
+      }
+
+      .ant-radio {
+        // 未激活时的背景色
+        .ant-radio-inner {
+          background-color: black;
+          border-color: black;
+          &::after {
+            background-color: @main_color;
+          }
+        }
+
+        &.ant-radio-checked {
+          // 激活瞬间的涟漪色
+          &::after {
+            border-color: @main_color;
+          }
+          // 激活时的点色
+          .ant-radio-inner {
+            &::after {
+              background-color: @main_color;
+            }
+          }
+        }
+
+        .ant-radio-input:focus + .ant-radio-inner {
+          box-shadow: 0 0 0 3px rgba(243, 26, 214, 0.08);
+        }
+      }
+    }
+  }
+}
