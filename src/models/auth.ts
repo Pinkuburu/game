@@ -108,6 +108,7 @@ const model: DvaModel<IState> = {
         yield call(Api.checkOrderStatus, { id: res.id });
         // 重新获取用户信息
         yield put({ type: ActionType.get_user_info });
+        globalCloseModal();
       } catch (error) {
         console.log('充值会员出错了', error);
       }
