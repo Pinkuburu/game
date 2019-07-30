@@ -6,6 +6,7 @@ import Image from '../../../components/atoms/Image';
 import ImgStore from '../../../components/atoms/Image/imgStore';
 import * as DataType from '../../../common/interfaces/dataType';
 import styles from './styles.less';
+import { connect } from 'dva';
 
 interface IProps {
   userInfo: DataType.UserInfo;
@@ -16,7 +17,7 @@ interface IState {
   readonly: boolean;
 }
 
-export default class BasicInfo extends React.PureComponent<IProps, IState> {
+class BasicInfo extends React.PureComponent<IProps, IState> {
   static defaultProps = {
     userInfo: {},
     userMemberInfo: [],
@@ -42,9 +43,10 @@ export default class BasicInfo extends React.PureComponent<IProps, IState> {
     const expiredTime = userMemberInfo.length
       ? moment.unix(userMemberInfo[0].expire).format('YYYY-MM-DD')
       : '无';
+
     return (
       <div className={styles.basicInfoContainer}>
-        <Avatar src={userInfo.avatar} size={85} canReUpload={!readonly} />
+        <Avatar src={ImgStore.defualt.avatar} size={85} canReUpload={!readonly} />
         <div className={styles.textInfoContainer}>
           <div className={styles.name}>
             {readonly ? userInfo.name : <Input value={userInfo.name} autoFocus={true} />}
@@ -60,3 +62,12 @@ export default class BasicInfo extends React.PureComponent<IProps, IState> {
     );
   }
 }
+
+interface ConnectState {
+  auth: any;
+}
+
+export default connect((state: ConnectState) => ({
+  userInfo: state.auth.userInfo,
+  userMemberInfo: state.auth.userMemberInfo
+}))(BasicInfo);

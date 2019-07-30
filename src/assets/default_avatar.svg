@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="86px" height="86px" viewBox="0 0 86 86" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.1 (81669) - https://sketch.com -->
+    <title>touxiang</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="38.24" cy="38.24" r="37.84"></circle>
+    </defs>
+    <g id="6.0.0个人中心" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="6.0.0个人中心_账号安全" transform="translate(-104.000000, -142.000000)">
+            <g id="个人信息" transform="translate(60.000000, 120.000000)">
+                <g id="分组" transform="translate(44.760000, 22.760000)">
+                    <g id="分组-2">
+                        <g id="touxiang" transform="translate(4.000000, 4.000000)">
+                            <mask id="mask-2" fill="white">
+                                <use xlink:href="#path-1"></use>
+                            </mask>
+                            <use id="Mask-Copy" fill="#2B2F44" xlink:href="#path-1"></use>
+                            <path d="M37.3795556,48.1023423 C26.924928,48.1023423 18.4497778,39.5907511 18.4497778,29.0911712 C18.4497778,18.5915913 26.924928,10.08 37.3795556,10.08 C47.8341831,10.08 56.3093333,18.5915913 56.3093333,29.0911712 C56.3093333,39.5907511 47.8341831,48.1023423 37.3795556,48.1023423 Z M38.24,106 C16.8555345,106 -0.48,93.0391679 -0.48,77.0511712 C-0.48,61.0631745 16.8555345,48.1023423 38.24,48.1023423 C59.6244655,48.1023423 76.96,61.0631745 76.96,77.0511712 C76.96,93.0391679 59.6244655,106 38.24,106 Z" id="Combined-Shape" fill="#626F86" mask="url(#mask-2)"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

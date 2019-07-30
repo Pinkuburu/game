@@ -1,10 +1,11 @@
-import { DvaModel } from '../common/interfaces/model';
+import { DvaModel } from '@/common/interfaces/model';
+import { globalCloseModal } from '@/utils';
+import { Storage, StorageKey } from '@/utils/storage';
+import { globalMessage } from '@/utils/';
+import * as DataType from '@/common/interfaces/dataType';
+import Api from '@/service/request/api';
+import { PayWayEnum } from '@/common/enums';
 import { ActionType } from './constants';
-import { globalCloseModal } from '../utils';
-import { Storage, StorageKey } from '../utils/storage';
-import { globalMessage } from '../utils/';
-import * as DataType from '../common/interfaces/dataType';
-import Api from '../service/request/api';
 
 interface IState {
   isLogined: boolean;
@@ -12,7 +13,11 @@ interface IState {
   userMemberInfo: DataType.UserMemberInfo[];
 }
 const model: DvaModel<IState> = {
-  state: { isLogined: false, userInfo: { avatar: '', name: '', uid: 0 }, userMemberInfo: [] },
+  state: {
+    isLogined: false,
+    userInfo: { avatar: '', name: '', mobile: '', uid: 0 },
+    userMemberInfo: []
+  },
   reducers: {
     // 获取用户信息成功。即登录成功
     [ActionType.get_user_info_success_r](
@@ -81,6 +86,27 @@ const model: DvaModel<IState> = {
         globalMessage('登录成功', 'success');
       } catch (error) {
         console.log('获取用户信息出错了', error);
+      }
+    },
+    // 开通会员
+    *[ActionType.do_open_membership]({ payload: { type, ...data } }, { put, call }) {
+      try {
+        console.log(type, data);
+        let res: any;
+        switch (type as PayWayEnum) {
+          case PayWayEnum.aliPay:
+            res = yield call(Api.aliPay, data);
+            window.open(res.pay_qrcode, '_blank');
+            break;
+          case PayWayEnum.wechatPay:
+            res = yield call(Api.wechatPay, data);
+            break;
+        }
+        yield call(Api.checkOrderStatus, { id: res.id });
+        // 重新获取用户信息
+        yield put({ type: ActionType.get_user_info });
+      } catch (error) {
+        console.log('充值会员出错了', error);
       }
     }
   },

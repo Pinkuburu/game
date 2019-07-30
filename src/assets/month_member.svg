@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="716px" height="191px" viewBox="0 0 716 191" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="659px" height="163px" viewBox="0 0 659 163" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 56.1 (81669) - https://sketch.com -->
     <title>分组 18</title>
     <desc>Created with Sketch.</desc>
@@ -18,38 +18,40 @@
         <path d="M8,0 L651,0 C655.418278,-8.11624501e-16 659,3.581722 659,8 L659,155 C659,159.418278 655.418278,163 651,163 L8,163 C3.581722,163 5.41083001e-16,159.418278 0,155 L0,8 C-5.41083001e-16,3.581722 3.581722,8.11624501e-16 8,0 Z" id="path-4"></path>
     </defs>
     <g id="6.0.0个人中心" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="6.0.0个人中心_成为会员" transform="translate(-762.000000, -288.000000)">
-            <g id="card-copy" transform="translate(762.000000, 288.000000)">
+        <g id="6.0.0个人中心_成为会员" transform="translate(-792.000000, -288.000000)">
+            <g id="card-copy" transform="translate(792.000000, 288.000000)">
                 <g id="分组-18">
-                    <g id="Rectangle-3" transform="translate(28.000000, 0.000000)">
-                        <rect id="Rectangle-Copy-3" fill="url(#linearGradient-1)" opacity="0.75" filter="url(#filter-2)" x="1" y="142" width="657.833333" height="19.1666667" rx="8"></rect>
-                        <mask id="mask-5" fill="white">
-                            <use xlink:href="#path-4"></use>
-                        </mask>
-                        <use id="Mask" fill="url(#linearGradient-3)" xlink:href="#path-4"></use>
-                        <text id="/月" opacity="0.431942894" mask="url(#mask-5)" font-family="Lato-Bold, Lato" font-size="20" font-weight="bold" letter-spacing="0.25" fill="#FFFFFF">
-                            <tspan x="599" y="141">/</tspan>
-                            <tspan x="606.99" y="141" font-family="PingFang-SC-Bold, PingFang SC" letter-spacing="0.1666667">月</tspan>
-                        </text>
-                        <circle id="Oval-2-Copy-2" fill="#FFFFFF" opacity="0.1" mask="url(#mask-5)" cx="651" cy="133" r="156"></circle>
-                        <circle id="Oval-2-Copy-3" fill="#FFFFFF" opacity="0.1" mask="url(#mask-5)" cx="494.083333" cy="247.083333" r="157.083333"></circle>
-                        <text id="168/月" mask="url(#mask-5)" font-family="Lato-Bold, Lato" font-size="18" font-weight="bold" letter-spacing="0.2250001" fill="#FFFFFF">
-                            <tspan x="40" y="69">168/</tspan>
-                            <tspan x="79.1860004" y="69" font-family="PingFang-SC-Bold, PingFang SC">月</tspan>
-                        </text>
-                        <text id="¥-copy" mask="url(#mask-5)" font-family="Lato-Bold, Lato" font-size="16" font-weight="bold" letter-spacing="0.2000001" fill="#FFFFFF">
-                            <tspan x="26" y="69">¥</tspan>
-                        </text>
-                        <path d="M49.4274609,38.7269053 C47.5492031,38.7269053 45.8191641,38.0669915 44.4709922,36.9655601 C45.5958516,35.247644 46.2594609,33.2016124 46.2594609,30.998958 C46.2594609,28.7962342 45.5958516,26.7503416 44.4709922,25.0322865 C45.8191641,23.9350938 47.5492031,23.2751105 49.4274609,23.2751105 C53.7350156,23.2751105 57.2410781,26.7400576 57.2410781,30.998958 C57.2410781,35.257928 53.7350156,38.7269053 49.4274609,38.7269053 M49.4274609,20.5506121 C46.8709688,20.5506121 44.5231641,21.4519222 42.6949688,22.9492185 C40.7082188,21.1240152 38.0535703,20 35.1297656,20 C28.9836797,19.9979161 24,24.9229841 24,30.998958 C24,37.0749319 28.9836797,42 35.1297656,42 C38.0556797,42 40.7082188,40.876055 42.6949688,39.0507126 C44.5231641,40.5460633 46.8709688,41.4472345 49.4274609,41.4472345 C55.2563672,41.4472345 60,36.7614086 60,30.998958 C60,25.2365075 55.2563672,20.5506121 49.4274609,20.5506121" id="Fill-1-Copy" fill="#FFFFFF" opacity="0.5" mask="url(#mask-5)"></path>
-                        <text id="88" mask="url(#mask-5)" font-family="Lato-Bold, Lato" font-size="110" font-weight="bold" letter-spacing="1.375" fill="#FDFDFD">
-                            <tspan x="465" y="144">88</tspan>
-                        </text>
-                        <text id="¥" opacity="0.5" mask="url(#mask-5)" font-family="Lato-Bold, Lato" font-size="40" font-weight="bold" letter-spacing="0.5" fill="#FFFFFF">
-                            <tspan x="438" y="93">¥</tspan>
-                        </text>
-                        <path d="M22,64.432 L102,64.432" id="直线-2" stroke="#FF0000" stroke-width="2" stroke-linecap="square" mask="url(#mask-5)"></path>
+                    <g id="编组">
+                        <g id="Rectangle-3">
+                            <rect id="Rectangle-Copy-3" fill="url(#linearGradient-1)" opacity="0.75" filter="url(#filter-2)" x="1" y="142" width="657.833333" height="19.1666667" rx="8"></rect>
+                            <mask id="mask-5" fill="white">
+                                <use xlink:href="#path-4"></use>
+                            </mask>
+                            <use id="Mask" fill="url(#linearGradient-3)" xlink:href="#path-4"></use>
+                            <text id="/月" opacity="0.431942894" mask="url(#mask-5)" font-family="Lato-Bold, Lato" font-size="20" font-weight="bold" letter-spacing="0.25" fill="#FFFFFF">
+                                <tspan x="599" y="141">/</tspan>
+                                <tspan x="606.99" y="141" font-family="PingFang-SC-Bold, PingFang SC" letter-spacing="0.1666667">月</tspan>
+                            </text>
+                            <circle id="Oval-2-Copy-2" fill="#FFFFFF" opacity="0.1" mask="url(#mask-5)" cx="651" cy="133" r="156"></circle>
+                            <circle id="Oval-2-Copy-3" fill="#FFFFFF" opacity="0.1" mask="url(#mask-5)" cx="494.083333" cy="247.083333" r="157.083333"></circle>
+                            <text id="168/月" mask="url(#mask-5)" font-family="Lato-Bold, Lato" font-size="18" font-weight="bold" letter-spacing="0.2250001" fill="#FFFFFF">
+                                <tspan x="40" y="69">168/</tspan>
+                                <tspan x="79.1860004" y="69" font-family="PingFang-SC-Bold, PingFang SC">月</tspan>
+                            </text>
+                            <text id="¥-copy" mask="url(#mask-5)" font-family="Lato-Bold, Lato" font-size="16" font-weight="bold" letter-spacing="0.2000001" fill="#FFFFFF">
+                                <tspan x="26" y="69">¥</tspan>
+                            </text>
+                            <path d="M49.4274609,38.7269053 C47.5492031,38.7269053 45.8191641,38.0669915 44.4709922,36.9655601 C45.5958516,35.247644 46.2594609,33.2016124 46.2594609,30.998958 C46.2594609,28.7962342 45.5958516,26.7503416 44.4709922,25.0322865 C45.8191641,23.9350938 47.5492031,23.2751105 49.4274609,23.2751105 C53.7350156,23.2751105 57.2410781,26.7400576 57.2410781,30.998958 C57.2410781,35.257928 53.7350156,38.7269053 49.4274609,38.7269053 M49.4274609,20.5506121 C46.8709688,20.5506121 44.5231641,21.4519222 42.6949688,22.9492185 C40.7082188,21.1240152 38.0535703,20 35.1297656,20 C28.9836797,19.9979161 24,24.9229841 24,30.998958 C24,37.0749319 28.9836797,42 35.1297656,42 C38.0556797,42 40.7082188,40.876055 42.6949688,39.0507126 C44.5231641,40.5460633 46.8709688,41.4472345 49.4274609,41.4472345 C55.2563672,41.4472345 60,36.7614086 60,30.998958 C60,25.2365075 55.2563672,20.5506121 49.4274609,20.5506121" id="Fill-1-Copy" fill="#FFFFFF" opacity="0.5" mask="url(#mask-5)"></path>
+                            <text id="88" mask="url(#mask-5)" font-family="Lato-Bold, Lato" font-size="110" font-weight="bold" letter-spacing="1.375" fill="#FDFDFD">
+                                <tspan x="465" y="144">88</tspan>
+                            </text>
+                            <text id="¥" opacity="0.5" mask="url(#mask-5)" font-family="Lato-Bold, Lato" font-size="40" font-weight="bold" letter-spacing="0.5" fill="#FFFFFF">
+                                <tspan x="438" y="93">¥</tspan>
+                            </text>
+                            <path d="M22,64.432 L102,64.432" id="直线-2" stroke="#FF0000" stroke-width="2" stroke-linecap="square" mask="url(#mask-5)"></path>
+                        </g>
+                        <g id="card-holder" transform="translate(22.000000, 109.000000)"></g>
                     </g>
-                    <g id="card-holder" transform="translate(50.000000, 109.000000)"></g>
                 </g>
             </g>
         </g>

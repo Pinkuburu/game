@@ -7,8 +7,35 @@
   &:nth-child(2) {
     margin-top: 20px;
   }
+  .payInfo {
+    #myFont.medium(16px, @main_font);
+    margin-top: 35px;
+    .price {
+      font-size: 22px;
+      font-family: PingFang-SC-Bold;
+      font-weight: bold;
+      color: rgba(255, 208, 24, 1);
+    }
+    .radioGroupContainer {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      :global {
+        .ant-radio-group {
+          margin-left: 10px;
+        }
+      }
+    }
+    .acceptTerms {
+      margin: 30px 0;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+    }
+  }
 }
 
+// 会员特权
 .privilegesList {
   margin-top: 20px;
   .item:not(:first-child) {
@@ -16,6 +43,7 @@
   }
 }
 
+// 用户基本信息
 .basicInfoContainer {
   #myFont.medium(16px, @nav_font);
   display: flex;
@@ -39,6 +67,37 @@
       .expiredTime {
         color: @hover_font;
       }
+    }
+  }
+}
+
+// 选择月/周会员
+.memberTypeContainer {
+  margin-top: 40px;
+  display: flex;
+  .memberType {
+    position: relative;
+    #myFont.lato(14px, #ffffff);
+    .info {
+      position: absolute;
+      bottom: 18px;
+      left: 21px;
+      .mob {
+        font-size: 16px;
+      }
+    }
+    &:first-child {
+      margin-right: 32px;
+    }
+    .memberTypeChecked {
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('../../../assets/choose_member.svg') top no-repeat;
+      background-size: 100%;
     }
   }
 }

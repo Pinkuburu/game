@@ -1,6 +1,11 @@
 import request from './request';
 import path from './path';
+import { globalMessage } from '@/utils';
 import { Storage, StorageKey } from '../../utils/storage';
+
+function withToken() {
+  return { headers: { token: Storage.get(StorageKey.REFRESH_TOKEN) } };
+}
 
 export default {
   // ======================================= 首页相关
@@ -35,8 +40,41 @@ export default {
     mobile: string;
     code: string; // 还有图形验证相关参数
   }) => request.post(`${path.user}/user/v1/forget/check`, data), // 重设密码前检查身份
-  getUserInfo: () =>
-    request(`${path.user}/user/v1/get_user_info`, {
-      headers: { token: Storage.get(StorageKey.REFRESH_TOKEN) }
-    }) // 获取用户信息
+  getUserInfo: () => request(`${path.user}/user/v1/get_user_info`, { ...withToken() }), // 获取用户信息
+  wechatPay: (data: { product_id: number }) =>
+    request.post(`${path.user}/user/v1/member/place`, data, { ...withToken() }), // 微信支付
+  aliPay: (data: { product_id: number }) =>
+    request.post(`${path.user}/user/v1/member/alipay_place`, data, { ...withToken() }), // 支付宝支付
+
+  // 查询订单状态
+  checkOrderStatus: (data: { id: string }) =>
+    new Promise((resolve, reject) => {
+      const timer = setInterval(() => {
+        request
+          .post(`${path.user}/user/v1/member/query_order_status`, data, {
+            ...withToken()
+          })
+          .then((res) => {
+            switch (res.status) {
+              case 2:
+                // 支付成功
+                clearInterval(timer);
+                globalMessage('充值成功', 'success');
+                resolve();
+                break;
+              case 3:
+                // 支付失败
+                clearInterval(timer);
+                globalMessage('充值失败,请稍后重试', 'error');
+                reject();
+                break;
+            }
+          })
+          .catch((e) => {
+            clearInterval(timer);
+            globalMessage('充值失败,请稍后重试', 'error');
+            reject(e);
+          });
+      }, 2000);
+    })
 };

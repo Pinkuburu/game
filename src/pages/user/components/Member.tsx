@@ -1,26 +1,38 @@
 import React from 'react';
-import styles from './styles.less';
-import { GameTypeEnum } from '../../../common/enums';
-import BasicInfo from './BasicInfo';
-import Image from '../../../components/atoms/Image';
-import ImgStore from '../../../components/atoms/Image/imgStore';
-import RadioGroup from '../../../components/atoms/RadioGroup';
-import CheckboxGroup from '../../../components/atoms/CheckBoxGroup';
 import { Checkbox } from 'antd';
 
-enum PayWay {
-  aliPay,
-  wechatPay
-}
+import styles from './styles.less';
+import { GameTypeEnum, PayWayEnum, ProductIdEnum } from '@/common/enums';
+import Image from '@/components/atoms/Image';
+import ImgStore from '@/components/atoms/Image/imgStore';
+import RadioGroup from '@/components/atoms/RadioGroup';
+import CheckboxGroup from '@/components/atoms/CheckBoxGroup';
+import Button from '@/components/atoms/Button';
+import { ActionType, NAMESPACE } from '@/models/constants';
+import { globalDispatch } from '@/utils';
+
+import MemberType from './MemberType';
+import BasicInfo from './BasicInfo';
+
 const payWayOptions = [
-  { label: '微信支付', value: PayWay.wechatPay },
-  { label: '支付宝支付', value: PayWay.aliPay }
+  { label: '微信支付', value: PayWayEnum.wechatPay },
+  { label: '支付宝支付', value: PayWayEnum.aliPay }
 ];
 const gameTypeOptions = [
-  { label: 'Dota2', value: GameTypeEnum.DOTA2 },
+  { label: 'DOTA2', value: GameTypeEnum.DOTA2 },
   { label: 'LOL', value: GameTypeEnum.LOL },
-  { label: 'Csgo', value: GameTypeEnum.CSGO }
+  { label: 'CSGO', value: GameTypeEnum.CSGO }
 ];
+function getPriceFromProductId(productId: ProductIdEnum) {
+  switch (productId) {
+    case ProductIdEnum.WEEK_FOR_DOTA2:
+      return 38;
+    case ProductIdEnum.MONTH_FOR_DOTA2:
+      return 88;
+    default:
+      return 9999;
+  }
+}
 interface IProps {
   userInfo: any;
   userMemberInfo: any[];
@@ -28,40 +40,84 @@ interface IProps {
 
 interface IState {
   price: number;
-  payWay: PayWay;
+  payWay: PayWayEnum;
   gameType: GameTypeEnum;
+  productId: ProductIdEnum;
+  isAcceptTerms: boolean;
 }
+
 export default class Member extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
-      price: 0,
-      payWay: PayWay.aliPay,
-      gameType: GameTypeEnum.DOTA2
+      price: getPriceFromProductId(ProductIdEnum.WEEK_FOR_DOTA2),
+      payWay: PayWayEnum.wechatPay,
+      gameType: GameTypeEnum.DOTA2,
+      productId: ProductIdEnum.WEEK_FOR_DOTA2,
+      isAcceptTerms: false
     };
+    this.handleProductIdChange = this.handleProductIdChange.bind(this);
+    this.handlePayWayChange = this.handlePayWayChange.bind(this);
+    this.handleGameTypeChange = this.handleGameTypeChange.bind(this);
+    this.handleCheckboxGroupChange = this.handleCheckboxGroupChange.bind(this);
+    this.handleOpemMemberShip = this.handleOpemMemberShip.bind(this);
+  }
+  handleProductIdChange(productId: ProductIdEnum) {
+    this.setState({ productId, price: getPriceFromProductId(productId) });
+  }
+  handlePayWayChange(e: any) {
+    const { value } = e.target;
+    this.setState({ payWay: value });
+  }
+  handleGameTypeChange(e: any) {
+    const { value } = e.target;
+    this.setState({ gameType: value });
+  }
+  handleCheckboxGroupChange(checkedList: any[]) {
+    this.setState({ isAcceptTerms: checkedList.includes('accept') });
+  }
+  handleOpemMemberShip() {
+    const { productId: product_id, payWay } = this.state;
+    globalDispatch({
+      type: `${NAMESPACE.AUTH}/${ActionType.do_open_membership}`,
+      payload: { type: payWay, product_id }
+    });
   }
   render() {
-    const { userInfo, userMemberInfo } = this.props;
+    const { productId, price, payWay, gameType, isAcceptTerms } = this.state;
     return (
       <div>
         <div className={styles.userContainer}>
-          <BasicInfo userInfo={userInfo} userMemberInfo={userMemberInfo} />
-          <div>
-            {/* <Image src={ImgStore.weekMember} />
-            <Image src={ImgStore.monthMember} /> */}
-            <span>共计:￥38</span>
-            <div>
-              <RadioGroup options={payWayOptions} />
+          <BasicInfo />
+          <MemberType productId={productId} onProductIdChange={this.handleProductIdChange} />
+          <div className={styles.payInfo}>
+            共计: <span className={styles.price}>￥{price}</span>
+            <div className={styles.radioGroupContainer}>
+              开通方式:
+              <RadioGroup
+                options={payWayOptions}
+                className={styles.radioGroup}
+                value={payWay}
+                onChange={this.handlePayWayChange}
+              />
             </div>
-            <div>
-              <RadioGroup options={gameTypeOptions} />
+            <div className={styles.radioGroupContainer}>
+              选择游戏:
+              <RadioGroup
+                options={gameTypeOptions}
+                value={gameType}
+                onChange={this.handleGameTypeChange}
+              />
             </div>
-            <div>
-              <CheckboxGroup>
-                <Checkbox>接受并同意</Checkbox>
+            <div className={styles.acceptTerms}>
+              <CheckboxGroup onChange={this.handleCheckboxGroupChange}>
+                <Checkbox value="accept">接受并同意</Checkbox>
               </CheckboxGroup>
               <a>《电竞鹰眼会员条款》</a>
             </div>
+            <Button onClick={this.handleOpemMemberShip} disabled={!isAcceptTerms}>
+              开通会员
+            </Button>
           </div>
         </div>
         <div className={styles.userContainer}>
