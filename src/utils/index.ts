@@ -21,6 +21,13 @@ export function globalCloseModal() {
     payload: null
   });
 }
+// 全局开启Modal的方法
+export function globalOpenModal(children: React.ReactNode) {
+  globalDispatch({
+    type: `${NAMESPACE.GLOBAL}/${ActionType.change_modal_r}`,
+    payload: children
+  });
+}
 
 // 全局的消息提示
 // 暂时用antd的message。后面若是设计稿相关样式改动较大。再考虑自己写组件

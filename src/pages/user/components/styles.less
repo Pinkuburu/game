@@ -7,39 +7,68 @@
   &:nth-child(2) {
     margin-top: 20px;
   }
-  .payInfo {
-    #myFont.medium(16px, @main_font);
-    margin-top: 35px;
-    .price {
-      font-size: 22px;
-      font-family: PingFang-SC-Bold;
-      font-weight: bold;
-      color: rgba(255, 208, 24, 1);
-    }
-    .radioGroupContainer {
-      margin-top: 10px;
-      display: flex;
-      align-items: center;
-      :global {
-        .ant-radio-group {
-          margin-left: 10px;
-        }
-      }
-    }
-    .acceptTerms {
-      margin: 30px 0;
-      display: flex;
-      align-items: center;
-      font-size: 14px;
-    }
+  &.fullHeight {
+    height: 100%;
   }
 }
-
 // 会员特权
 .privilegesList {
   margin-top: 20px;
   .item:not(:first-child) {
     margin-left: 95px;
+  }
+}
+// 支付信息
+.payInfoContainer {
+  #myFont.medium(16px, @main_font);
+  margin-top: 35px;
+  .price {
+    font-size: 22px;
+    font-family: PingFang-SC-Bold;
+    font-weight: bold;
+    color: rgba(255, 208, 24, 1);
+  }
+  .radioGroupContainer {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    :global {
+      .ant-radio-group {
+        margin-left: 10px;
+      }
+    }
+  }
+  .acceptTerms {
+    margin: 30px 0;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+  }
+}
+// 账号安全相关
+.inputContainer {
+  #myFont.medium(16px, @main_font);
+  margin-top: 50px;
+  .inputItem {
+    display: flex;
+    align-items: center;
+    &:not(:first-child) {
+      margin-top: 20px;
+    }
+    label {
+      width: 64px;
+      margin-right: 20px;
+    }
+    input {
+      width: 350px;
+    }
+  }
+  .button {
+    margin-top: 50px;
+  }
+  .errMsg {
+    color: @red;
+    margin: 0;
   }
 }
 
@@ -100,4 +129,10 @@
       background-size: 100%;
     }
   }
+}
+
+.textarea {
+  margin-top: 40px;
+  margin-bottom: 50px;
+  display: block;
 }

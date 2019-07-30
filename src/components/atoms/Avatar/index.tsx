@@ -69,7 +69,7 @@ export default class CustomAvatart extends React.PureComponent<IProps, IState> {
   render() {
     const { canReUpload = true, src, ...rest } = this.props;
     const { imageUrl } = this.state;
-    const newSrc = imageUrl || src;
+    const newSrc = imageUrl || src || ImgStore.defualt.avatar;
     return (
       <div className={styles.avatarContainer}>
         <Avatar {...rest} className={styles.avatar} src={newSrc} />

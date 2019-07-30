@@ -41,6 +41,7 @@ const model: DvaModel<IState> = {
         const res = yield call(Api.doLogin, data);
         Storage.save(StorageKey.REFRESH_TOKEN, res.token);
         yield put({ type: ActionType.get_user_info });
+        globalMessage('登录成功', 'success');
         globalCloseModal();
       } catch (error) {
         onError && onError();
@@ -83,15 +84,16 @@ const model: DvaModel<IState> = {
       try {
         const res = yield call(Api.getUserInfo);
         yield put({ type: ActionType.get_user_info_success_r, payload: res.data });
-        globalMessage('登录成功', 'success');
       } catch (error) {
         console.log('获取用户信息出错了', error);
       }
     },
     // 开通会员
-    *[ActionType.do_open_membership]({ payload: { type, ...data } }, { put, call }) {
+    *[ActionType.do_open_membership](
+      { payload: { type, onGenerateWechatOrderSuccess, ...data } },
+      { put, call }
+    ) {
       try {
-        console.log(type, data);
         let res: any;
         switch (type as PayWayEnum) {
           case PayWayEnum.aliPay:
@@ -100,6 +102,7 @@ const model: DvaModel<IState> = {
             break;
           case PayWayEnum.wechatPay:
             res = yield call(Api.wechatPay, data);
+            onGenerateWechatOrderSuccess && onGenerateWechatOrderSuccess(res.pay_qrcode);
             break;
         }
         yield call(Api.checkOrderStatus, { id: res.id });
@@ -107,6 +110,42 @@ const model: DvaModel<IState> = {
         yield put({ type: ActionType.get_user_info });
       } catch (error) {
         console.log('充值会员出错了', error);
+      }
+    },
+    // 修改个人信息
+    *[ActionType.do_edit_user_info](
+      {
+        payload: {
+          tryEditAvatarAndName,
+          tryResetPassword,
+          newAvatarAndNameData,
+          newPasswordData,
+          onSuccess
+        }
+      },
+      { put, call, all }
+    ) {
+      try {
+        const requestList = [];
+        tryEditAvatarAndName && requestList.push(call(Api.editUserInfo, newAvatarAndNameData));
+        tryResetPassword && requestList.push(call(Api.doRestPasswordWithToken, newPasswordData));
+        yield all([...requestList]);
+        // 重新获取用户信息
+        yield put({ type: ActionType.get_user_info });
+        onSuccess && onSuccess();
+        globalMessage('修改信息成功', 'success');
+      } catch (error) {
+        console.log('修改个人信息出错了', error);
+      }
+    },
+    // 发送反馈建议
+    *[ActionType.send_feed_back]({ payload: { onSuccess, ...data } }, { put, call }) {
+      try {
+        yield call(Api.sendFeedback, data);
+        globalMessage('提交成功', 'success');
+        onSuccess && onSuccess();
+      } catch (error) {
+        console.log('提交成功', error);
       }
     }
   },

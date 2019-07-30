@@ -186,7 +186,6 @@ export default class LoginForm extends React.PureComponent<IProps, IState> {
           <span onClick={toggle}>忘记密码</span>
         </div>
         {errMsg && <p className={styles.errMsg}>{errMsg}</p>}
-
         <Button onClick={this.doLogin} className={styles.button}>
           登录
         </Button>

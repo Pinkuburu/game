@@ -8,8 +8,9 @@ import ImgStore from '@/components/atoms/Image/imgStore';
 import RadioGroup from '@/components/atoms/RadioGroup';
 import CheckboxGroup from '@/components/atoms/CheckBoxGroup';
 import Button from '@/components/atoms/Button';
+import WechatQrcodeModal from '@/components/modals/WechatQrcode';
 import { ActionType, NAMESPACE } from '@/models/constants';
-import { globalDispatch } from '@/utils';
+import { globalDispatch, globalOpenModal } from '@/utils';
 
 import MemberType from './MemberType';
 import BasicInfo from './BasicInfo';
@@ -19,9 +20,9 @@ const payWayOptions = [
   { label: '支付宝支付', value: PayWayEnum.aliPay }
 ];
 const gameTypeOptions = [
-  { label: 'DOTA2', value: GameTypeEnum.DOTA2 },
-  { label: 'LOL', value: GameTypeEnum.LOL },
-  { label: 'CSGO', value: GameTypeEnum.CSGO }
+  { label: 'DOTA2', value: GameTypeEnum.DOTA2 }
+  // { label: 'LOL', value: GameTypeEnum.LOL },
+  // { label: 'CSGO', value: GameTypeEnum.CSGO }
 ];
 function getPriceFromProductId(productId: ProductIdEnum) {
   switch (productId) {
@@ -33,10 +34,7 @@ function getPriceFromProductId(productId: ProductIdEnum) {
       return 9999;
   }
 }
-interface IProps {
-  userInfo: any;
-  userMemberInfo: any[];
-}
+interface IProps {}
 
 interface IState {
   price: number;
@@ -80,17 +78,22 @@ export default class Member extends React.Component<IProps, IState> {
     const { productId: product_id, payWay } = this.state;
     globalDispatch({
       type: `${NAMESPACE.AUTH}/${ActionType.do_open_membership}`,
-      payload: { type: payWay, product_id }
+      payload: {
+        type: payWay,
+        product_id,
+        onGenerateWechatOrderSuccess: (qrData: string) =>
+          globalOpenModal(<WechatQrcodeModal qrcode={`data:image/png;base64,${qrData}`} />)
+      }
     });
   }
   render() {
     const { productId, price, payWay, gameType, isAcceptTerms } = this.state;
     return (
-      <div>
+      <>
         <div className={styles.userContainer}>
           <BasicInfo />
           <MemberType productId={productId} onProductIdChange={this.handleProductIdChange} />
-          <div className={styles.payInfo}>
+          <div className={styles.payInfoContainer}>
             共计: <span className={styles.price}>￥{price}</span>
             <div className={styles.radioGroupContainer}>
               开通方式:
@@ -134,7 +137,7 @@ export default class Member extends React.Component<IProps, IState> {
             ))}
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }
