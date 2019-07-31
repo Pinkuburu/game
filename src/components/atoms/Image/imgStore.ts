@@ -13,7 +13,6 @@ import cirDota from '../../../assets/logo_DOTA2.svg';
 import iconAllGame from '../../../assets/logo_all.svg';
 import cirLol from '../../../assets/logo_LOL.svg';
 import cirCsgo from '../../../assets/logo_CSGO.svg';
-import userImg from '../../../assets/icon_personal.png';
 import leagueS from '../../../assets/icon_select_d.png';
 import leagueD from '../../../assets/icon_select_s.png';
 import deleteIcon from '../../../assets/icon_delete.png';
@@ -49,7 +48,6 @@ const ImageStore = {
   fade_menuList: [iconScheduleD, iconLeagueD, iconTeamD, iconPlayerD, iconPredictD],
   iconAllGame,
   cirGameIcon: [cirDota, cirLol, cirCsgo],
-  userImg,
   leagueSelect: [leagueS, leagueD],
   deleteIcon,
   noDataIcon,

@@ -6,6 +6,9 @@
     border-radius: 50%;
     box-shadow: 0px 0px 4px 0px rgba(213, 170, 255, 1);
     border: 1px solid @main_color;
+    position: relative;
+    background-color: @main_background;
+    display: inline-block;
     //   border-image: linear-gradient(
     //       90deg,
     //       rgba(155, 63, 244, 1),
@@ -13,10 +16,41 @@
     //       rgba(155, 63, 244, 1)
     //     )
     //     1 1;
+    :global {
+      // 如果要用到显示文字的头像。可能要改变
+      .ant-avatar-string {
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        transform: none !important;
+      }
+    }
   }
-  .avatarCamera {
+  .uploading {
     position: absolute;
+    top: 0;
+    left: 0;
     bottom: 0;
-    right: 10%;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    color: @main_font;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  .upload {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    :global {
+      .ant-upload {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
   }
 }

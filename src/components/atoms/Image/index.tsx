@@ -1,7 +1,10 @@
 import React from 'react';
 import { Tooltip } from 'antd';
 import styles from './styles.less';
+import ImgStore from './imgStore';
 import classnames from 'classnames';
+
+export { ImgStore };
 
 interface IProps {
   title?: string;
@@ -15,11 +18,20 @@ interface IProps {
   textPostion?: 'top' | 'left' | 'bottom' | 'right';
   spacing?: number;
   onClick?: (e: React.MouseEvent) => void;
+  defaultSrc?: string;
 }
 // FIXME: 轮播图每次轮播都会有5次render
 class Image extends React.PureComponent<IProps> {
-  // TODO: 若有传入，则使用传入的占位图，否则使用默认的占位图
-  onError(e: React.SyntheticEvent<HTMLImageElement, Event>) {}
+  constructor(props: IProps) {
+    super(props);
+    this.onError = this.onError.bind(this);
+  }
+
+  // TODO: 若有传入，则使用传入的占位图，否则使用默认的占位图(暂时用头像替代)
+  onError(e: React.SyntheticEvent<HTMLImageElement, Event>) {
+    const { defaultSrc } = this.props;
+    e.currentTarget.src = defaultSrc || ImgStore.defualt.avatar;
+  }
 
   render() {
     const {

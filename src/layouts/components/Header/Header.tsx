@@ -3,21 +3,21 @@ import { connect } from 'dva';
 import router from 'umi/router';
 import { Layout, Menu } from 'antd';
 import classnames from 'classnames';
-import { GameTypeEnum } from '../../../common/enums';
-import { GameInfo } from '../../../common/constants';
-import { ActionType, NAMESPACE } from '../../../models/constants';
-import { Storage, StorageKey } from '../../../utils/storage';
-
-import Image from '../../../components/atoms/Image';
-import ImageStore from '../../../components/atoms/Image/imgStore';
-import LoginModal from '../../../components/modals/Login';
-import CustomDropdown from '../../../components/molecules/Dropdown';
+import { GameTypeEnum } from '@/common/enums';
+import { GameInfo } from '@/common/constants';
+import { ActionType, NAMESPACE } from '@/models/constants';
+import Image from '@/components/atoms/Image';
+import LoginModal from '@/components/modals/Login';
+import CustomDropdown from '@/components/molecules/Dropdown';
+import * as DataType from '@/common/interfaces/dataType';
+import Avatar from '@/components/atoms/Avatar';
 import styles from './styles.less';
 
 interface IProps {
   dispatch: any;
   isLogined: boolean;
   gameType: GameTypeEnum;
+  userInfo: DataType.UserInfo;
 }
 
 class Header extends React.PureComponent<IProps> {
@@ -47,26 +47,20 @@ class Header extends React.PureComponent<IProps> {
         router.push('/user');
         break;
       case 'logout':
-        this.props.dispatch({
-          type: `${NAMESPACE.AUTH}/${ActionType.do_logout_r}`
-        });
+        this.props.dispatch({ type: `${NAMESPACE.AUTH}/${ActionType.do_logout_r}` });
         break;
     }
   }
 
   render() {
-    const { isLogined, gameType } = this.props;
+    const { isLogined, gameType, userInfo } = this.props;
     return (
       <div className={styles.headerContainer}>
         <Layout.Header className="layout-header">
-          <CustomDropdown
-            overlay={this.buildGameList(gameType)}
-            placement="bottomCenter"
-            trigger={['click']}
-          >
+          <CustomDropdown overlay={this.buildGameList(gameType)} placement="bottomCenter">
             {this.buildGameTypeIcon(gameType, styles.currentGameType)}
           </CustomDropdown>
-          {isLogined ? this.buildAfterLogined() : this.buildBeforeLogined()}
+          {isLogined ? this.buildAfterLogined(userInfo) : this.buildBeforeLogined()}
         </Layout.Header>
       </div>
     );
@@ -80,22 +74,27 @@ class Header extends React.PureComponent<IProps> {
       </div>
     );
   }
-  buildAfterLogined() {
+  buildAfterLogined(userInfo: DataType.UserInfo) {
     return (
-      <CustomDropdown overlay={this.buildUserList()} placement="bottomCenter" trigger={['click']}>
-        <Image src={ImageStore.userImg} text="用户" />
+      <CustomDropdown overlay={this.buildUserList()} placement="bottomCenter">
+        <div className={styles.userInfo}>
+          <Avatar src={userInfo.avatar} size={30} />
+          <span>{userInfo.name}</span>
+        </div>
       </CustomDropdown>
     );
   }
   buildGameTypeIcon(gameType: GameTypeEnum, className?: string) {
     return (
-      <Image
-        src={GameInfo[gameType].icon}
-        text={GameInfo[gameType].text}
-        className={className}
-        width={22}
-        height={22}
-      />
+      <span>
+        <Image
+          src={GameInfo[gameType].icon}
+          text={GameInfo[gameType].text}
+          className={className}
+          width={30}
+          height={30}
+        />
+      </span>
     );
   }
 
@@ -132,7 +131,8 @@ interface ConnectState {
 
 export default connect((state: ConnectState) => ({
   isLogined: state.auth.isLogined,
-  gameType: state.global.gameType
+  gameType: state.global.gameType,
+  userInfo: state.auth.userInfo
 }))(Header);
 
 const gameList: GameTypeEnum[] = [

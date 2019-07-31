@@ -2,10 +2,11 @@
 @import '../../../common/less/mixin.less';
 
 .userContainer {
-  padding: 40px;
+  padding: 0 40px 40px 40px;
   background-color: @card_background;
   &:nth-child(2) {
     margin-top: 20px;
+    padding-top: 20px;
   }
   &.fullHeight {
     height: 100%;
@@ -48,7 +49,6 @@
 // 账号安全相关
 .inputContainer {
   #myFont.medium(16px, @main_font);
-  margin-top: 50px;
   .inputItem {
     display: flex;
     align-items: center;
@@ -71,11 +71,18 @@
     margin: 0;
   }
 }
+.memberTypeContainer,
+.inputContainer,
+.textarea {
+  margin-top: 40px;
+}
 
 // 用户基本信息
 .basicInfoContainer {
   #myFont.medium(16px, @nav_font);
   display: flex;
+  align-items: center;
+  height: 130px;
   .textInfoContainer {
     margin-left: 40px;
     display: flex;
@@ -102,12 +109,12 @@
 
 // 选择月/周会员
 .memberTypeContainer {
-  margin-top: 40px;
   display: flex;
   .memberType {
     position: relative;
     #myFont.lato(14px, #ffffff);
     .info {
+      pointer-events: none;
       position: absolute;
       bottom: 18px;
       left: 21px;
@@ -132,7 +139,6 @@
 }
 
 .textarea {
-  margin-top: 40px;
   margin-bottom: 50px;
   display: block;
 }

@@ -3,8 +3,7 @@ import { Checkbox } from 'antd';
 
 import styles from './styles.less';
 import { GameTypeEnum, PayWayEnum, ProductIdEnum } from '@/common/enums';
-import Image from '@/components/atoms/Image';
-import ImgStore from '@/components/atoms/Image/imgStore';
+import Image, { ImgStore } from '@/components/atoms/Image';
 import RadioGroup from '@/components/atoms/RadioGroup';
 import CheckboxGroup from '@/components/atoms/CheckBoxGroup';
 import Button from '@/components/atoms/Button';
@@ -75,14 +74,16 @@ export default class Member extends React.Component<IProps, IState> {
     this.setState({ isAcceptTerms: checkedList.includes('accept') });
   }
   handleOpemMemberShip() {
-    const { productId: product_id, payWay } = this.state;
+    const { productId: product_id, payWay, price } = this.state;
     globalDispatch({
       type: `${NAMESPACE.AUTH}/${ActionType.do_open_membership}`,
       payload: {
         type: payWay,
         product_id,
         onGenerateWechatOrderSuccess: (qrData: string) =>
-          globalOpenModal(<WechatQrcodeModal qrcode={`data:image/png;base64,${qrData}`} />)
+          globalOpenModal(
+            <WechatQrcodeModal qrcode={`data:image/png;base64,${qrData}`} price={price} />
+          )
       }
     });
   }

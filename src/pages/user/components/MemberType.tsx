@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { ProductIdEnum } from '@/common/enums';
-import Image from '@/components/atoms/Image';
-import ImgStore from '@/components/atoms/Image/imgStore';
+import Image, { ImgStore } from '@/components/atoms/Image';
 import styles from './styles.less';
 
 interface IProps {
