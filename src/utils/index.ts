@@ -49,6 +49,11 @@ export function tryLoginIfNeedLogin() {
   }
 }
 
+// Api请求时携带token
+export function withToken() {
+  return { headers: { token: Storage.get(StorageKey.REFRESH_TOKEN) } };
+}
+
 // 判断是否为开发环境
 export function isDevMode(): boolean {
   if (process.env.NODE_ENV === 'development') {

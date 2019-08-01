@@ -75,6 +75,7 @@ class BasicInfo extends React.Component<IProps, IState> {
                 onChange={this.handleInputChange}
                 maxLength={7}
                 placeholder="昵称长度为1-7位"
+                name="name"
               />
             )}
             {readonly || <Image src={ImgStore.edit} onClick={this.handleEditIconClick} />}

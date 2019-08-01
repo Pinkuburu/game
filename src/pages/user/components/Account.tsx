@@ -123,6 +123,7 @@ export default class Account extends React.Component<IProps, IState> {
               value={oldPassword}
               onChange={this.handleInputChange}
               type="password"
+              name="old_password"
             />
           </div>
           <div className={styles.inputItem}>
@@ -135,6 +136,7 @@ export default class Account extends React.Component<IProps, IState> {
               value={newPassword}
               onChange={this.handleInputChange}
               type="password"
+              name="new_password"
             />
           </div>
           <div className={styles.inputItem}>
@@ -147,8 +149,7 @@ export default class Account extends React.Component<IProps, IState> {
               value={rePassword}
               onChange={this.handleInputChange}
               type="password"
-              name="password"
-              autoComplete="off"
+              name="re_password"
             />
           </div>
           <Button className={styles.button} onClick={this.handleSaveClick}>

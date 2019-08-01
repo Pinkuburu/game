@@ -27,10 +27,10 @@ class Image extends React.PureComponent<IProps> {
     this.onError = this.onError.bind(this);
   }
 
-  // TODO: 若有传入，则使用传入的占位图，否则使用默认的占位图(暂时用头像替代)
+  // 若有传入，则使用传入的占位图，否则使用默认的占位图(暂时用头像替代)
   onError(e: React.SyntheticEvent<HTMLImageElement, Event>) {
     const { defaultSrc } = this.props;
-    e.currentTarget.src = defaultSrc || ImgStore.defualt.avatar;
+    e.currentTarget.src = defaultSrc || ImgStore.defualt.broken;
   }
 
   render() {
