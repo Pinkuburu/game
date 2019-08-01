@@ -155,22 +155,28 @@ export interface HeroStat {
     id: number;
     name: string;
     name_cn: string;
+    img: string;
   };
   nums: number;
   place: number;
-  stomp_lost: number;
+  reverse_nums: number;
+  reverse_wins: number;
   stomp_nums: number;
   stomp_wins: number;
   wins: number;
 }
 
 // 指数统计
-export interface OddsStat {
+export interface OddsStatForWin {
   nums: number;
   odds: string;
-  type: string;
+  type: GameTypeEnum;
   winper: number;
   wins: number;
+}
+export interface OddsStatForHot {
+  total_nums: number;
+  win_nums: number;
 }
 
 // 常用的以游戏类型分类的数据结构
