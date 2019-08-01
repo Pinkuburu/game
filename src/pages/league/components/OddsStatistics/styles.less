@@ -1,0 +1,33 @@
+@import '../../../../common/less/variable.less';
+@import '../../../../common/less/mixin.less';
+
+.oddsStat {
+  height: 300px;
+  display: flex;
+  text-align: center;
+  .oddsStatItemLeft {
+    flex-grow: 4;
+  }
+  .oddsStatItemRight {
+    flex-grow: 1;
+  }
+
+  .title {
+    font-size: 14px;
+    color: @main_font;
+    margin-top: 30px;
+    text-align: center;
+  }
+
+  .histogramContainer {
+    display: flex;
+    align-items: flex-end;
+    height: 240px;
+  }
+  .progressContainer {
+    height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

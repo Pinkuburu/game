@@ -4,7 +4,6 @@
 //  *   - ./src/components/molecules/Authorized
 //  */
 import React from 'react';
-import { connect } from 'dva';
 import CustomTabBar, { CustomTabPane } from '../../components/molecules/TabBar';
 import Member from './components/Member';
 import Account from './components/Account';
@@ -21,9 +20,8 @@ interface IProps {
   userMemberInfo: any[];
 }
 
-class PersonalCenter extends React.Component<IProps> {
+export default class PersonalCenter extends React.Component<IProps> {
   render() {
-    const { userInfo, userMemberInfo } = this.props;
     return (
       <CustomTabBar
         defaultActiveKey={PersonalCenterPageEnum.Member}
@@ -32,7 +30,7 @@ class PersonalCenter extends React.Component<IProps> {
         withTabBarBottomBorder={false}
       >
         <CustomTabPane key={PersonalCenterPageEnum.Member} tab="成为会员">
-          <Member userInfo={userInfo} userMemberInfo={userMemberInfo} />
+          <Member />
         </CustomTabPane>
         <CustomTabPane key={PersonalCenterPageEnum.Account} tab="账号安全">
           <Account />
@@ -44,12 +42,3 @@ class PersonalCenter extends React.Component<IProps> {
     );
   }
 }
-
-interface ConnectState {
-  auth: any;
-}
-
-export default connect((state: ConnectState) => ({
-  userInfo: state.auth.userInfo,
-  userMemberInfo: state.auth.userMemberInfo
-}))(PersonalCenter);

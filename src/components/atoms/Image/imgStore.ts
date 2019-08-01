@@ -13,7 +13,6 @@ import cirDota from '../../../assets/logo_DOTA2.svg';
 import iconAllGame from '../../../assets/logo_all.svg';
 import cirLol from '../../../assets/logo_LOL.svg';
 import cirCsgo from '../../../assets/logo_CSGO.svg';
-import userImg from '../../../assets/icon_personal.png';
 import leagueS from '../../../assets/icon_select_d.png';
 import leagueD from '../../../assets/icon_select_s.png';
 import deleteIcon from '../../../assets/icon_delete.png';
@@ -36,6 +35,8 @@ import iconMobile from '../../../assets/icon_mobile.svg'; // 手机
 import weekMember from '../../../assets/week_member.svg'; // 周会员
 import monthMember from '../../../assets/month_member.svg'; // 月会员
 import chooseMember from '../../../assets/choose_member.svg'; // 选择周/月会员
+import defaultAvatar from '../../../assets/default_avatar.svg'; // 默认头像
+import imgBroken from '../../../assets/img_broken.svg'; // 图片失效时的占位图
 export const CirGameIcon = {
   dota2: cirDota,
   lol: cirLol,
@@ -48,7 +49,6 @@ const ImageStore = {
   fade_menuList: [iconScheduleD, iconLeagueD, iconTeamD, iconPlayerD, iconPredictD],
   iconAllGame,
   cirGameIcon: [cirDota, cirLol, cirCsgo],
-  userImg,
   leagueSelect: [leagueS, leagueD],
   deleteIcon,
   noDataIcon,
@@ -61,7 +61,8 @@ const ImageStore = {
   mobile: iconMobile,
   weekMember,
   monthMember,
-  chooseMember
+  chooseMember,
+  defualt: { avatar: defaultAvatar, broken: imgBroken }
 };
 
 export default ImageStore;

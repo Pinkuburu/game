@@ -114,3 +114,74 @@ export interface UserMemberInfo {
   expire: number;
   member_product_type_id: number;
 }
+
+// 表格信息
+export interface TableData<T> {
+  current_page: number;
+  data: T[];
+  last_page: number;
+  per_page: number;
+  total: number;
+}
+
+// 联赛详细信息
+export interface LeagueDetailInfo {
+  description: string;
+  douyu_url: string;
+  end_time: number;
+  huomao_url: string;
+  huya_url: string;
+  id: number;
+  img_urls: {
+    img_desc_back: string;
+    img_desc_logo: string;
+    img_list_logo: string;
+  };
+  match_city: string;
+  name: string;
+  organizer: string;
+  prize_money: string;
+  start_time: number;
+  status: number;
+  team_nums: number;
+  tier: string;
+  twitch_url: string;
+}
+
+// 英雄统计
+export interface HeroStat {
+  hero_id: number;
+  name: {
+    id: number;
+    name: string;
+    name_cn: string;
+    img: string;
+  };
+  nums: number;
+  place: number;
+  reverse_nums: number;
+  reverse_wins: number;
+  stomp_nums: number;
+  stomp_wins: number;
+  wins: number;
+}
+
+// 指数统计
+export interface OddsStatForWin {
+  nums: number;
+  odds: string;
+  type: GameTypeEnum;
+  winper: number;
+  wins: number;
+}
+export interface OddsStatForHot {
+  total_nums: number;
+  win_nums: number;
+}
+
+// 常用的以游戏类型分类的数据结构
+export interface ClassifiedByGameType<T> {
+  [GameTypeEnum.DOTA2]: T;
+  [GameTypeEnum.LOL]: T;
+  [GameTypeEnum.CSGO]: T;
+}

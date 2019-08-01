@@ -11,6 +11,9 @@ export const ActionType = {
   do_reset_password: 'do_reset_password',
   check_for_forget: 'check_for_forget',
   get_user_info: 'get_user_info',
+  do_open_membership: 'do_open_membership',
+  do_edit_user_info: 'do_edit_user_info',
+  send_feed_back: 'send_feed_back',
 
   do_logout_r: 'do_logout_r',
   get_user_info_success_r: 'get_user_info_success_r'

@@ -8,6 +8,7 @@ export default {
 export const NAMESPACE = {
   GLOBAL: 'global',
   AUTH: 'auth',
+  LEAGUE: 'league',
   LOADING: 'loading', // 框架自带
   ROUTING: 'routing' // 框架自带
 };

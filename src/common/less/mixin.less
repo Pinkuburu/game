@@ -1,3 +1,4 @@
+@import './variable';
 // TODO:删除
 .fontColor(@color) {
   color: @color;
@@ -20,5 +21,23 @@
     color: @color;
     font-family: Industry-DemiBold;
     font-weight: 600;
+  }
+
+  // 使用 #myFont.lato()
+  // Lato Regular
+  .lato(@fontSize:14px;@color:white) {
+    color: @color;
+    font-size: @fontSize;
+    font-family: Lato-Regular;
+    font-weight: 400;
+  }
+
+  // 使用 #myFont.blod()
+  // PingFang-SC-Bold
+  .blod (@fontSize:14px;@color:@gold) {
+    font-size: @fontSize;
+    font-family: PingFang-SC-Bold;
+    font-weight: bold;
+    color: @color;
   }
 }

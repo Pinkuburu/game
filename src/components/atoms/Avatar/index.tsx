@@ -1,9 +1,8 @@
 import React from 'react';
-import { Avatar, Upload } from 'antd';
+import { Avatar, Upload, Icon } from 'antd';
 import { AvatarProps } from 'antd/lib/avatar';
 import styles from './styles.less';
-import Image from '../Image';
-import ImgStore from '../Image/imgStore';
+import Image, { ImgStore } from '../Image';
 import { globalMessage } from '../../../utils';
 import { UploadChangeParam, UploadFile } from 'antd/lib/upload/interface';
 
@@ -17,63 +16,74 @@ function getBase64(img: File | Blob, callback: Function) {
 // 图片上传之前进行一些限制
 function beforeUpload(file: File | Blob) {
   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-  if (!isJpgOrPng) {
-    globalMessage('你只能上传.png或者.jpg图片', 'error');
+  const isLt1M = file.size / 1024 / 1024 < 1;
+  if (!isJpgOrPng || !isLt1M) {
+    globalMessage('Image must smaller than 1MB!', 'error');
   }
-  // const isLt2M = file.size / 1024 / 1024 < 2;
-  // if (!isLt2M) {
-  //   globalMessage('Image must smaller than 2MB!', 'error');
-  // }
-  // return isJpgOrPng && isLt2M;
-  return isJpgOrPng;
+  return isJpgOrPng && isLt1M;
 }
 
 interface IProps extends AvatarProps {
   canReUpload?: boolean;
 }
 interface IState {
-  loading: boolean;
+  uploading: boolean;
   imageUrl: string;
 }
 
 // TODO: 若其他地方用到 考虑将upload抽出
 export default class CustomAvatart extends React.PureComponent<IProps, IState> {
+  static defaultProps = {
+    canReUpload: false
+  };
+
   constructor(props: IProps) {
     super(props);
     this.state = {
-      loading: false,
+      uploading: false,
       imageUrl: ''
     };
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(info: UploadChangeParam<UploadFile>) {
-    console.log(info);
     const status = info.file.status;
     switch (status) {
       case 'uploading':
-        this.setState({ loading: true });
+        this.setState({ uploading: true });
         break;
       case 'done':
         info.file.originFileObj &&
           getBase64(info.file.originFileObj, (imageUrl: any) =>
-            this.setState({ imageUrl, loading: false })
+            this.setState({ imageUrl, uploading: false })
           );
         break;
       case 'error':
-        this.setState({ loading: false });
+        this.setState({ uploading: false });
         break;
     }
   }
 
   render() {
-    const { canReUpload = true, src, ...rest } = this.props;
-    const { imageUrl } = this.state;
+    const { canReUpload, src, ...rest } = this.props;
+    const { imageUrl, uploading } = this.state;
     const newSrc = imageUrl || src;
     return (
       <div className={styles.avatarContainer}>
-        <Avatar {...rest} className={styles.avatar} src={newSrc} />
+        <Avatar {...rest} className={styles.avatar} src={newSrc} alt="用户头像">
+          {/* 图像加载失败时显示 */}
+          <Image src={ImgStore.defualt.avatar} />;
+        </Avatar>
         {canReUpload && this.buildUploadIcon()}
+        {uploading && this.buildUploadingIcon()}
+      </div>
+    );
+  }
+  buildUploadingIcon() {
+    return (
+      <div className={styles.uploading}>
+        <Icon type="loading" />
+        <p>正在加载</p>
       </div>
     );
   }
@@ -84,8 +94,9 @@ export default class CustomAvatart extends React.PureComponent<IProps, IState> {
         showUploadList={false}
         onChange={this.handleChange}
         beforeUpload={beforeUpload}
+        className={styles.upload}
       >
-        <Image src={ImgStore.camera} className={styles.avatarCamera} />;
+        <Image src={ImgStore.camera} className={styles.avatarCamera} />
       </Upload>
     );
   }

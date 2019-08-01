@@ -2,22 +2,31 @@
 
 .container {
   position: relative;
-  &.hideTable {
-    :global {
-      .ant-table-wrapper {
-        visibility: hidden;
-      }
-    }
-  }
 
   // 表头样式
   :global {
+    .ant-table-header {
+      background-color: @card_header;
+      // margin-bottom: -20px !important;
+    }
     .ant-table-thead tr > th {
       text-align: center;
       padding: 0;
       line-height: 30px;
       color: @nav_font;
       background: @card_header;
+    }
+    // hover颜色
+    .ant-table-thead > tr.ant-table-row-hover:not(.ant-table-expanded-row) > td,
+    .ant-table-tbody > tr.ant-table-row-hover:not(.ant-table-expanded-row) > td,
+    .ant-table-thead > tr:hover:not(.ant-table-expanded-row) > td,
+    .ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+    // 无数据时的背景
+    .ant-table-placeholder {
+      background-color: @card_background;
+      border: 0;
     }
   }
   // 定制行样式
@@ -36,16 +45,7 @@
 
     > td {
       padding: 0;
-    }
-  }
-
-  // hover颜色
-  :global {
-    .ant-table-thead > tr.ant-table-row-hover:not(.ant-table-expanded-row) > td,
-    .ant-table-tbody > tr.ant-table-row-hover:not(.ant-table-expanded-row) > td,
-    .ant-table-thead > tr:hover:not(.ant-table-expanded-row) > td,
-    .ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td {
-      background-color: rgba(0, 0, 0, 0.3);
+      border: 0;
     }
   }
 }

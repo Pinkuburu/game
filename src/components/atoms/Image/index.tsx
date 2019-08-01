@@ -1,7 +1,10 @@
 import React from 'react';
 import { Tooltip } from 'antd';
 import styles from './styles.less';
+import ImgStore from './imgStore';
 import classnames from 'classnames';
+
+export { ImgStore };
 
 interface IProps {
   title?: string;
@@ -15,87 +18,62 @@ interface IProps {
   textPostion?: 'top' | 'left' | 'bottom' | 'right';
   spacing?: number;
   onClick?: (e: React.MouseEvent) => void;
+  defaultSrc?: string;
 }
 // FIXME: 轮播图每次轮播都会有5次render
-const Image: React.FC<IProps> = ({
-  title,
-  alt,
-  src,
-  height,
-  width,
-  text,
-  className,
-  textClassName,
-  textPostion = 'right',
-  spacing = 8,
-  onClick
-}: IProps) => {
-  const textSpacingStyle = { width: spacing, height: spacing };
-  return (
-    <Tooltip title={title}>
-      <figure
-        className={classnames(styles.figure, text && styles[textPostion], className)}
-        onClick={onClick}
-      >
-        <img
-          src={src}
-          height={height}
-          width={width}
-          alt={alt}
-          onError={(e: any) => {
-            e.target.src = src;
-          }}
-          className={styles.img}
-        />
-        {text && (
-          <>
-            <span style={textSpacingStyle} />
-            <figcaption className={classnames(styles.figcaption, textClassName)}>{text}</figcaption>
-          </>
-        )}
-      </figure>
-    </Tooltip>
-  );
-};
+class Image extends React.PureComponent<IProps> {
+  constructor(props: IProps) {
+    super(props);
+    this.onError = this.onError.bind(this);
+  }
 
-// class Image extends React.PureComponent<IProps> {
-//   render() {
-//     const {
-//       title,
-//       alt,
-//       src,
-//       height,
-//       width,
-//       text,
-//       textClassName,
-//       textPostion = 'Bottom',
-//       spacing = 5
-//     } = this.props;
-//     const textSpacingStyle = { width: spacing, height: spacing };
-//     console.log(textSpacingStyle);
-//     return (
-//       <Tooltip title={title}>
-//         <figure className={classnames(styles.figure, text && styles[textPostion])}>
-//           <img
-//             src={src}
-//             height={height}
-//             width={width}
-//             alt={alt}
-//             onError={(e: any) => {
-//               e.target.src = src;
-//             }}
-//             className={styles.img}
-//           />
-//           {text && (
-//             <React.Fragment>
-//               <span style={textSpacingStyle} />
-//               <figcaption className={classnames(textClassName, styles.text)}>{text}</figcaption>
-//             </React.Fragment>
-//           )}
-//         </figure>
-//       </Tooltip>
-//     );
-//   }
-// }
+  // 若有传入，则使用传入的占位图，否则使用默认的占位图(暂时用头像替代)
+  onError(e: React.SyntheticEvent<HTMLImageElement, Event>) {
+    const { defaultSrc } = this.props;
+    e.currentTarget.src = defaultSrc || ImgStore.defualt.broken;
+  }
+
+  render() {
+    const {
+      title,
+      alt,
+      src,
+      height,
+      width,
+      text,
+      className,
+      textClassName,
+      textPostion = 'right',
+      spacing = 8,
+      onClick
+    } = this.props;
+    const textSpacingStyle = { width: spacing, height: spacing };
+    return (
+      <Tooltip title={title}>
+        <figure
+          className={classnames(styles.figure, text && styles[textPostion], className)}
+          onClick={onClick}
+        >
+          <img
+            src={src}
+            height={height}
+            width={width}
+            alt={alt}
+            onError={this.onError}
+            className={styles.img}
+          />
+          {text && (
+            <>
+              <span style={textSpacingStyle} />
+              <figcaption className={classnames(styles.figcaption, textClassName)}>
+                {text}
+              </figcaption>
+            </>
+          )}
+        </figure>
+      </Tooltip>
+    );
+  }
+}
 
 export default Image;

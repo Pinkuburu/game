@@ -21,11 +21,22 @@ export function globalCloseModal() {
     payload: null
   });
 }
+// 全局开启Modal的方法
+export function globalOpenModal(children: React.ReactNode) {
+  globalDispatch({
+    type: `${NAMESPACE.GLOBAL}/${ActionType.change_modal_r}`,
+    payload: children
+  });
+}
 
 // 全局的消息提示
 // 暂时用antd的message。后面若是设计稿相关样式改动较大。再考虑自己写组件
-export function globalMessage(msg: string, type: 'warn' | 'success' | 'error' = 'warn') {
-  message[type](msg);
+export function globalMessage(
+  msg: string,
+  type: 'warn' | 'success' | 'error' | 'loading' = 'warn',
+  duration = 3
+): any {
+  return message[type](msg, duration);
 }
 
 // 如果可以则登录
@@ -36,6 +47,11 @@ export function tryLoginIfNeedLogin() {
       type: `${NAMESPACE.AUTH}/${ActionType.get_user_info}`
     });
   }
+}
+
+// Api请求时携带token
+export function withToken() {
+  return { headers: { token: Storage.get(StorageKey.REFRESH_TOKEN) } };
 }
 
 // 判断是否为开发环境

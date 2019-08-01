@@ -1,0 +1,14 @@
+@import '../../../common/less/variable.less';
+@import '../../../common/less/mixin.less';
+.customTextarea {
+  background-color: @live_background;
+  resize: none;
+  border: 1px solid transparent;
+  outline: none;
+  padding: 13px 25px;
+  #myFont.medium(16px, @main_font);
+  &:focus {
+    border: 1px solid @input_active;
+    box-shadow: 0px 0px 4px 0px rgba(155, 63, 244, 1);
+  }
+}

@@ -20,6 +20,7 @@ export interface ReduxSagaEffects {
   put: ReduxDispatch;
   call: (fn: Function, ...params: any[]) => any;
   select: (fn: (globalState: any) => any) => any;
+  all: (arr: any[]) => any;
   // todo:暂未定义具体接口
   take?: any;
 }

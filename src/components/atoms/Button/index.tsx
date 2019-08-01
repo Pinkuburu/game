@@ -8,6 +8,8 @@ interface IProps {
   disabled?: boolean;
   className?: string;
   onClick?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined;
+  loading?: boolean;
+  loadingText?: string;
 }
 
 const CustomButton: React.FC<IProps> = ({
@@ -15,7 +17,9 @@ const CustomButton: React.FC<IProps> = ({
   children,
   className,
   onClick,
-  type = 'Primary'
+  type = 'Primary',
+  loading = true,
+  loadingText = '正在执行'
 }: IProps) => (
   <button
     className={classnames(
@@ -24,9 +28,9 @@ const CustomButton: React.FC<IProps> = ({
       className
     )}
     onClick={onClick}
-    disabled={disabled}
+    disabled={disabled || loading}
   >
-    {children}
+    {loading ? loadingText : children}
   </button>
 );
 
