@@ -99,7 +99,7 @@ export default class RateProgress extends React.PureComponent<IProps, IState> {
   }
 
   render() {
-    const { nums, total } = this.props;
+    const { nums = 0, total = 0 } = this.props;
     const { currentPercent } = this.state;
     this.setCurrentPercent();
     return (

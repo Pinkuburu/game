@@ -12,8 +12,8 @@ export default class LeaguePage extends React.Component<IProps> {
   render() {
     return (
       <div>
-        {/* <LeagueTable />
-        <HeroStatistics /> */}
+        <LeagueTable />
+        <HeroStatistics />
         <OddsStatistics />
       </div>
     );
