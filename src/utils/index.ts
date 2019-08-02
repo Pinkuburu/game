@@ -1,8 +1,7 @@
-import { NAMESPACE } from '../common/constants';
-import { ActionType } from '../models/constants';
+import { ActionType, NAMESPACE } from '../models/constants';
 import { Storage, StorageKey } from './storage';
 import { message } from 'antd';
-export { NAMESPACE };
+export { NAMESPACE, ActionType };
 
 // 访问全局state
 export function globalStore() {

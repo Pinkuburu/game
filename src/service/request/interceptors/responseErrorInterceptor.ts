@@ -1,5 +1,5 @@
 import { notification } from 'antd';
-import { isDevMode } from '../../../utils';
+import { isDevMode, globalDispatch, NAMESPACE, ActionType, globalMessage } from '../../../utils';
 
 type ResponseErrorInterceptor = (error: any) => any;
 
@@ -15,9 +15,11 @@ export const responseErrorInterceptor: ResponseErrorInterceptor = (error) => {
     }
     if (errStatus === 90000) {
       // TODO: 重新获取token
+      globalDispatch({ type: `${NAMESPACE.AUTH}/${ActionType.do_logout_r}` });
+      globalMessage('请重新登录');
     }
   }
-  if (isDevMode) {
+  if (isDevMode && errStatus !== 90000) {
     notification.error({
       message: '网络请求出错了 待添加处理',
       description: `${errStatus}: ${errMsg}`
