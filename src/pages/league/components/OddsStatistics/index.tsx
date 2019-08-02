@@ -7,6 +7,7 @@ import * as DataType from '@/common/interfaces/dataType';
 import TabBar, { CustomTabPane } from '@/components/molecules/TabBar';
 import RateHistogram from './components/RateHistogram';
 import RateProgress from './components/RateProgress';
+import Select, { Option } from '@/components/atoms/Select';
 
 import styles from './styles.less';
 
@@ -48,7 +49,7 @@ class OddsStatistics extends React.PureComponent<IProps> {
       hot_oddsWinrate: hotOddsWinRate
     } = this.getOddsStatAccrodingToGameType();
     return (
-      <StatisticsContainer title="指数统计">
+      <StatisticsContainer title="指数统计" action={this.buildSelect()}>
         <TabBar defaultActiveKey={TabKey.Win_Lost} withTabBarBottomBorder={false}>
           <CustomTabPane key={TabKey.Win_Lost} tab="胜负" />
         </TabBar>
@@ -75,6 +76,13 @@ class OddsStatistics extends React.PureComponent<IProps> {
           </div>
         </div>
       </StatisticsContainer>
+    );
+  }
+  buildSelect() {
+    return (
+      <Select defaultValue="months" style={{ width: 130, height: 30 }}>
+        <Option value="months">最近一个月</Option>
+      </Select>
     );
   }
 }

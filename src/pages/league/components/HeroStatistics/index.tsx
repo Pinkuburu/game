@@ -6,6 +6,7 @@ import * as DataType from '@/common/interfaces/dataType';
 import { ActionType, NAMESPACE } from '../../constant';
 import { Columns } from './ColumnsConfig';
 import StatisticsContainer from '../StatisticsContainer';
+import Select, { Option } from '@/components/atoms/Select';
 import styles from './styles.less';
 
 interface IProps {
@@ -25,7 +26,7 @@ class HeroStatistics extends React.PureComponent<IProps> {
   render() {
     const { heroStat } = this.props;
     return (
-      <StatisticsContainer title="英雄统计">
+      <StatisticsContainer title="英雄统计" action={this.buildSelect()}>
         <div className={styles.heroStatContainer}>
           {Array.from({ length: 5 }).map((item, index) => (
             <div key={index}>
@@ -40,6 +41,13 @@ class HeroStatistics extends React.PureComponent<IProps> {
           ))}
         </div>
       </StatisticsContainer>
+    );
+  }
+  buildSelect() {
+    return (
+      <Select defaultValue="months" style={{ width: 130, height: 30 }}>
+        <Option value="months">最近一个月</Option>
+      </Select>
     );
   }
 }

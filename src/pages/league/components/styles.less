@@ -8,6 +8,15 @@
   #myFont.medium(12px, @nav_font);
   .title {
     height: 40px;
-    line-height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .icon {
+      margin-left: 16px;
+    }
+    .actionContainer {
+      display: flex;
+      align-items: center;
+    }
   }
 }
