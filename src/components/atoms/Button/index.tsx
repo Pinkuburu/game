@@ -18,7 +18,7 @@ const CustomButton: React.FC<IProps> = ({
   className,
   onClick,
   type = 'Primary',
-  loading = true,
+  loading = false,
   loadingText = '正在执行'
 }: IProps) => (
   <button

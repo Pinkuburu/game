@@ -19,6 +19,7 @@ export default class CustomSelect extends React.PureComponent<IProps> {
           dropdownClassName={styles.selectDropDownMenuContainer}
           showArrow={false}
           defaultActiveFirstOption={false}
+          getPopupContainer={(triggerNode) => triggerNode.parentElement as HTMLElement}
           {...rest}
         >
           {children}

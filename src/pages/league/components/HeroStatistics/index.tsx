@@ -47,6 +47,9 @@ class HeroStatistics extends React.PureComponent<IProps> {
     return (
       <Select defaultValue="months" style={{ width: 130, height: 30 }}>
         <Option value="months">最近一个月</Option>
+        <Option value="months1">最近一个月</Option>
+        <Option value="months2">最近一个月</Option>
+        <Option value="months3">最近一个月</Option>
       </Select>
     );
   }

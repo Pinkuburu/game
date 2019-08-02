@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import TabBar, { CustomTabPane } from '@/components/molecules/TabBar';
 import Table from '@/components/atoms/Table';
+import CustomTable from '../CustomTable';
 import { GameTypeEnum, LeagueStatusEnum } from '@/common/enums';
 import { ActionType, NAMESPACE } from '../../constant';
 import * as DataType from '@/common/interfaces/dataType';
@@ -97,6 +98,7 @@ class LeagueTable extends React.PureComponent<IProps, IState> {
           scroll={{ y: 500, x: 1500 }}
           loading={loading}
         />
+        <CustomTable columns={Columns} dataSource={leagueList[GameTypeEnum.DOTA2]} rowKey="id" />
       </div>
     );
   }
