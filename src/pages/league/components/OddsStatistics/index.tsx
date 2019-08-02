@@ -61,7 +61,7 @@ class OddsStatistics extends React.PureComponent<IProps> {
                   key={item.odds}
                   nums={item.nums}
                   title={item.odds}
-                  rate={item.winper}
+                  rate={Math.round(item.winper)}
                   wins={item.wins}
                 />
               ))}
