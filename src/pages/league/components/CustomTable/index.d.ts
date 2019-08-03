@@ -14,7 +14,7 @@ export interface ColoumProps<T> {
   // defaultSortOrder?: SortOrder;
   // colSpan?: number;
   width?: string | number;
-  // className?: string;
+  className?: string;
   // fixed?: boolean | ('left' | 'right');
   // filterIcon?: React.ReactNode | ((filtered: boolean) => React.ReactNode);
   // filteredValue?: any[];

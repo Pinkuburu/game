@@ -1,12 +1,47 @@
 @import '../../../../../common/less/mixin.less';
 @import '../../../../../common/less/variable.less';
 
+.tableContentContainer,
 .tableHeaderContainer {
+  border: 0;
+  td {
+    padding: 0;
+  }
   width: 100%;
-  min-height: 30px;
+}
+
+.tableHeaderContainer {
   background-color: @card_header;
   #myFont.medium(12px, @nav_font);
   .tableHeader {
-    height: 30px;
+  }
+}
+
+.tableContentContainer {
+  #myFont.medium(14px, @main_font);
+  .tableContentTbody {
+    > tr {
+      &:nth-child(odd) {
+        background: @item_first;
+      }
+      &:nth-child(even) {
+        background: @item_second;
+      }
+    }
+  }
+}
+
+// 默认列样式
+.defaultColClass {
+  display: flex;
+  align-items: center;
+  &.aligncenter {
+    justify-content: center;
+  }
+  &.alignleft {
+    justify-content: flex-start;
+  }
+  &.alignright {
+    justify-content: flex-end;
   }
 }

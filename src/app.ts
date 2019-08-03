@@ -1,4 +1,5 @@
 import { isDevMode } from './utils';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 const middlewares: any[] = [];
 
