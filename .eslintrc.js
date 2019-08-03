@@ -21,9 +21,8 @@ module.exports = {
       2,
       {
         SwitchCase: 1,
-        flatTernaryExpressions: false,
-        CallExpression: { arguments: 'off' },
-        ignoreComments: true
+        flatTernaryExpressions: true,
+        CallExpression: { arguments: 'off' }
       }
     ],
     // 一个缩进必须用两个空格替代
@@ -32,9 +31,8 @@ module.exports = {
       2,
       {
         SwitchCase: 1,
-        flatTernaryExpressions: false,
-        CallExpression: { arguments: 'off' },
-        ignoreComments: true
+        flatTernaryExpressions: true,
+        CallExpression: { arguments: 'off' }
       }
     ],
     'react/jsx-indent': [
@@ -42,9 +40,8 @@ module.exports = {
       2,
       {
         SwitchCase: 1,
-        flatTernaryExpressions: false,
-        CallExpression: { arguments: 'off' },
-        ignoreComments: true
+        flatTernaryExpressions: true,
+        CallExpression: { arguments: 'off' }
       }
     ],
     'react/jsx-indent-props': [
@@ -52,9 +49,8 @@ module.exports = {
       2,
       {
         SwitchCase: 1,
-        flatTernaryExpressions: false,
-        CallExpression: { arguments: 'off' },
-        ignoreComments: true
+        flatTernaryExpressions: true,
+        CallExpression: { arguments: 'off' }
       }
     ],
 
