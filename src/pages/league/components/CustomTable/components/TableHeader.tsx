@@ -6,13 +6,20 @@ import styles from './styles.less';
 interface IProps {
   columns: ColoumProps<any>[];
   headerRowHeight?: number;
+  className?: string;
+  dataSource: any[];
+  width?: number;
+  minWidth?: number;
 }
 
 export default class TableHeader extends React.PureComponent<IProps> {
   render() {
-    const { columns, headerRowHeight } = this.props;
+    const { columns, headerRowHeight, className, dataSource, width, minWidth } = this.props;
     return (
-      <table className={styles.tableHeaderContainer}>
+      <table
+        className={classnames(styles.tableHeaderContainer, className)}
+        style={{ width, minWidth }}
+      >
         <colgroup>
           {columns.map((item) => (
             <col key={item.key} width={item.width} />
@@ -39,7 +46,40 @@ export default class TableHeader extends React.PureComponent<IProps> {
             ))}
           </tr>
         </thead>
+        {/* 为了尺寸变化时thead与内容对齐，渲染一行tbody并将其隐藏 */}
+        {dataSource[0] && (
+          <tbody className={styles.tableContentTbody}>
+            <tr>
+              {columns.map((columnsItem) => (
+                <td
+                  align={columnsItem.align || 'center'}
+                  key={columnsItem.key}
+                  className={classnames(columnsItem.className)}
+                >
+                  <div className={styles.defaultColClass}>
+                    {this.buildColumnItem(columnsItem, dataSource[0], 0)}
+                  </div>
+                </td>
+              ))}
+            </tr>
+          </tbody>
+        )}
       </table>
     );
   }
+  buildColumnItem(columnsItem: ColoumProps<any>, dataSourceItem: any, index: number) {
+    const textKey = columnsItem.dataIndex && columnsItem.dataIndex.split('.');
+    const text = textKey
+      ? textKey.reduce(
+          (preValue, currentValue) =>
+            preValue[currentValue] || correctDefaultValue(preValue[currentValue]),
+          dataSourceItem
+          // eslint-disable-next-line
+        )
+      : '';
+    return columnsItem.render ? columnsItem.render(text, dataSourceItem, index) : text;
+  }
+}
+function correctDefaultValue(value: any) {
+  return value === 0 ? 0 : '';
 }

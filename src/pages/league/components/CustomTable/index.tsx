@@ -15,6 +15,7 @@ interface IProps {
   scroll?: {
     x: number; // 固定水平方向宽度
     y: number; // 固定垂直方向内容的高度
+    minX: number; // 固定水平方向的最小宽度
   };
 }
 
@@ -27,11 +28,14 @@ export default class CustomTable extends React.PureComponent<IProps> {
     fixedHeader: true
   };
 
-  componentDidMount() {
-    console.log(this.props);
-  }
   onYReachEnd() {
     console.log('到达最底部');
+  }
+
+  // 同步两个滚动轴
+  onScrollX(container: any) {
+    const node = container.querySelector('.scrollbar-container');
+    node && (node.scrollLeft = container.scrollLeft);
   }
 
   render() {
@@ -42,23 +46,46 @@ export default class CustomTable extends React.PureComponent<IProps> {
       rowHeight,
       headerRowHeight = 30,
       fixedHeader,
-      scroll = { x: 1000, y: 500 }
+      scroll = { x: undefined, y: 500, minX: undefined }
     } = this.props;
     return (
       <div>
-        {fixedHeader && <TableHeader columns={columns} headerRowHeight={headerRowHeight} />}
-        <div style={{ height: scroll.y && scroll.y + (fixedHeader ? 0 : headerRowHeight) }}>
-          <PerfectScrollbar onYReachEnd={this.onYReachEnd}>
-            <div style={{ width: 500, height: 1 }} />
-            {!fixedHeader && <TableHeader columns={columns} headerRowHeight={headerRowHeight} />}
-            <TableContent
-              columns={columns}
-              dataSource={dataSource}
-              rowKey={rowKey}
-              rowHeight={rowHeight}
-            />
-          </PerfectScrollbar>
-        </div>
+        <PerfectScrollbar option={{ suppressScrollY: true }} onScrollX={this.onScrollX}>
+          <div>
+            {fixedHeader && (
+              <TableHeader
+                columns={columns}
+                headerRowHeight={headerRowHeight}
+                dataSource={dataSource}
+                width={scroll.x}
+                minWidth={scroll.minX}
+              />
+            )}
+            <div style={{ height: scroll.y && scroll.y + (fixedHeader ? 0 : headerRowHeight) }}>
+              <PerfectScrollbar
+                onYReachEnd={this.onYReachEnd}
+                option={{ suppressScrollX: true }}
+                style={{ width: scroll.x, minWidth: scroll.minX }}
+              >
+                {!fixedHeader && (
+                  <TableHeader
+                    columns={columns}
+                    headerRowHeight={headerRowHeight}
+                    dataSource={dataSource}
+                    width={scroll.x}
+                    minWidth={scroll.minX}
+                  />
+                )}
+                <TableContent
+                  columns={columns}
+                  dataSource={dataSource}
+                  rowKey={rowKey}
+                  rowHeight={rowHeight}
+                />
+              </PerfectScrollbar>
+            </div>
+          </div>
+        </PerfectScrollbar>
       </div>
     );
   }
