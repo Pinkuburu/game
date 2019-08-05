@@ -4,8 +4,8 @@ import moment from 'moment';
 import Api from '../../../service/request/api';
 import { DvaModel } from '../../../common/interfaces/model';
 import * as DataType from '../../../common/interfaces/dataType';
-import { GameTypeEnum } from '../../../common/enums'
-import { PAGE_NAMESPACE, ActionType, MatchType, } from '../constants';
+import { GameTypeEnum } from '../../../common/enums';
+import { ActionType, MatchType } from '../constants';
 
 // 根据game_type进行分组
 // [...] => {dota2:[...]}
@@ -73,7 +73,6 @@ interface IState {
 }
 
 const model: DvaModel<IState> = {
-  namespace: PAGE_NAMESPACE.MATCH,
   state: {
     upcomingList: [],
     currentGameType: [GameTypeEnum.DOTA2],

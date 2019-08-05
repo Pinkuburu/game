@@ -1,6 +1,6 @@
 import React from 'react';
 import CustomTabBar, { CustomTabPane } from '../../../../../components/molecules/TabBar';
-import { MatchType, ActionType } from '../../../constants';
+import { MatchType, ActionType, NAMESPACE } from '../../../constants';
 import { globalDispatch } from '../../../../../utils';
 import styles from './styles.less';
 
@@ -10,7 +10,7 @@ interface IProps {
 
 function handleMatchTypeChange(matchType: any) {
   globalDispatch({
-    type: ActionType.change_current_match_type_with_namespace,
+    type: `${NAMESPACE.MATCH}/${ActionType.change_current_match_type}`,
     payload: matchType as MatchType
   });
 }

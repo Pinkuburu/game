@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from 'antd';
 import { CustomCheckbox } from '../../../../../components/atoms/CheckBox';
-import { ActionType } from '../../../constants';
+import { ActionType, NAMESPACE } from '../../../constants';
 import Image from '../../../../../components/atoms/Image';
 import ImgStore from '../../../../../components/atoms/Image/imgStore';
 import * as DataType from '../../../../../common/interfaces/dataType';
@@ -51,7 +51,7 @@ export default class SelectLeague extends React.PureComponent<IProps, IState> {
   handleCheckboxChange(e: CheckboxChangeEvent) {
     const { value } = e.target;
     globalDispatch({
-      type: ActionType.change_current_slected_leagueId_with_namespace,
+      type: `${NAMESPACE.MATCH}/${ActionType.change_current_slected_leagueId}`,
       payload: {
         leagueId: value
       }
@@ -61,7 +61,7 @@ export default class SelectLeague extends React.PureComponent<IProps, IState> {
   // 清空
   handleClearAllChange() {
     globalDispatch({
-      type: ActionType.change_current_slected_leagueId_with_namespace,
+      type: `${NAMESPACE.MATCH}/${ActionType.change_current_slected_leagueId}`,
       payload: {
         isCheckAll: false
       }
@@ -72,7 +72,7 @@ export default class SelectLeague extends React.PureComponent<IProps, IState> {
   handleCheckAllChange(e: CheckboxChangeEvent) {
     const { checked, value } = e.target;
     globalDispatch({
-      type: ActionType.change_current_slected_leagueId_with_namespace,
+      type: `${NAMESPACE.MATCH}/${ActionType.change_current_slected_leagueId}`,
       payload: {
         isCheckAll: checked,
         allLeagueId: value

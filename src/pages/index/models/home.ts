@@ -2,7 +2,7 @@
 import Api from '../../../service/request/api';
 import { DvaModel } from '../../../common/interfaces/model';
 
-import { PAGE_NAMESPACE, ActionType } from '../constants';
+import { ActionType } from '../constants';
 
 interface IState {
   banners: [];
@@ -11,7 +11,6 @@ interface IState {
 }
 
 const model: DvaModel<IState> = {
-  namespace: PAGE_NAMESPACE.HOME,
   state: {
     banners: [],
     predict: {},

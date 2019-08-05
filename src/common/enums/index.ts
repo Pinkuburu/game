@@ -28,6 +28,12 @@ export enum LeagueStatusEnum {
   UPCOMING // 未开始
 }
 
+// 首页赛事类型
+export enum MatchType {
+  predict = 'predict',
+  result = 'result'
+}
+
 // ================== Enum转Text
 export const EnumToText = {
   LeagueStatus: {

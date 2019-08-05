@@ -3,7 +3,7 @@ import moment from 'moment';
 
 import Table from '@/components/atoms/Table';
 import CustomTabBar, { CustomTabPane } from '@/components/molecules/TabBar';
-import { globalDispatch } from '@/utils';
+import { globalDispatch, NAMESPACE } from '@/utils';
 import * as DataType from '@/common/interfaces/dataType';
 
 import styles from './styles.less';
@@ -58,7 +58,7 @@ export default class TableView extends React.PureComponent<IProps, IState> {
 
   handleTabChange(activeKey: string) {
     globalDispatch({
-      type: ActionType.change_current_date_with_namespace,
+      type: `${NAMESPACE.MATCH}/${ActionType.change_current_date}`,
       payload: activeKey
     });
   }

@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { connect } from 'dva';
-import { ActionType, MatchType } from './constants';
+import { ActionType, MatchType, NAMESPACE } from './constants';
 import { GameTypeEnum } from '../../common/enums';
 import * as DataType from '../../common/interfaces/dataType';
 import styles from './styles.less';
@@ -34,16 +34,16 @@ class Home extends React.Component<IProps> {
 
   componentDidMount() {
     this.props.dispatch({
-      type: ActionType.get_predict_with_namespace
+      type: `${NAMESPACE.HOME}/${ActionType.get_predict}`
     });
     this.props.dispatch({
-      type: ActionType.get_banners_with_namespace
+      type: `${NAMESPACE.HOME}/${ActionType.get_banners}`
     });
     this.props.dispatch({
-      type: ActionType.get_live_list_with_namespace
+      type: `${NAMESPACE.HOME}/${ActionType.get_live_list}`
     });
     this.props.dispatch({
-      type: ActionType.get_upcomming_list_with_namespace
+      type: `${NAMESPACE.MATCH}/${ActionType.get_upcomming_list}`
     });
   }
 
