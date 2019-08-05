@@ -17,7 +17,7 @@ function handleMatchTypeChange(matchType: any) {
 
 const TabBar: React.FC<IProps> = (props: IProps) => (
   <CustomTabBar
-    defaultActiveKey={props.currentMatchType}
+    defaultActiveKey={MatchType.predict}
     onChange={handleMatchTypeChange}
     className={styles.tabBar}
     withTabBarBottomBorder={false}

@@ -32,6 +32,7 @@ class CarouselView extends React.PureComponent<IProps, IState> {
     this.changeCurrentIndex = this.changeCurrentIndex.bind(this);
   }
 
+  // FIXME: 初始时默认index为-1，对应的是第二张图？
   beforeChange(from: number, to: number) {
     if (to < 0) return;
     this.setState({ index: to });
@@ -44,7 +45,6 @@ class CarouselView extends React.PureComponent<IProps, IState> {
   render() {
     const { className, imgUrls } = this.props;
     const { index: currentIndex } = this.state;
-    console.log(currentIndex);
     return (
       <div className={classnames(className, styles.container)}>
         <Carousel
@@ -56,7 +56,7 @@ class CarouselView extends React.PureComponent<IProps, IState> {
           ref={this.carousel}
         >
           {imgUrls.map(({ id, img_url: src }, index) => (
-            <Image key={id && index} width={1120} height={300} src={src} />
+            <Image key={id && index} height={300} src={src} />
           ))}
         </Carousel>
         <div className={styles.slickDots}>

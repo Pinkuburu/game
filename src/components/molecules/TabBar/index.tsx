@@ -2,6 +2,9 @@ import React from 'react';
 import styles from './styles.less';
 import classnames from 'classnames';
 import CustomTabPane, { CustomTabPaneProps } from './TabPane';
+import memoizeOne from 'memoize-one';
+import _ from 'lodash';
+
 export { CustomTabPane };
 
 // TODO: 还有星期的样式需要改动
@@ -25,6 +28,7 @@ interface IProps {
   isTabBarFullContainer?: boolean; // tab(包括content)是否占据整个container
   className?: string; // 最外层容器的className
   onChange?: (tabkey: string) => void; // tabPane的点击回调
+  currentActiveKey?: string; // 用户传入的activeKey决定激活哪个
 }
 
 interface IState {
@@ -33,6 +37,36 @@ interface IState {
   customTabPaneContainerWidth: string;
   tabInfoList: TabInfo[];
 }
+
+// 初始化TabInfo
+function initTabListInfo(children: any) {
+  let list: TabInfo[] = [];
+  if (Array.isArray(children)) {
+    // chilren为多个标签
+    list = children.map((reactNode, index) => ({
+      tab: ((reactNode as any).props as CustomTabPaneProps).tab || '',
+      disabled: ((reactNode as any).props as CustomTabPaneProps).disabled || false,
+      key: (reactNode as any).key || '',
+      withoutActiveLine:
+        ((reactNode as any).props as CustomTabPaneProps).withoutActiveLine || false,
+      index
+    }));
+  } else if ((children as any).props) {
+    // chilren为单个标签
+    const tab = ((children as any).props as CustomTabPaneProps).tab || '';
+    const key = (children as any).key || 'defaultKey';
+    const disabled = ((children as any).props as CustomTabPaneProps).disabled || false;
+    const withoutActiveLine =
+      ((children as any).props as CustomTabPaneProps).withoutActiveLine || false;
+    list = [{ tab, index: 0, disabled, key, withoutActiveLine }];
+  } else {
+    // chilren为字符
+    list = [];
+  }
+  return list;
+}
+
+const deepMemoizedInitTabListInfo = memoizeOne(initTabListInfo, _.isEqual);
 
 export default class CustomTabBar extends React.PureComponent<IProps, IState> {
   static defaultProps = {
@@ -63,7 +97,7 @@ export default class CustomTabBar extends React.PureComponent<IProps, IState> {
     const { children, defaultActiveKey } = this.props;
     if (children) {
       // 初始化TabInfoList
-      const tabInfoList = this.initTabListInfo(children);
+      const tabInfoList = deepMemoizedInitTabListInfo(children);
       // 初始化content的总宽度(为了滑动)
       const customTabPaneContainerWidth = tabInfoList.length ? `${tabInfoList.length}00%` : '100%';
       // 初始化传入defaultActiveKey对应的index
@@ -75,33 +109,6 @@ export default class CustomTabBar extends React.PureComponent<IProps, IState> {
         activeIndex
       });
     }
-  }
-
-  initTabListInfo(children: any) {
-    let list: TabInfo[] = [];
-    if (Array.isArray(children)) {
-      // chilren为多个标签
-      list = children.map((reactNode, index) => ({
-        tab: ((reactNode as any).props as CustomTabPaneProps).tab || '',
-        disabled: ((reactNode as any).props as CustomTabPaneProps).disabled || false,
-        key: (reactNode as any).key || '',
-        withoutActiveLine:
-          ((reactNode as any).props as CustomTabPaneProps).withoutActiveLine || false,
-        index
-      }));
-    } else if ((children as any).props) {
-      // chilren为单个标签
-      const tab = ((children as any).props as CustomTabPaneProps).tab || '';
-      const key = (children as any).key || 'defaultKey';
-      const disabled = ((children as any).props as CustomTabPaneProps).disabled || false;
-      const withoutActiveLine =
-        ((children as any).props as CustomTabPaneProps).withoutActiveLine || false;
-      list = [{ tab, index: 0, disabled, key, withoutActiveLine }];
-    } else {
-      // chilren为字符
-      list = [];
-    }
-    return list;
   }
 
   // 切换Tab
@@ -123,14 +130,15 @@ export default class CustomTabBar extends React.PureComponent<IProps, IState> {
       isTabFullTabBar,
       children,
       isTabBarFullContainer,
-      className
+      className,
+      currentActiveKey
     } = this.props;
-    const { activeKey, activeIndex, customTabPaneContainerWidth, tabInfoList } = this.state;
+    const { activeKey, activeIndex, customTabPaneContainerWidth } = this.state;
     const customTabPaneContainerStyle = {
       width: customTabPaneContainerWidth,
       right: `${activeIndex}00%`
     };
-    // console.log(tabInfoList);
+    const tabInfoList = deepMemoizedInitTabListInfo(children);
     return (
       <div
         className={classnames(
@@ -149,7 +157,7 @@ export default class CustomTabBar extends React.PureComponent<IProps, IState> {
             <li
               key={item.tab}
               className={classnames(styles[`border${activeBorderPosition}`], {
-                [styles.active]: item.key === activeKey,
+                [styles.active]: item.key === (currentActiveKey || activeKey),
                 [styles.activeWithMark]: activeWithMark,
                 [styles.disabled]: item.disabled,
                 [styles.withoutActiveLine]: item.withoutActiveLine

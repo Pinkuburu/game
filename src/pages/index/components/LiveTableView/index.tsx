@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles.less';
-import Table from '../../../../components/atoms/Table';
+import Table from '@/components/atoms/Table';
 import Panel from './Panel';
 
 interface IProps {
@@ -8,8 +8,6 @@ interface IProps {
 }
 
 class LiveTableView extends React.Component<IProps> {
-
-
   render() {
     const { onRefreshData } = this.props;
     return (
