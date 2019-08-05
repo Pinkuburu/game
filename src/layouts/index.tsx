@@ -20,7 +20,9 @@ const BasicLayout: React.FC<Props> = (props: Props) => {
         <MenuSide />
         <Layout className={styles['web-page']}>
           <Header>这里是头部</Header>
-          <Content style={{ padding: '20px' }}>{props.children}</Content>
+          <Content style={{ padding: '20px' }} className={styles.content}>
+            {props.children}
+          </Content>
           {/* <Footer>这里是底部</Footer> */}
         </Layout>
       </Layout>

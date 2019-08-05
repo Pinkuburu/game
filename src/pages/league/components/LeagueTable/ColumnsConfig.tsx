@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from '@/components/atoms/Image';
+import Image, { ImgStore } from '@/components/atoms/Image';
 import moment from 'moment';
 import * as DataType from '@/common/interfaces/dataType';
 import { ColumnProps } from 'antd/lib/table';
@@ -53,7 +53,7 @@ export const Columns: ColumnProps<DataType.LeagueDetailInfo>[] = [
     width: 200
   },
   {
-    title: '奖金',
+    title: <Image src={ImgStore.iconGold} width={20} height={20} text="奖金" />,
     dataIndex: 'prize_money',
     key: 'prize_money',
     render: (text) => <span className={styles.price}>{text}</span>

@@ -24,9 +24,7 @@ class CarouselView extends React.PureComponent<IProps, IState> {
 
   constructor(props: IProps) {
     super(props);
-    this.state = {
-      index: 0
-    };
+    this.state = { index: 0 };
 
     this.carousel = React.createRef();
 
@@ -34,8 +32,8 @@ class CarouselView extends React.PureComponent<IProps, IState> {
     this.changeCurrentIndex = this.changeCurrentIndex.bind(this);
   }
 
-
   beforeChange(from: number, to: number) {
+    if (to < 0) return;
     this.setState({ index: to });
   }
 
@@ -46,7 +44,7 @@ class CarouselView extends React.PureComponent<IProps, IState> {
   render() {
     const { className, imgUrls } = this.props;
     const { index: currentIndex } = this.state;
-
+    console.log(currentIndex);
     return (
       <div className={classnames(className, styles.container)}>
         <Carousel

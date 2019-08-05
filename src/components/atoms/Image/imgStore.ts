@@ -37,6 +37,7 @@ import monthMember from '../../../assets/month_member.svg'; // 月会员
 import chooseMember from '../../../assets/choose_member.svg'; // 选择周/月会员
 import defaultAvatar from '../../../assets/default_avatar.svg'; // 默认头像
 import iconHelp from '../../../assets/icon_help.svg'; // 帮助提示
+import iconGold from '../../../assets/icon_gold.svg'; // 金币
 import imgBroken from '../../../assets/img_broken.svg'; // 图片失效时的占位图
 export const CirGameIcon = {
   dota2: cirDota,
@@ -64,6 +65,7 @@ const ImageStore = {
   monthMember,
   chooseMember,
   iconHelp,
+  iconGold,
   defualt: { avatar: defaultAvatar, broken: imgBroken }
 };
 

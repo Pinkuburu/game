@@ -98,7 +98,11 @@ class LeagueTable extends React.PureComponent<IProps, IState> {
           scroll={{ y: 500, x: 1500 }}
           loading={loading}
         />
-        <CustomTable columns={Columns} dataSource={leagueList[GameTypeEnum.DOTA2]} rowKey="id" />
+        <CustomTable
+          columns={Columns}
+          dataSource={[] || leagueList[GameTypeEnum.DOTA2]}
+          rowKey="id"
+        />
       </div>
     );
   }
