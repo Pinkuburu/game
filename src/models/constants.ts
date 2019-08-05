@@ -2,8 +2,8 @@ import { NAMESPACE } from '../common/constants';
 export { NAMESPACE };
 export const ActionType = {
   // global相关
-  change_game_type_r: 'change_game_type_r',
-  change_modal_r: 'change_modal_r',
+  change_game_type: 'change_game_type_r',
+  change_modal: 'change_modal_r',
 
   // auth相关
   do_login: 'do_login',
@@ -15,6 +15,6 @@ export const ActionType = {
   do_edit_user_info: 'do_edit_user_info',
   send_feed_back: 'send_feed_back',
 
-  do_logout_r: 'do_logout_r',
-  get_user_info_success_r: 'get_user_info_success_r'
+  do_logout: 'do_logout_r',
+  get_user_info_success: 'get_user_info_success_r'
 };

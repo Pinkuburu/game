@@ -20,14 +20,14 @@ const model: DvaModel<IState> = {
   },
   reducers: {
     // 获取用户信息成功。即登录成功
-    [ActionType.get_user_info_success_r](
+    [ActionType.get_user_info_success](
       state,
       { payload: { user_info: userInfo, user_member_info: userMemberInfo } }
     ) {
       return { ...state, userInfo, userMemberInfo, isLogined: true };
     },
     // 登出
-    [ActionType.do_logout_r](state, action) {
+    [ActionType.do_logout](state, action) {
       Storage.remove(StorageKey.REFRESH_TOKEN);
       globalMessage('登出成功', 'success');
       return { isLogined: false, userInfo: { avatar: '', name: '', uid: 0 }, userMemberInfo: [] };
@@ -83,7 +83,7 @@ const model: DvaModel<IState> = {
     *[ActionType.get_user_info](action, { put, call }) {
       try {
         const res = yield call(Api.getUserInfo);
-        yield put({ type: ActionType.get_user_info_success_r, payload: res.data });
+        yield put({ type: ActionType.get_user_info_success, payload: res.data });
       } catch (error) {
         console.log('获取用户信息出错了', error);
       }

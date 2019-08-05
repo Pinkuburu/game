@@ -30,14 +30,14 @@ class Header extends React.PureComponent<IProps> {
 
   showLoginModal(activeKey: 'login' | 'register') {
     this.props.dispatch({
-      type: `${NAMESPACE.GLOBAL}/${ActionType.change_modal_r}`,
+      type: `${NAMESPACE.GLOBAL}/${ActionType.change_modal}`,
       payload: <LoginModal defaultActiveKey={activeKey} />
     });
   }
 
   handleGameListItemClick({ key }: { key: string }) {
     this.props.dispatch({
-      type: `${NAMESPACE.GLOBAL}/${ActionType.change_game_type_r}`,
+      type: `${NAMESPACE.GLOBAL}/${ActionType.change_game_type}`,
       payload: key as GameTypeEnum
     });
   }
@@ -47,7 +47,7 @@ class Header extends React.PureComponent<IProps> {
         router.push('/user');
         break;
       case 'logout':
-        this.props.dispatch({ type: `${NAMESPACE.AUTH}/${ActionType.do_logout_r}` });
+        this.props.dispatch({ type: `${NAMESPACE.AUTH}/${ActionType.do_logout}` });
         break;
     }
   }

@@ -5,7 +5,7 @@ import { globalDispatch } from '../../../utils';
 
 function close() {
   globalDispatch({
-    type: `${NAMESPACE.GLOBAL}/${ActionType.change_modal_r}`,
+    type: `${NAMESPACE.GLOBAL}/${ActionType.change_modal}`,
     payload: null
   });
 }

@@ -15,7 +15,7 @@ export const responseErrorInterceptor: ResponseErrorInterceptor = (error) => {
     }
     if (errStatus === 90000) {
       // TODO: 重新获取token
-      globalDispatch({ type: `${NAMESPACE.AUTH}/${ActionType.do_logout_r}` });
+      globalDispatch({ type: `${NAMESPACE.AUTH}/${ActionType.do_logout}` });
       globalMessage('请重新登录');
     }
   }

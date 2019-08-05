@@ -16,14 +16,14 @@ export function globalDispatch(action: { type: string; payload?: any }) {
 // 全局关闭Modal的方法
 export function globalCloseModal() {
   globalDispatch({
-    type: `${NAMESPACE.GLOBAL}/${ActionType.change_modal_r}`,
+    type: `${NAMESPACE.GLOBAL}/${ActionType.change_modal}`,
     payload: null
   });
 }
 // 全局开启Modal的方法
 export function globalOpenModal(children: React.ReactNode) {
   globalDispatch({
-    type: `${NAMESPACE.GLOBAL}/${ActionType.change_modal_r}`,
+    type: `${NAMESPACE.GLOBAL}/${ActionType.change_modal}`,
     payload: children
   });
 }
