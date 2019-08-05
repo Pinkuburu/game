@@ -7,7 +7,7 @@ import { EnumToText, LeagueStatusEnum } from '@/common/enums';
 import MusicBar from '@/components/atoms/MusicBar';
 import styles from './styles.less';
 
-const dateFormat = 'YYYY-MM-DD';
+const dateFormat = 'YYYY.MM.DD';
 
 export const Columns: ColumnProps<DataType.LeagueDetailInfo>[] = [
   {

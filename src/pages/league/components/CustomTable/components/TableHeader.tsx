@@ -1,10 +1,10 @@
 import React from 'react';
-import { ColoumProps } from '../index.d';
+import { ColumnProps } from '../index.d';
 import classnames from 'classnames';
 import styles from './styles.less';
 
 interface IProps {
-  columns: ColoumProps<any>[];
+  columns: ColumnProps<any>[];
   headerRowHeight?: number;
   className?: string;
   dataSource: any[];
@@ -29,14 +29,14 @@ export default class TableHeader extends React.PureComponent<IProps> {
           <tr className={styles.tableHeader}>
             {columns.map((columnsItem) => (
               <th
-                align={columnsItem.align || 'center'}
+                align={columnsItem.headerAlign || columnsItem.align || 'center'}
                 key={columnsItem.key}
                 className={classnames(columnsItem.className)}
               >
                 <span
                   className={classnames(
                     styles.defaultColClass,
-                    styles[`align${columnsItem.align || 'center'}`]
+                    styles[`align${columnsItem.headerAlign || columnsItem.align || 'center'}`]
                   )}
                   style={{ height: headerRowHeight }}
                 >
@@ -67,7 +67,7 @@ export default class TableHeader extends React.PureComponent<IProps> {
       </table>
     );
   }
-  buildColumnItem(columnsItem: ColoumProps<any>, dataSourceItem: any, index: number) {
+  buildColumnItem(columnsItem: ColumnProps<any>, dataSourceItem: any, index: number) {
     const textKey = columnsItem.dataIndex && columnsItem.dataIndex.split('.');
     const text = textKey
       ? textKey.reduce(

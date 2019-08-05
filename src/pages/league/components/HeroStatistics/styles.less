@@ -1,6 +1,22 @@
+@import '../../../../common/less/variable.less';
+@import '../../../../common/less/mixin.less';
 .heroStatContainer {
   display: flex;
+  overflow-x: auto;
+  .title {
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    #myFont.medium(14px, @main_font);
+  }
   > div {
+    &:not(:first-child) {
+      margin-left: 4px;
+    }
     flex: auto;
+  }
+  .heroInfo {
+    margin-left: 10px;
+    // white-space: nowrap;
   }
 }

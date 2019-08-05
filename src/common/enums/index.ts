@@ -1,6 +1,3 @@
-// import { EnumToText } from './enumToText';
-
-// export { EnumToText };
 // 游戏类型
 export enum GameTypeEnum {
   ALL = 'all',

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
 import TabBar, { CustomTabPane } from '@/components/molecules/TabBar';
-import Table from '@/components/atoms/Table';
 import CustomTable from '../CustomTable';
 import { GameTypeEnum, LeagueStatusEnum } from '@/common/enums';
 import { ActionType, NAMESPACE } from '../../constant';
@@ -18,7 +17,7 @@ interface IProps {
 
 enum TabKey {
   RECENT = 'RECENT',
-  DONE = 'DIBE'
+  DONE = 'DONE'
 }
 
 interface IState {
@@ -31,6 +30,7 @@ class LeagueTable extends React.PureComponent<IProps, IState> {
     this.state = { currentTabKey: TabKey.RECENT };
     this.handleTabBarChange = this.handleTabBarChange.bind(this);
     this.getLeagueListAccrodingCurrentTabKey = this.getLeagueListAccrodingCurrentTabKey.bind(this);
+    this.handleLoadMore = this.handleLoadMore.bind(this);
   }
   componentDidMount() {
     this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.RECENT);
@@ -51,12 +51,22 @@ class LeagueTable extends React.PureComponent<IProps, IState> {
       case TabKey.RECENT:
         this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.RECENT);
         this.setState({ currentTabKey: tabKey as TabKey });
-
         break;
       case TabKey.DONE:
         this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.DONE);
         this.setState({ currentTabKey: tabKey as TabKey });
-
+        break;
+    }
+  }
+  handleLoadMore() {
+    console.log('加载下一页');
+    const { currentTabKey } = this.state;
+    switch (currentTabKey) {
+      case TabKey.RECENT:
+        this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.RECENT);
+        break;
+      case TabKey.DONE:
+        this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.DONE);
         break;
     }
   }
@@ -90,18 +100,15 @@ class LeagueTable extends React.PureComponent<IProps, IState> {
           <CustomTabPane key={TabKey.RECENT} tab="最近联赛" />
           <CustomTabPane key={TabKey.DONE} tab="结束联赛" />
         </TabBar>
-        <Table
-          dataSource={leagueList[GameTypeEnum.DOTA2]}
-          rowKey="id"
-          columns={Columns}
-          pagination={false}
-          scroll={{ y: 500, x: 1500 }}
-          loading={loading}
-        />
         <CustomTable
           columns={Columns}
-          dataSource={[] || leagueList[GameTypeEnum.DOTA2]}
+          dataSource={leagueList[GameTypeEnum.DOTA2]}
           rowKey="id"
+          loading={loading}
+          rowHeight={100}
+          headerRowHeight={30}
+          scroll={{ y: 500 }}
+          onLoadMore={this.handleLoadMore}
         />
       </div>
     );

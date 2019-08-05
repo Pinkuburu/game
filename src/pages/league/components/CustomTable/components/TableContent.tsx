@@ -1,11 +1,11 @@
 import React from 'react';
-import { ColoumProps } from '../index.d';
+import { ColumnProps } from '../index.d';
 import styles from './styles.less';
 import classnames from 'classnames';
 
 interface IProps {
   dataSource: any[];
-  columns: ColoumProps<any>[];
+  columns: ColumnProps<any>[];
   rowKey: string;
   rowHeight?: number;
 }
@@ -17,7 +17,7 @@ export default class TableContent extends React.PureComponent<IProps> {
       <table className={styles.tableContentContainer}>
         <colgroup>
           {columns.map((item) => (
-            <col key={item.key} width={item.width} />
+            <col key={item.key} width={item.width} style={{ minWidth: item.width }} />
           ))}
         </colgroup>
         <tbody className={styles.tableContentTbody}>
@@ -47,7 +47,7 @@ export default class TableContent extends React.PureComponent<IProps> {
     );
   }
 
-  buildColumnItem(columnsItem: ColoumProps<any>, dataSourceItem: any, index: number) {
+  buildColumnItem(columnsItem: ColumnProps<any>, dataSourceItem: any, index: number) {
     const textKey = columnsItem.dataIndex && columnsItem.dataIndex.split('.');
     const text = textKey
       ? textKey.reduce(

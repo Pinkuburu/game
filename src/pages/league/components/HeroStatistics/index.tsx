@@ -5,6 +5,7 @@ import { GameTypeEnum } from '@/common/enums';
 import * as DataType from '@/common/interfaces/dataType';
 import { ActionType, NAMESPACE } from '../../constant';
 import { Columns } from './ColumnsConfig';
+import CustomTable from '../CustomTable';
 import StatisticsContainer from '../StatisticsContainer';
 import Select, { Option } from '@/components/atoms/Select';
 import styles from './styles.less';
@@ -30,12 +31,13 @@ class HeroStatistics extends React.PureComponent<IProps> {
         <div className={styles.heroStatContainer}>
           {Array.from({ length: 5 }).map((item, index) => (
             <div key={index}>
-              <div>{`${index + 1}号位`}</div>
-              <Table
+              <div className={styles.title}>{`${index + 1}号位`}</div>
+              <CustomTable
                 dataSource={heroStat[GameTypeEnum.DOTA2][`place_${index + 1}`]}
                 rowKey="hero_id"
-                pagination={false}
                 columns={Columns}
+                rowHeight={40}
+                scroll={{ maxY: 320, minX: 340 }}
               />
             </div>
           ))}
@@ -47,9 +49,6 @@ class HeroStatistics extends React.PureComponent<IProps> {
     return (
       <Select defaultValue="months" style={{ width: 130, height: 30 }}>
         <Option value="months">最近一个月</Option>
-        <Option value="months1">最近一个月</Option>
-        <Option value="months2">最近一个月</Option>
-        <Option value="months3">最近一个月</Option>
       </Select>
     );
   }

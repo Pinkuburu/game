@@ -4,7 +4,8 @@
 .tableContentContainer,
 .tableHeaderContainer {
   border: 0;
-  td {
+  td,
+  th {
     padding: 0;
   }
   width: 100%;
@@ -51,4 +52,24 @@
   &.alignright {
     justify-content: flex-end;
   }
+}
+
+.loadingContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(256, 256, 256, 0.2);
+}
+
+.loadMoreContainer {
+  #myFont.medium(14px, @main_font);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

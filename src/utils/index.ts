@@ -53,6 +53,35 @@ export function withToken() {
   return { headers: { token: Storage.get(StorageKey.REFRESH_TOKEN) } };
 }
 
+// 防抖动执行函数
+export function debounce(func: Function, wait: number, immediate: boolean) {
+  let time: number | undefined;
+  let debounced = function() {
+    // eslint-disable-next-line
+    let context = this;
+    if (time) clearTimeout(time);
+
+    if (immediate) {
+      let callNow = !time;
+      if (callNow) func.apply(context, arguments);
+      time = setTimeout(() => {
+        time = undefined;
+      }, wait);
+    } else {
+      time = setTimeout(() => {
+        func.apply(context, arguments);
+      }, wait);
+    }
+  };
+  // 随时取消
+  debounced.cancel = function() {
+    clearTimeout(time);
+    time = undefined;
+  };
+
+  return debounced;
+}
+
 // 判断是否为开发环境
 export function isDevMode(): boolean {
   if (process.env.NODE_ENV === 'development') {

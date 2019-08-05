@@ -1,11 +1,14 @@
 import React from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { ColoumProps } from './index.d';
+import { ColumnProps } from './index.d';
 import styles from './styles.less';
 import TableHeader from './components/TableHeader';
 import TableContent from './components/TableContent';
+import TableLoading from './components/TableLoading';
+import TableLoadMore from './components/TableLoadMore';
+
 interface IProps {
-  columns: ColoumProps<any>[];
+  columns: ColumnProps<any>[];
   dataSource: any[];
   loading?: boolean; // 加载状态
   fixedHeader?: boolean; // 固定表头
@@ -13,11 +16,12 @@ interface IProps {
   headerRowHeight?: number; // header高
   rowHeight?: number; // 内容行高
   scroll?: {
-    x: number; // 水平方向宽度
-    y: number; // 垂直方向内容的高度
-    minX: number; // 水平方向的最小宽度
-    maxY: number; // 垂直方向内容的最大高度
+    x?: number; // 水平方向宽度
+    y?: number; // 垂直方向内容的高度
+    minX?: number; // 水平方向的最小宽度
+    maxY?: number; // 垂直方向内容的最大高度
   };
+  onLoadMore?: () => void;
 }
 
 interface IState {
@@ -28,53 +32,59 @@ export default class CustomTable extends React.PureComponent<IProps, IState> {
   static defaultProps = {
     columns: [],
     dataSource: [],
-    rowHeight: 100,
     headerRowHeight: 30,
     fixedHeader: true
   };
-  container: React.RefObject<any>;
+  tableContainer: React.RefObject<any>;
   canDocumentScroll: boolean;
   constructor(props: IProps) {
     super(props);
     this.canDocumentScroll = true;
-    // this.state = {
-    //   canDocumentScroll: true
-    // };
+    this.tableContainer = React.createRef();
     this.onWheel = this.onWheel.bind(this);
-    this.container = React.createRef();
+    this.onYReachEnd = this.onYReachEnd.bind(this);
+    this.checkScrollY = this.checkScrollY.bind(this);
   }
 
   componentDidMount() {
-    this.container.current &&
-      (this.container.current as HTMLElement).addEventListener('wheel', this.onWheel, {
+    this.tableContainer.current &&
+      (this.tableContainer.current as HTMLElement).addEventListener('wheel', this.onWheel, {
         passive: false
       });
   }
 
   componentWillUnmount() {
-    this.container.current &&
-      (this.container.current as HTMLElement).removeEventListener('wheel', this.onWheel);
+    this.tableContainer.current &&
+      (this.tableContainer.current as HTMLElement).removeEventListener('wheel', this.onWheel);
   }
 
   onWheel(e: any) {
     console.log('阻止滚动');
-    e.preventDefault();
+    !this.canDocumentScroll && e.preventDefault();
   }
 
   onYReachEnd() {
-    console.log('到达最底部');
+    // this.canDocumentScroll = true;
+    const { loading, onLoadMore } = this.props;
+    if (loading) return;
+    console.log(loading);
+    onLoadMore && onLoadMore();
   }
 
   // 同步两个滚动轴
-  onScrollX(container: any) {
-    const node = container.querySelector('.scrollbar-container');
-    node && (node.scrollLeft = container.scrollLeft);
+  onScrollX(tableContainer: any) {
+    const node = tableContainer.querySelector('.scrollbar-container');
+    node && (node.scrollLeft = tableContainer.scrollLeft);
   }
   // 检查是否有y方向上的滑动轴
   checkScrollY() {
-    if (this.container.current) {
-      console.log(this.container.current.querySelector('.ps'));
+    if (this.tableContainer.current) {
+      this.canDocumentScroll = true;
+      if (this.tableContainer.current.querySelector('.scrollbar-container .ps--active-y')) {
+        this.canDocumentScroll = false;
+      }
     }
+    return true;
   }
 
   render() {
@@ -85,12 +95,15 @@ export default class CustomTable extends React.PureComponent<IProps, IState> {
       rowHeight,
       headerRowHeight = 30,
       fixedHeader,
-      scroll = { x: undefined, y: undefined, minX: undefined, maxY: 500 }
+      scroll = { x: undefined, y: undefined, minX: undefined, maxY: undefined },
+      loading,
+      onLoadMore
     } = this.props;
     this.checkScrollY();
     return (
-      <div ref={this.container}>
-        <PerfectScrollbar option={{ suppressScrollY: true }} onScrollX={this.onScrollX}>
+      <div ref={this.tableContainer} className={styles.tableContainer}>
+        {loading && <TableLoading />}
+        <PerfectScrollbar options={{ suppressScrollY: true }} onScrollX={this.onScrollX}>
           <div>
             {fixedHeader && (
               <TableHeader
@@ -104,7 +117,7 @@ export default class CustomTable extends React.PureComponent<IProps, IState> {
             <div>
               <PerfectScrollbar
                 onYReachEnd={this.onYReachEnd}
-                option={{ suppressScrollX: true }}
+                options={{ suppressScrollX: true }}
                 style={{
                   width: scroll.x,
                   minWidth: scroll.minX,
@@ -128,6 +141,7 @@ export default class CustomTable extends React.PureComponent<IProps, IState> {
                   rowKey={rowKey}
                   rowHeight={rowHeight}
                 />
+                {onLoadMore && <TableLoadMore height={rowHeight} isNoMoreData={false} />}
               </PerfectScrollbar>
             </div>
           </div>
