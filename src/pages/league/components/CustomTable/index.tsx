@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { ColumnProps } from './index.d';
 import styles from './styles.less';
@@ -37,9 +38,11 @@ export default class CustomTable extends React.PureComponent<IProps, IState> {
   };
   tableContainer: React.RefObject<any>;
   canDocumentScroll: boolean;
+  waitingLoadMore: boolean;
   constructor(props: IProps) {
     super(props);
     this.canDocumentScroll = true;
+    this.waitingLoadMore = false;
     this.tableContainer = React.createRef();
     this.onWheel = this.onWheel.bind(this);
     this.onYReachEnd = this.onYReachEnd.bind(this);
@@ -67,8 +70,13 @@ export default class CustomTable extends React.PureComponent<IProps, IState> {
     // this.canDocumentScroll = true;
     const { loading, onLoadMore } = this.props;
     if (loading) return;
-    console.log(loading);
-    onLoadMore && onLoadMore();
+    if (onLoadMore && !this.waitingLoadMore) {
+      onLoadMore();
+      this.waitingLoadMore = true;
+      setTimeout(() => {
+        this.waitingLoadMore = false;
+      }, 1000);
+    }
   }
 
   // 同步两个滚动轴
@@ -76,6 +84,7 @@ export default class CustomTable extends React.PureComponent<IProps, IState> {
     const node = tableContainer.querySelector('.scrollbar-container');
     node && (node.scrollLeft = tableContainer.scrollLeft);
   }
+
   // 检查是否有y方向上的滑动轴
   checkScrollY() {
     if (this.tableContainer.current) {
@@ -116,7 +125,7 @@ export default class CustomTable extends React.PureComponent<IProps, IState> {
             )}
             <div>
               <PerfectScrollbar
-                onYReachEnd={this.onYReachEnd}
+                onYReachEnd={_.throttle(this.onYReachEnd, 10000)}
                 options={{ suppressScrollX: true }}
                 style={{
                   width: scroll.x,

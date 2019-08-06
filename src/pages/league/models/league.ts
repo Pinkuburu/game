@@ -77,20 +77,28 @@ const model: DvaModel<IState> = {
   },
   effects: {
     // 获取列赛信息
-    *[ActionType.get_league_list]({ payload: { type, status } }, { put, call }) {
+    *[ActionType.get_league_list](
+      { payload: { type, status, onSuccess, ...data } },
+      { put, call }
+    ) {
+      console.log(data);
       try {
         const result: any = {};
         switch (type as GameTypeEnum) {
           case GameTypeEnum.DOTA2:
             {
-              const dota2res: DataType.TableData<any> = yield call(
-                Api.getLeagueListForDota2,
-                status
-              );
+              const dota2res: DataType.TableData<any> = yield call(Api.getLeagueListForDota2, {
+                status,
+                ...data
+              });
               result[GameTypeEnum.DOTA2] = dota2res.data;
+              if (dota2res.data.length !== 0) {
+                onSuccess && onSuccess();
+              }
             }
             break;
         }
+
         yield put({ type: ActionType.get_league_list_success_r, payload: { result, status } });
       } catch (error) {
         console.log('获取联赛信息出错了', error);

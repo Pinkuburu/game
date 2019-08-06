@@ -25,22 +25,43 @@ interface IState {
 }
 
 class LeagueTable extends React.PureComponent<IProps, IState> {
+  RecentPage: number;
+  DonePage: number;
   constructor(props: IProps) {
     super(props);
     this.state = { currentTabKey: TabKey.RECENT };
     this.handleTabBarChange = this.handleTabBarChange.bind(this);
     this.getLeagueListAccrodingCurrentTabKey = this.getLeagueListAccrodingCurrentTabKey.bind(this);
     this.handleLoadMore = this.handleLoadMore.bind(this);
+    this.RecentPage = 1;
+    this.DonePage = 1;
   }
   componentDidMount() {
-    this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.RECENT);
+    this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.DONE, this.DonePage);
+    this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.RECENT, this.RecentPage);
+    this.handleTabBarChange(TabKey.DONE);
   }
 
-  getLeagueList(gameType: GameTypeEnum, status: LeagueStatusEnum) {
+  getLeagueList(gameType: GameTypeEnum, status: LeagueStatusEnum, page?: number) {
     const { dispatch } = this.props;
+    console.log(page);
     dispatch({
       type: `${NAMESPACE.LEAGUE}/${ActionType.get_league_list}`,
-      payload: { type: gameType, status }
+      payload: {
+        type: gameType,
+        status,
+        page,
+        onSuccess: () => {
+          switch (status) {
+            case LeagueStatusEnum.DONE:
+              this.DonePage++;
+              break;
+            case LeagueStatusEnum.RECENT:
+              this.RecentPage++;
+              break;
+          }
+        }
+      }
     });
   }
 
@@ -49,24 +70,21 @@ class LeagueTable extends React.PureComponent<IProps, IState> {
     if (currentTabKey === tabKey) return;
     switch (tabKey as TabKey) {
       case TabKey.RECENT:
-        this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.RECENT);
         this.setState({ currentTabKey: tabKey as TabKey });
         break;
       case TabKey.DONE:
-        this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.DONE);
         this.setState({ currentTabKey: tabKey as TabKey });
         break;
     }
   }
   handleLoadMore() {
-    console.log('加载下一页');
     const { currentTabKey } = this.state;
     switch (currentTabKey) {
       case TabKey.RECENT:
-        this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.RECENT);
+        this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.RECENT, this.RecentPage);
         break;
       case TabKey.DONE:
-        this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.DONE);
+        this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.DONE, this.DonePage);
         break;
     }
   }
@@ -91,7 +109,7 @@ class LeagueTable extends React.PureComponent<IProps, IState> {
     return (
       <div className={styles.leagueListContainer}>
         <TabBar
-          defaultActiveKey={TabKey.RECENT}
+          defaultActiveKey={TabKey.DONE}
           withTabBarBottomBorder={false}
           activeBorderPosition="Top"
           activeWithMark={true}
