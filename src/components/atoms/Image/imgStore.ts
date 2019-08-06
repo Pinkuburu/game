@@ -39,6 +39,12 @@ import defaultAvatar from '../../../assets/default_avatar.svg'; // 默认头像
 import iconHelp from '../../../assets/icon_help.svg'; // 帮助提示
 import iconGold from '../../../assets/icon_gold.svg'; // 金币
 import imgBroken from '../../../assets/img_broken.svg'; // 图片失效时的占位图
+import darkSponsor from '../../../assets/icon_sponsor.svg';
+import darkReward from '../../../assets/icon_reward.svg';
+import darkTeam from '../../../assets/icon_team.svg';
+import darkPlace from '../../../assets/icon_place.svg';
+import darkBonus from '../../../assets/icon_bonus.svg';
+
 export const CirGameIcon = {
   dota2: cirDota,
   lol: cirLol,
@@ -66,7 +72,14 @@ const ImageStore = {
   chooseMember,
   iconHelp,
   iconGold,
-  defualt: { avatar: defaultAvatar, broken: imgBroken }
+  defualt: { avatar: defaultAvatar, broken: imgBroken },
+  dark: {
+    sponsor: darkSponsor,
+    reward: darkReward,
+    place: darkPlace,
+    team: darkTeam,
+    bonus: darkBonus
+  }
 };
 
 export default ImageStore;

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.2 (81672) - https://sketch.com -->
+    <title>icon_sponsor</title>
+    <desc>Created with Sketch.</desc>
+    <g id="2.0.0联赛_Dota" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="2.1.1联赛详情页-淘汰赛-参赛队伍_dota" transform="translate(-488.000000, -100.000000)" fill="#3D485B">
+            <g id="联赛" transform="translate(60.000000, 80.000000)">
+                <g id="分组-3">
+                    <g id="icon_place-copy" transform="translate(428.000000, 20.000000)">
+                        <g id="分组">
+                            <g id="Group" transform="translate(4.000000, 3.000000)">
+                                <circle id="Oval" cx="6" cy="3.5" r="3.5"></circle>
+                                <path d="M6,7 C9.27686797,7 12,8.39136854 12,12.5695046 C12,14.4504469 9.838,15 6,15 C2.162,15 1.42108547e-14,14.5576345 1.42108547e-14,12.5695046 C1.42108547e-14,8.38980504 2.86566443,7 6,7 Z M6,7 L4.51563503,12.0588191 L6,13.8667863 L7.52259116,12.0588191 L6,7 Z" id="Combined-Shape"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

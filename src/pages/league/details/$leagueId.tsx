@@ -2,6 +2,7 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { globalDispatch } from '@/utils';
 import { ActionType, NAMESPACE } from '../constant';
+import LeagueInfoPane from './components/LeagueInfoPane';
 
 interface IProps extends RouteComponentProps<{ leagueId: string }> {}
 
@@ -39,6 +40,10 @@ export default class LeagueDetail extends React.Component<IProps> {
     });
   }
   render() {
-    return <div>asdasd</div>;
+    return (
+      <div>
+        <LeagueInfoPane />
+      </div>
+    );
   }
 }

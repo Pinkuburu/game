@@ -1,0 +1,30 @@
+@import '../../../../../common/less/mixin.less';
+@import '../../../../../common/less/variable.less';
+
+.paneContainer {
+  background-color: @card_background;
+  text-align: center;
+  display: flex;
+  height: 100px;
+  #myFont.semi(12px, @nav_font);
+  p {
+    margin: 0;
+  }
+  .item {
+    flex: auto;
+    height: 100%;
+    &.basicInfo {
+      width: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      flex: none;
+    }
+    .text {
+      #myFont.medium(12px, @main_font);
+    }
+    .gold {
+      #myFont.blod(28px, @gold);
+    }
+  }
+}

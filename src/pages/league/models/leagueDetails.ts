@@ -8,19 +8,50 @@ import Api from '@/service/request/api';
 import { GameTypeEnum, LeagueStatusEnum } from '@/common/enums';
 import { ActionType } from '../constant';
 
-interface IState {}
+interface IState {
+  info: DataType.LeagueDetailInfo | {};
+  rank: DataType.RankInfo[];
+  partationList: any[];
+  originalSchedules: any[];
+  rules: any[];
+}
 
 const model: DvaModel<IState> = {
-  state: {},
+  state: {
+    info: {},
+    rank: [],
+    originalSchedules: [],
+    partationList: [],
+    rules: []
+  },
   reducers: {
     // 获取联赛详情成功
-    [ActionType.get_league_info_success_r](state, { payload: data }) {}
+    [ActionType.get_league_info_success](
+      state,
+      { payload: { info = {}, rank = [], partationList = [] } }
+    ) {
+      state.info = info;
+      state.rank = rank;
+      state.partationList = partationList;
+    },
+    // 获取联赛赛程成功
+    [ActionType.get_league_schedules_success](state, { payload: { data = [] } }) {
+      state.originalSchedules = data;
+    },
+    // 获取联赛规则成功
+    [ActionType.get_league_rules_success](state, { payload: { data = [] } }) {
+      state.rules = data;
+    }
   },
   effects: {
     // 获取联赛详情
     *[ActionType.get_league_info]({ payload: { leagueId } }, { put, call, select }) {
       try {
-        yield call(Api.getLeagueInfoForDota2, leagueId);
+        const res = yield call(Api.getLeagueInfoForDota2, leagueId);
+        yield put({
+          type: ActionType.get_league_info_success,
+          payload: { info: res.info, rank: res.rank, partationList: res.partation_list }
+        });
       } catch (error) {
         console.log('获取联赛详情出错了', error);
       }
@@ -28,7 +59,8 @@ const model: DvaModel<IState> = {
     // 获取联赛赛程
     *[ActionType.get_league_schedules]({ payload: { leagueId } }, { put, call, select }) {
       try {
-        yield call(Api.getLeagueSchedulesForDota2, leagueId);
+        const res = yield call(Api.getLeagueSchedulesForDota2, leagueId);
+        yield put({ type: ActionType.get_league_schedules_success, payload: { data: res } });
       } catch (error) {
         console.log('获取联赛赛程出错了', error);
       }
@@ -36,7 +68,8 @@ const model: DvaModel<IState> = {
     // 获取联赛规则
     *[ActionType.get_league_rules]({ payload: { leagueId } }, { put, call, select }) {
       try {
-        yield call(Api.getLeagueRulesForDota2, leagueId);
+        const res = yield call(Api.getLeagueRulesForDota2, leagueId);
+        yield put({ type: ActionType.get_league_rules_success, payload: { data: res.rule } });
       } catch (error) {
         console.log('获取联赛规则出错了', error);
       }

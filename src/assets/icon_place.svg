@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.2 (81672) - https://sketch.com -->
+    <title>icon_place</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect x="3" y="3" width="15" height="15" id="rect-1"></rect>
+    </defs>
+    <g id="2.0.0联赛_Dota" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="2.1.1联赛详情页-淘汰赛-参赛队伍_dota" transform="translate(-708.000000, -100.000000)">
+            <g id="联赛" transform="translate(60.000000, 80.000000)">
+                <g id="分组-3">
+                    <g id="icon_place" transform="translate(648.000000, 20.000000)">
+                        <g id="分组">
+                            <g id="地址">
+                                <image x="3" y="3" width="15" height="15" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGOfPtRkwAABJpJREFUeAHdWklrFEEUNsYl7qhINBJHExK3ixIk4sGbIV4UPCkiKgo56MGD4C/woBcRUTwYPAgRPYie1ICYIIISF9xFRBM0RomKW1AiLt8HSeiZ6arqflXdU50HH9Nd9Zbvva7urqqesjHJSwVCrAAagZVAA7AUKAcoA0BfAZ7i/ALwEcisMOlW4BfwT4C/sLkJHABqgUxIGVhuADoBSdI6G/rcCDCGl8Ih/hjQJeGijzEYyxuZCCYnARfJxfHBmIxdUskh+kMgDnGXuoxNDiWROkT9ALhMSOLrLTgsTrsCyxCQrygJ4SRs+sGFnFKRGkTx4coXFrIXvKqTrsA0BHgJFAb35ZzcyDEx4ezMl2RVPMgxEdkBr6qgvrVvdV2BSjj8kqEC8HkQaY4wvCAxFewYFFablGL0d0H3BnAVuAX0AD+B+YAL4XPgD9DhwlkOTn4DtsP8HXzsB6oAlbCPOtS1jfcDPmYB1nIUHmzI8MruAcbHYEJd2tDWJvaRGDFDVXmLfLYgwfkC9wCkQlubOQe5R73NQzk2oVV6BTgE60K9xmvkDO87IOWxLl64fO0TFoHX57uyOmu24MFbWCxvYCmpfJs4otrwrJDLA7VLfQ9fSZLkB2Gne9Lro6p7F6KLviWcZqrcjlV1oF16/16HLV9jrqUbDjuETpeo7HQFqFUZGdovGvptuqW+lfsFugJIZ2V3bDI02Ep9K5fJugJIl5V9hiRsuqW+lbnoCjBJyPST0C6KmdT3ZJVzXQG4+pPIbIlRRBupb2XhdAXgPptE5kqMItpIfXM6HSq6AjwJtTA3rjKriDWkvl9JIs6AkWTScVkSLKLNFQEnfmOcGtF/kdo9QUDO1qSv0CICgQb6lMwEbwd8FB3qbgEqnyuyMDdwLX/IrBZb4zAs6DuutMc1COovwAmHkORW4ArOldisBnO2JFhBSQG4hq+3DQ57rkm4tyDhwE/q1rIJHiTBafMeaLBgwB0hm09w2y1ij5jyOcFEpEXgvt5eIM79S13bPUHuNI8DnAjJSAswbMclMnd8qzSM2Ecd6g7bSX9bNHFGuqL+3WQCLPjdTbmqGvEY7aALapyccMeJHPiK4/JbOtGBaZ5wxOaAwbxWy5NtsJdejbTtdlvmGmrOK3U/A0XgFD7qyA5NVNfYmIECrNUl4KLvtMdFuOQiQZOPSij4+KX4K3jNM5F31b8TjtJ+sJnibXGVXFQ/nR4V4XxU0i71auBswIMi9ILDdJeJxfG1ucQF4Eo18ae+qSCnSlgE7hGUXCrA4AVgeki57udulbPFjm0Vl8MBV32uk1T547NnkS1p1/a7UiwA9yi8lDawUl01V+3Hvcx8iBQ/QT1PsAh34TvOxsoQrXR/uK5PYqrMz1u6zZR0szREa0I//6joatjzAbvGENO77n2OCsBCNnuXXURCrQ6KwLdLZqUczDsA6a1wMLOZB4hzofJIUIQzAR+ZP5yDDJ7FKMI16HL0jCrhbs1rwHQ7cI4/ZVRlHkimGsf9gKoIPeiT/g0mEMbvQ34r/AYUFoGjo95v6u7Y1cFVO8AZYzfA/xOI/8UBW7H8BxZl9FIo6mBeAAAAAElFTkSuQmCC"></image>
+                                <use fill="#3D485B" fill-rule="evenodd" xlink:href="#rect-1"></use>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

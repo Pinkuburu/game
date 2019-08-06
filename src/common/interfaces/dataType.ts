@@ -148,6 +148,23 @@ export interface LeagueDetailInfo {
   twitch_url: string;
 }
 
+export interface RankInfo {
+  bonus: string;
+  name: string;
+  team_id: number;
+  team_info: {
+    country_code: string;
+    custom_logo: string;
+    division: string;
+    logo: string;
+    name: string;
+    rank: number;
+    tag: string;
+    team_id: number;
+    world_rank: number;
+  };
+}
+
 // 英雄统计
 export interface HeroStat {
   hero_id: number;

@@ -9,7 +9,7 @@ export { ImgStore };
 interface IProps {
   title?: string;
   alt?: string;
-  src: string;
+  src?: string;
   height?: string | number;
   width?: string | number;
   text?: string;
