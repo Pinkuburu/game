@@ -1,18 +1,9 @@
 import React from 'react';
-import { ColumnProps } from '../index.d';
+import { ColumnProps, TableHeaderProps } from '../index.d';
 import classnames from 'classnames';
 import styles from './styles.less';
 
-interface IProps {
-  columns: ColumnProps<any>[];
-  headerRowHeight?: number;
-  className?: string;
-  dataSource: any[];
-  width?: number;
-  minWidth?: number;
-}
-
-export default class TableHeader extends React.PureComponent<IProps> {
+export default class TableHeader extends React.PureComponent<TableHeaderProps<any>> {
   render() {
     const { columns, headerRowHeight, className, dataSource, width, minWidth } = this.props;
     return (

@@ -1,16 +1,19 @@
 import React from 'react';
-import { ColumnProps } from '../index.d';
+import { ColumnProps, TableContentProps } from '../index.d';
 import styles from './styles.less';
 import classnames from 'classnames';
 
-interface IProps {
-  dataSource: any[];
-  columns: ColumnProps<any>[];
-  rowKey: string;
-  rowHeight?: number;
-}
+export default class TableContent extends React.PureComponent<TableContentProps<any>> {
+  constructor(props: TableContentProps<any>) {
+    super(props);
+    this.onRowClick = this.onRowClick.bind(this);
+  }
 
-export default class TableContent extends React.PureComponent<IProps> {
+  onRowClick(record: any, index: number, event: any) {
+    const { onRowClick } = this.props;
+    onRowClick && onRowClick(record, index, event);
+  }
+
   render() {
     const { dataSource, columns, rowKey, rowHeight } = this.props;
     return (
@@ -22,7 +25,10 @@ export default class TableContent extends React.PureComponent<IProps> {
         </colgroup>
         <tbody className={styles.tableContentTbody}>
           {dataSource.map((dataSourceItem, index) => (
-            <tr key={dataSourceItem[rowKey]}>
+            <tr
+              key={dataSourceItem[rowKey]}
+              onClick={this.onRowClick.bind(this, dataSourceItem, index)}
+            >
               {columns.map((columnsItem) => (
                 <td
                   align={columnsItem.align || 'center'}

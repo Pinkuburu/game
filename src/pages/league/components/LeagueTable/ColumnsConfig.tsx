@@ -2,7 +2,7 @@ import React from 'react';
 import Image, { ImgStore } from '@/components/atoms/Image';
 import moment from 'moment';
 import * as DataType from '@/common/interfaces/dataType';
-import { ColumnProps } from 'antd/lib/table';
+import { ColumnProps } from '../CustomTable/index.d';
 import { EnumToText, LeagueStatusEnum } from '@/common/enums';
 import MusicBar from '@/components/atoms/MusicBar';
 import styles from './styles.less';
@@ -18,9 +18,11 @@ export const Columns: ColumnProps<DataType.LeagueDetailInfo>[] = [
     render: (text, record) => <Image src={record.img_urls.img_list_logo} width={200} height={100} />
   },
   {
-    title: '联赛',
+    title: <span style={{ marginLeft: 50 }}>联赛</span>,
     dataIndex: 'name',
     key: 'name',
+    align: 'left',
+    render: (text) => <span style={{ marginLeft: 50 }}>{text}</span>,
     width: 240
   },
   {

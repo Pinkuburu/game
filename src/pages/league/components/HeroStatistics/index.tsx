@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'dva';
-import Table from '@/components/atoms/Table';
 import { GameTypeEnum } from '@/common/enums';
 import * as DataType from '@/common/interfaces/dataType';
 import { ActionType, NAMESPACE } from '../../constant';

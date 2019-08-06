@@ -26,3 +26,31 @@ export interface ColumnProps<T> {
   // onHeaderCell?: (props: ColumnProps<T>) => TableEventListeners;
   // sortDirections?: SortOrder[];
 }
+
+export interface TableEventListeners {
+  onClick?: (arg: React.SyntheticEvent) => void;
+  onDoubleClick?: (arg: React.SyntheticEvent) => void;
+  onContextMenu?: (arg: React.SyntheticEvent) => void;
+  onMouseEnter?: (arg: React.SyntheticEvent) => void;
+  onMouseLeave?: (arg: React.SyntheticEvent) => void;
+  [name: string]: any;
+}
+
+export interface TableContentProps<T> {
+  dataSource: any[];
+  columns: ColumnProps<T>[];
+  rowKey: string;
+  rowHeight?: number;
+  onRowClick?: (record: T, index: number, event: Event) => void;
+  onRow?: (record: T, index: number) => TableEventListeners;
+}
+
+export interface TableHeaderProps<T> {
+  columns: ColumnProps<T>[];
+  headerRowHeight?: number;
+  className?: string;
+  dataSource: any[];
+  width?: number;
+  minWidth?: number;
+  onHeaderRow?: (columns: ColumnProps<T>[]) => TableEventListeners;
+}

@@ -1,21 +1,16 @@
 import React from 'react';
 import _ from 'lodash';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { ColumnProps } from './index.d';
+import { ColumnProps, TableEventListeners, TableContentProps, TableHeaderProps } from './index.d';
 import styles from './styles.less';
 import TableHeader from './components/TableHeader';
 import TableContent from './components/TableContent';
 import TableLoading from './components/TableLoading';
 import TableLoadMore from './components/TableLoadMore';
 
-interface IProps {
-  columns: ColumnProps<any>[];
-  dataSource: any[];
+interface IProps<T> extends TableContentProps<T>, TableHeaderProps<T> {
   loading?: boolean; // 加载状态
   fixedHeader?: boolean; // 固定表头
-  rowKey: string; // dataScource中作为key的字段名
-  headerRowHeight?: number; // header高
-  rowHeight?: number; // 内容行高
   scroll?: {
     x?: number; // 水平方向宽度
     y?: number; // 垂直方向内容的高度
@@ -26,11 +21,7 @@ interface IProps {
   isNoMoreData?: boolean;
 }
 
-interface IState {
-  // canDocumentScroll: boolean;
-}
-
-export default class CustomTable extends React.PureComponent<IProps, IState> {
+export default class CustomTable extends React.PureComponent<IProps<any>> {
   static defaultProps = {
     columns: [],
     dataSource: [],
@@ -41,7 +32,7 @@ export default class CustomTable extends React.PureComponent<IProps, IState> {
   scrollRefY: any;
   tableContainer: React.RefObject<any>;
   canDocumentScroll: boolean;
-  constructor(props: IProps) {
+  constructor(props: IProps<any>) {
     super(props);
     this.canDocumentScroll = true;
     this.tableContainer = React.createRef();
@@ -101,7 +92,8 @@ export default class CustomTable extends React.PureComponent<IProps, IState> {
       scroll = { x: undefined, y: undefined, minX: undefined, maxY: undefined },
       loading,
       onLoadMore,
-      isNoMoreData
+      isNoMoreData,
+      onRowClick
     } = this.props;
     this.checkScrollY();
     return (
@@ -153,6 +145,7 @@ export default class CustomTable extends React.PureComponent<IProps, IState> {
                   dataSource={dataSource}
                   rowKey={rowKey}
                   rowHeight={rowHeight}
+                  onRowClick={onRowClick}
                 />
                 {onLoadMore && dataSource.length && (
                   <TableLoadMore height={rowHeight} isNoMoreData={isNoMoreData} />

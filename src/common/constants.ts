@@ -9,6 +9,7 @@ export const NAMESPACE = {
   GLOBAL: 'global',
   AUTH: 'auth',
   LEAGUE: 'league',
+  LEAGUE_DETAILS: 'leagueDetails', // 联赛详情
   HOME: 'home', // 首页
   MATCH: 'match', // 首页赛事部分
   LOADING: 'loading', // 框架自带

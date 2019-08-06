@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
+import router from 'umi/router';
 import TabBar, { CustomTabPane } from '@/components/molecules/TabBar';
 import CustomTable from '../CustomTable';
 import { GameTypeEnum, LeagueStatusEnum } from '@/common/enums';
@@ -38,6 +39,7 @@ class LeagueTable extends React.PureComponent<IProps, IState> {
     this.handleTabBarChange = this.handleTabBarChange.bind(this);
     this.getLeagueListAccrodingCurrentTabKey = this.getLeagueListAccrodingCurrentTabKey.bind(this);
     this.handleLoadMore = this.handleLoadMore.bind(this);
+    this.handleLeagueRowClick = this.handleLeagueRowClick.bind(this);
   }
   componentDidMount() {
     const { originRecentLeagueList, originDoneLeagueList } = this.props;
@@ -103,6 +105,11 @@ class LeagueTable extends React.PureComponent<IProps, IState> {
     }
   }
 
+  handleLeagueRowClick(record: any, index: number, event: Event) {
+    if (record.status === LeagueStatusEnum.UPCOMING) return;
+    router.push(`/league/details/${record.id}`);
+  }
+
   render() {
     const { loading } = this.props;
     const { isNoMoreData, currentTabKey } = this.state;
@@ -129,6 +136,7 @@ class LeagueTable extends React.PureComponent<IProps, IState> {
           scroll={{ y: 500 }}
           onLoadMore={this.handleLoadMore}
           isNoMoreData={isNoMoreData[currentTabKey]}
+          onRowClick={this.handleLeagueRowClick}
         />
       </div>
     );
