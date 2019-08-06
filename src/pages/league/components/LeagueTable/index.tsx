@@ -22,6 +22,10 @@ enum TabKey {
 
 interface IState {
   currentTabKey: TabKey;
+  isNoMoreData: {
+    [TabKey.RECENT]: boolean;
+    [TabKey.DONE]: boolean;
+  };
 }
 
 class LeagueTable extends React.PureComponent<IProps, IState> {
@@ -29,7 +33,10 @@ class LeagueTable extends React.PureComponent<IProps, IState> {
   DonePage: number;
   constructor(props: IProps) {
     super(props);
-    this.state = { currentTabKey: TabKey.RECENT };
+    this.state = {
+      currentTabKey: TabKey.RECENT,
+      isNoMoreData: { [TabKey.RECENT]: false, [TabKey.DONE]: false }
+    };
     this.handleTabBarChange = this.handleTabBarChange.bind(this);
     this.getLeagueListAccrodingCurrentTabKey = this.getLeagueListAccrodingCurrentTabKey.bind(this);
     this.handleLoadMore = this.handleLoadMore.bind(this);
@@ -39,26 +46,31 @@ class LeagueTable extends React.PureComponent<IProps, IState> {
   componentDidMount() {
     this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.DONE, this.DonePage);
     this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.RECENT, this.RecentPage);
-    this.handleTabBarChange(TabKey.DONE);
   }
 
   getLeagueList(gameType: GameTypeEnum, status: LeagueStatusEnum, page?: number) {
     const { dispatch } = this.props;
-    console.log(page);
+    const { currentTabKey, isNoMoreData } = this.state;
     dispatch({
       type: `${NAMESPACE.LEAGUE}/${ActionType.get_league_list}`,
       payload: {
         type: gameType,
         status,
         page,
-        onSuccess: () => {
-          switch (status) {
-            case LeagueStatusEnum.DONE:
-              this.DonePage++;
-              break;
-            case LeagueStatusEnum.RECENT:
-              this.RecentPage++;
-              break;
+        onSuccess: (hasNewData: boolean) => {
+          if (hasNewData) {
+            switch (status) {
+              case LeagueStatusEnum.DONE:
+                this.DonePage++;
+                break;
+              case LeagueStatusEnum.RECENT:
+                this.RecentPage++;
+                break;
+            }
+          } else {
+            this.setState({
+              isNoMoreData: { ...isNoMoreData, ...{ [currentTabKey]: true } }
+            });
           }
         }
       }
@@ -105,11 +117,12 @@ class LeagueTable extends React.PureComponent<IProps, IState> {
 
   render() {
     const { loading } = this.props;
+    const { isNoMoreData, currentTabKey } = this.state;
     const leagueList = this.getLeagueListAccrodingCurrentTabKey();
     return (
       <div className={styles.leagueListContainer}>
         <TabBar
-          defaultActiveKey={TabKey.DONE}
+          defaultActiveKey={TabKey.RECENT}
           withTabBarBottomBorder={false}
           activeBorderPosition="Top"
           activeWithMark={true}
@@ -127,6 +140,7 @@ class LeagueTable extends React.PureComponent<IProps, IState> {
           headerRowHeight={30}
           scroll={{ y: 500 }}
           onLoadMore={this.handleLoadMore}
+          isNoMoreData={isNoMoreData[currentTabKey]}
         />
       </div>
     );

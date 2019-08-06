@@ -1,4 +1,5 @@
 import { DvaModel } from '@/common/interfaces/model';
+import _ from 'lodash';
 import { globalCloseModal, globalMessage } from '@/utils';
 import { Storage, StorageKey } from '@/utils/storage';
 import * as DataType from '@/common/interfaces/dataType';
@@ -56,22 +57,22 @@ const model: DvaModel<IState> = {
   },
   reducers: {
     // 获取联赛信息成功
-    [ActionType.get_league_list_success_r](state, { payload: { status, result } }) {
+    [ActionType.get_league_list_success](state, { payload: { status, result, type } }) {
       switch (status as LeagueStatusEnum) {
         case LeagueStatusEnum.RECENT:
-          Object.assign(state.originRecentLeagueList, result);
+          state.originRecentLeagueList[type as GameTypeEnum.CSGO].push(...result);
           break;
         case LeagueStatusEnum.DONE:
-          Object.assign(state.originDoneLeagueList, result);
+          state.originDoneLeagueList[type as GameTypeEnum.CSGO].push(...result);
           break;
       }
     },
     // 获取指数统计成功
-    [ActionType.get_odds_stat_success_r](state, { payload: { result } }) {
+    [ActionType.get_odds_stat_success](state, { payload: { result } }) {
       Object.assign(state.oddsStat, result);
     },
     // 获取英雄统计成功
-    [ActionType.get_hero_stat_success_r](state, { payload: { result } }) {
+    [ActionType.get_hero_stat_success](state, { payload: { result } }) {
       Object.assign(state.heroStat, result);
     }
   },
@@ -83,7 +84,7 @@ const model: DvaModel<IState> = {
     ) {
       console.log(data);
       try {
-        const result: any = {};
+        let result = [];
         switch (type as GameTypeEnum) {
           case GameTypeEnum.DOTA2:
             {
@@ -91,16 +92,15 @@ const model: DvaModel<IState> = {
                 status,
                 ...data
               });
-              result[GameTypeEnum.DOTA2] = dota2res.data;
-              if (dota2res.data.length !== 0) {
-                onSuccess && onSuccess();
-              }
+              result = dota2res.data || [];
+              onSuccess && onSuccess(result.length || 0);
             }
             break;
         }
 
-        yield put({ type: ActionType.get_league_list_success_r, payload: { result, status } });
+        yield put({ type: ActionType.get_league_list_success, payload: { result, status, type } });
       } catch (error) {
+        onSuccess && onSuccess(0);
         console.log('获取联赛信息出错了', error);
       }
     },
@@ -116,7 +116,7 @@ const model: DvaModel<IState> = {
             }
             break;
         }
-        yield put({ type: ActionType.get_hero_stat_success_r, payload: { result } });
+        yield put({ type: ActionType.get_hero_stat_success, payload: { result } });
       } catch (error) {
         console.log('获取英雄统计出错了', error);
       }
@@ -132,7 +132,7 @@ const model: DvaModel<IState> = {
             }
             break;
         }
-        yield put({ type: ActionType.get_odds_stat_success_r, payload: { result } });
+        yield put({ type: ActionType.get_odds_stat_success, payload: { result } });
       } catch (error) {
         console.log('获取指数统计出错了', error);
       }

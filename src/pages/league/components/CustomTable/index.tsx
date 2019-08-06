@@ -23,6 +23,7 @@ interface IProps {
     maxY?: number; // 垂直方向内容的最大高度
   };
   onLoadMore?: () => void;
+  isNoMoreData?: boolean;
 }
 
 interface IState {
@@ -38,11 +39,9 @@ export default class CustomTable extends React.PureComponent<IProps, IState> {
   };
   tableContainer: React.RefObject<any>;
   canDocumentScroll: boolean;
-  waitingLoadMore: boolean;
   constructor(props: IProps) {
     super(props);
     this.canDocumentScroll = true;
-    this.waitingLoadMore = false;
     this.tableContainer = React.createRef();
     this.onWheel = this.onWheel.bind(this);
     this.onYReachEnd = this.onYReachEnd.bind(this);
@@ -67,16 +66,9 @@ export default class CustomTable extends React.PureComponent<IProps, IState> {
   }
 
   onYReachEnd() {
-    // this.canDocumentScroll = true;
-    const { loading, onLoadMore } = this.props;
-    if (loading) return;
-    if (onLoadMore && !this.waitingLoadMore) {
-      onLoadMore();
-      this.waitingLoadMore = true;
-      setTimeout(() => {
-        this.waitingLoadMore = false;
-      }, 1000);
-    }
+    const { loading, onLoadMore, isNoMoreData } = this.props;
+    if (loading || isNoMoreData) return;
+    onLoadMore && onLoadMore();
   }
 
   // 同步两个滚动轴
@@ -106,7 +98,8 @@ export default class CustomTable extends React.PureComponent<IProps, IState> {
       fixedHeader,
       scroll = { x: undefined, y: undefined, minX: undefined, maxY: undefined },
       loading,
-      onLoadMore
+      onLoadMore,
+      isNoMoreData
     } = this.props;
     this.checkScrollY();
     return (
@@ -150,7 +143,9 @@ export default class CustomTable extends React.PureComponent<IProps, IState> {
                   rowKey={rowKey}
                   rowHeight={rowHeight}
                 />
-                {onLoadMore && <TableLoadMore height={rowHeight} isNoMoreData={false} />}
+                {onLoadMore && dataSource.length && (
+                  <TableLoadMore height={rowHeight} isNoMoreData={isNoMoreData} />
+                )}
               </PerfectScrollbar>
             </div>
           </div>

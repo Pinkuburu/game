@@ -4,11 +4,11 @@ import Image, { ImgStore } from '@/components/atoms/Image';
 
 interface IProps {}
 
-// TODO: 修改NoData效果
-export default class TableNoData extends React.PureComponent<IProps> {
+// TODO: 修改Empty效果
+export default class TableEmpty extends React.PureComponent<IProps> {
   render() {
     return (
-      <div className={styles.noDataContainer}>
+      <div className={styles.emptyContainer}>
         <Image
           width={40}
           height={40}
