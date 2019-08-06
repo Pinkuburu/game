@@ -14,7 +14,7 @@ export const responseInterceptor: ResponseInterceptor = (response) => {
   // status不为0时为未返回正确结果
   if (response.data.status !== 0) {
     const { msg, message } = response.data;
-    globalMessage(`${msg || message}`, 'warn')
+    globalMessage(`${msg || message || '出错了'}`, 'warn');
     return Promise.reject(response.data);
   }
   return response.data && response.data.data;

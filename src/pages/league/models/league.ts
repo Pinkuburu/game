@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { DvaModel } from '@/common/interfaces/model';
 import _ from 'lodash';
 import { globalCloseModal, globalMessage } from '@/utils';
@@ -8,6 +9,8 @@ import { GameTypeEnum, LeagueStatusEnum } from '@/common/enums';
 import { ActionType } from '../constant';
 
 interface IState {
+  recentPage: number;
+  donePage: number;
   originRecentLeagueList: DataType.ClassifiedByGameType<any>;
   originDoneLeagueList: DataType.ClassifiedByGameType<any>;
   oddsStat: DataType.ClassifiedByGameType<{
@@ -19,6 +22,8 @@ interface IState {
 
 const model: DvaModel<IState> = {
   state: {
+    recentPage: 1,
+    donePage: 1,
     originRecentLeagueList: {
       [GameTypeEnum.DOTA2]: [],
       [GameTypeEnum.LOL]: [],
@@ -58,11 +63,14 @@ const model: DvaModel<IState> = {
   reducers: {
     // 获取联赛信息成功
     [ActionType.get_league_list_success](state, { payload: { status, result, type } }) {
+      if (!result.length) return;
       switch (status as LeagueStatusEnum) {
         case LeagueStatusEnum.RECENT:
+          state.recentPage++;
           state.originRecentLeagueList[type as GameTypeEnum.CSGO].push(...result);
           break;
         case LeagueStatusEnum.DONE:
+          state.donePage++;
           state.originDoneLeagueList[type as GameTypeEnum.CSGO].push(...result);
           break;
       }
@@ -78,27 +86,35 @@ const model: DvaModel<IState> = {
   },
   effects: {
     // 获取列赛信息
-    *[ActionType.get_league_list](
-      { payload: { type, status, onSuccess, ...data } },
-      { put, call }
-    ) {
-      console.log(data);
+    *[ActionType.get_league_list]({ payload: { type, status, onSuccess } }, { put, call, select }) {
       try {
+        const { recentPage, donePage } = yield select((state) => state.league);
+        let page = 1;
         let result = [];
-        switch (type as GameTypeEnum) {
-          case GameTypeEnum.DOTA2:
-            {
-              const dota2res: DataType.TableData<any> = yield call(Api.getLeagueListForDota2, {
-                status,
-                ...data
-              });
-              result = dota2res.data || [];
-              onSuccess && onSuccess(result.length || 0);
-            }
+        switch (status as LeagueStatusEnum) {
+          case LeagueStatusEnum.RECENT:
+            page = recentPage;
+            break;
+          case LeagueStatusEnum.UPCOMING:
+            page = recentPage;
+            break;
+          case LeagueStatusEnum.DONE:
+            page = donePage;
             break;
         }
-
-        yield put({ type: ActionType.get_league_list_success, payload: { result, status, type } });
+        const params = { status, page };
+        let res: DataType.TableData<any> | { data: any } = { data: [] };
+        switch (type as GameTypeEnum) {
+          case GameTypeEnum.DOTA2:
+            res = yield call(Api.getLeagueListForDota2, params);
+            break;
+        }
+        result = res.data || [];
+        onSuccess && onSuccess(result.length || 0);
+        yield put({
+          type: ActionType.get_league_list_success,
+          payload: { result, status, type }
+        });
       } catch (error) {
         onSuccess && onSuccess(0);
         console.log('获取联赛信息出错了', error);

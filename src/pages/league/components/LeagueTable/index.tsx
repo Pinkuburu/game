@@ -29,8 +29,6 @@ interface IState {
 }
 
 class LeagueTable extends React.PureComponent<IProps, IState> {
-  RecentPage: number;
-  DonePage: number;
   constructor(props: IProps) {
     super(props);
     this.state = {
@@ -40,15 +38,16 @@ class LeagueTable extends React.PureComponent<IProps, IState> {
     this.handleTabBarChange = this.handleTabBarChange.bind(this);
     this.getLeagueListAccrodingCurrentTabKey = this.getLeagueListAccrodingCurrentTabKey.bind(this);
     this.handleLoadMore = this.handleLoadMore.bind(this);
-    this.RecentPage = 1;
-    this.DonePage = 1;
   }
   componentDidMount() {
-    this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.DONE, this.DonePage);
-    this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.RECENT, this.RecentPage);
+    const { originRecentLeagueList, originDoneLeagueList } = this.props;
+    !originRecentLeagueList[GameTypeEnum.DOTA2].length &&
+      this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.RECENT);
+    !originDoneLeagueList[GameTypeEnum.DOTA2].length &&
+      this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.DONE);
   }
 
-  getLeagueList(gameType: GameTypeEnum, status: LeagueStatusEnum, page?: number) {
+  getLeagueList(gameType: GameTypeEnum, status: LeagueStatusEnum) {
     const { dispatch } = this.props;
     const { currentTabKey, isNoMoreData } = this.state;
     dispatch({
@@ -56,22 +55,11 @@ class LeagueTable extends React.PureComponent<IProps, IState> {
       payload: {
         type: gameType,
         status,
-        page,
         onSuccess: (hasNewData: boolean) => {
-          if (hasNewData) {
-            switch (status) {
-              case LeagueStatusEnum.DONE:
-                this.DonePage++;
-                break;
-              case LeagueStatusEnum.RECENT:
-                this.RecentPage++;
-                break;
-            }
-          } else {
+          if (!hasNewData)
             this.setState({
               isNoMoreData: { ...isNoMoreData, ...{ [currentTabKey]: true } }
             });
-          }
         }
       }
     });
@@ -93,10 +81,10 @@ class LeagueTable extends React.PureComponent<IProps, IState> {
     const { currentTabKey } = this.state;
     switch (currentTabKey) {
       case TabKey.RECENT:
-        this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.RECENT, this.RecentPage);
+        this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.RECENT);
         break;
       case TabKey.DONE:
-        this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.DONE, this.DonePage);
+        this.getLeagueList(GameTypeEnum.DOTA2, LeagueStatusEnum.DONE);
         break;
     }
   }

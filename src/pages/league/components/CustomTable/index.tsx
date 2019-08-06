@@ -37,6 +37,8 @@ export default class CustomTable extends React.PureComponent<IProps, IState> {
     headerRowHeight: 30,
     fixedHeader: true
   };
+  scrollRefX: any;
+  scrollRefY: any;
   tableContainer: React.RefObject<any>;
   canDocumentScroll: boolean;
   constructor(props: IProps) {
@@ -71,7 +73,7 @@ export default class CustomTable extends React.PureComponent<IProps, IState> {
     onLoadMore && onLoadMore();
   }
 
-  // 同步两个滚动轴
+  // 同步两个X滚动轴
   onScrollX(tableContainer: any) {
     const node = tableContainer.querySelector('.scrollbar-container');
     node && (node.scrollLeft = tableContainer.scrollLeft);
@@ -105,7 +107,13 @@ export default class CustomTable extends React.PureComponent<IProps, IState> {
     return (
       <div ref={this.tableContainer} className={styles.tableContainer}>
         {loading && <TableLoading />}
-        <PerfectScrollbar options={{ suppressScrollY: true }} onScrollX={this.onScrollX}>
+        <PerfectScrollbar
+          options={{ suppressScrollY: true }}
+          onScrollX={this.onScrollX}
+          containerRef={(ref) => {
+            this.scrollRefX = ref;
+          }}
+        >
           <div>
             {fixedHeader && (
               <TableHeader
@@ -126,6 +134,9 @@ export default class CustomTable extends React.PureComponent<IProps, IState> {
                   minHeight: 200,
                   height: scroll.y && scroll.y + (fixedHeader ? 0 : headerRowHeight),
                   maxHeight: scroll.maxY && scroll.maxY + (fixedHeader ? 0 : headerRowHeight)
+                }}
+                containerRef={(ref) => {
+                  this.scrollRefY = ref;
                 }}
               >
                 {!fixedHeader && (
