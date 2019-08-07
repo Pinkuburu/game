@@ -106,7 +106,6 @@ class LeagueTable extends React.PureComponent<IProps, IState> {
   }
 
   handleLeagueRowClick(record: any, index: number, event: Event) {
-    if (record.status === LeagueStatusEnum.UPCOMING) return;
     router.push(`/league/details/${record.id}`);
   }
 

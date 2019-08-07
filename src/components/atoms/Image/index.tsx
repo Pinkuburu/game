@@ -19,6 +19,7 @@ interface IProps {
   spacing?: number;
   onClick?: (e: React.MouseEvent) => void;
   defaultSrc?: string;
+  fit?: 'fill' | 'cover' | 'contain';
 }
 // FIXME: 轮播图每次轮播都会有5次render
 class Image extends React.PureComponent<IProps> {
@@ -45,7 +46,8 @@ class Image extends React.PureComponent<IProps> {
       textClassName,
       textPostion = 'right',
       spacing = 8,
-      onClick
+      onClick,
+      fit = 'fill'
     } = this.props;
     const textSpacingStyle = { width: spacing, height: spacing };
     return (
@@ -55,12 +57,12 @@ class Image extends React.PureComponent<IProps> {
           onClick={onClick}
         >
           <img
-            src={src}
+            src={src || 'default'}
             height={height}
             width={width}
             alt={alt}
             onError={this.onError}
-            className={styles.img}
+            className={classnames(styles.img, styles[fit])}
           />
           {text && (
             <>

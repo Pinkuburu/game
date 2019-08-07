@@ -21,5 +21,8 @@ export const ActionType = {
   get_league_info_success: 'get_league_info_success_r',
   get_league_list_success: 'get_league_list_success_r',
   get_hero_stat_success: 'get_hero_stat_success_r',
-  get_odds_stat_success: 'get_odds_stat_success_r'
+  get_odds_stat_success: 'get_odds_stat_success_r',
+
+  change_current_zone_id: 'change_current_zone_id',
+  change_current_zone_id_success: 'change_current_zone_id_success_r'
 };

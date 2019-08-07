@@ -1,0 +1,18 @@
+@import '../../../common/less/variable.less';
+@import '../../../common/less/mixin.less';
+.score {
+  display: inline-block;
+  width: 22px;
+  height: 28px;
+  line-height: 28px;
+  border-radius: 2px;
+  #myFont.demi(22px, @main_font);
+  background: linear-gradient(
+    180deg,
+    rgba(75, 82, 115, 1) 0%,
+    rgba(75, 82, 115, 1) 46%,
+    rgba(55, 62, 98, 1) 52%,
+    rgba(56, 63, 100, 1) 100%
+  );
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.5), 0px 1px 0px 0px rgba(36, 44, 82, 1);
+}

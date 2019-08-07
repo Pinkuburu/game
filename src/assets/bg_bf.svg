@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="260px" height="150px" viewBox="0 0 260 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.2 (81672) - https://sketch.com -->
+    <title>bg_bf</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="6.49241081 2.13162821e-13 253.507589 2.13162821e-13 260 5.54853399 260 141.043888 253.507589 147 6.49241081 147 -5.68434189e-14 141.043888 3.63797881e-12 5.95611217"></polygon>
+        <filter x="-0.6%" y="-1.0%" width="101.2%" height="104.1%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="3" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feColorMatrix values="0 0 0 0 0.607843137   0 0 0 0 0.247058824   0 0 0 0 0.956862745  0 0 0 1 0" type="matrix" in="shadowOffsetOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="2.0.0联赛_Dota" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="2.0.1联赛详情页-淘汰赛-联赛赛程_dota" transform="translate(-990.000000, -385.000000)">
+            <g id="分组-12" transform="translate(95.000000, 385.000000)">
+                <g id="分组-11" transform="translate(55.000000, 0.000000)">
+                    <g id="分组-21-copy-6" transform="translate(840.000000, 0.000000)">
+                        <g id="分组-5">
+                            <g id="Rectangle">
+                                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                                <use fill="#2B2F44" fill-rule="evenodd" xlink:href="#path-1"></use>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

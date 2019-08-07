@@ -153,17 +153,7 @@ export interface RankInfo {
   bonus: string;
   name: string;
   team_id: number;
-  team_info: {
-    country_code: string;
-    custom_logo: string;
-    division: string;
-    logo: string;
-    name: string;
-    rank: number;
-    tag: string;
-    team_id: number;
-    world_rank: number;
-  };
+  team_info: TeamInfoForDota2;
 }
 
 // 英雄统计
@@ -210,4 +200,29 @@ export interface PartationItem {
   id: number;
   name: string;
   sort: number;
+}
+
+// 赛程信息
+export interface ScheduleResult {
+  best_of: number;
+  id: number;
+  score_a: number;
+  score_b: number;
+  start_time: number;
+  status: number;
+  team_a_info: TeamInfoForDota2;
+  team_b_info: TeamInfoForDota2;
+}
+
+// DOTA2队伍信息
+export interface TeamInfoForDota2 {
+  country_code: string;
+  custom_logo: string;
+  division: string;
+  logo: string;
+  name: string;
+  rank: number;
+  tag: string;
+  team_id: number;
+  world_rank: number;
 }

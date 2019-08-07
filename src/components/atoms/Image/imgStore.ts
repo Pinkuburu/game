@@ -44,6 +44,8 @@ import darkReward from '../../../assets/icon_reward.svg';
 import darkTeam from '../../../assets/icon_team.svg';
 import darkPlace from '../../../assets/icon_place.svg';
 import darkBonus from '../../../assets/icon_bonus.svg';
+import arrowLeft from '../../../assets/arrow_left.svg'; // 左箭头
+import arrowRight from '../../../assets/arrow_right.svg'; // 右箭头
 
 export const CirGameIcon = {
   dota2: cirDota,
@@ -79,7 +81,8 @@ const ImageStore = {
     place: darkPlace,
     team: darkTeam,
     bonus: darkBonus
-  }
+  },
+  arrow: { left: arrowLeft, right: arrowRight }
 };
 
 export default ImageStore;

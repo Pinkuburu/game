@@ -1,3 +1,78 @@
+@import '../../../../../common/less/mixin.less';
+@import '../../../../../common/less/variable.less';
 .leagueScheduleContainer {
   margin-top: 20px;
+}
+
+.schedulesContainer {
+  #myFont.medium(14px, @nav_font);
+  .dateContainer,
+  .itemContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .dateItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: @card_background;
+    width: 113px;
+    height: 35px;
+    cursor: pointer;
+    border-radius: 2px;
+    opacity: 0.5;
+    transition: all 0.3s linear;
+    &.active {
+      background-color: @item_second;
+      opacity: 1;
+      color: @main_font;
+    }
+  }
+}
+
+.scoreCell {
+  width: 260px;
+  height: 150px;
+  background: url('../../../../../assets/bg_bf.svg') center no-repeat;
+  #myFont.demi(12px, @nav_font);
+  text-align: center;
+  .timeInfo {
+    margin: 0 auto;
+    width: 80%;
+    height: 30px;
+    position: relative;
+    line-height: 30px;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: radial-gradient(#653294 25%, transparent 100%);
+    }
+  }
+  .teamInfo {
+    width: 90%;
+    margin: 10px auto;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .scoreInfo {
+      display: flex;
+      width: 58px;
+      justify-content: space-between;
+    }
+  }
+  .status {
+    display: inline-block;
+    width: 70px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 2px;
+    background: rgba(239, 239, 239, 0.1);
+  }
 }
