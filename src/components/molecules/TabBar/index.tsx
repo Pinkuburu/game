@@ -80,7 +80,7 @@ export default class CustomTabBar extends React.PureComponent<IProps, IState> {
     super(props);
     this.state = {
       tabInfoList: [],
-      activeKey: this.props.defaultActiveKey || 'defaultActiveKey',
+      activeKey: '',
       activeIndex: 0,
       customTabPaneContainerWidth: '100%'
     };
@@ -123,7 +123,8 @@ export default class CustomTabBar extends React.PureComponent<IProps, IState> {
 
   render() {
     const {
-      withTabBarBottomBorder = true,
+      withTabBarBottomBorder,
+      defaultActiveKey,
       activeBorderPosition,
       activeWithMark,
       tabBarHeight,
@@ -157,7 +158,7 @@ export default class CustomTabBar extends React.PureComponent<IProps, IState> {
             <li
               key={item.tab}
               className={classnames(styles[`border${activeBorderPosition}`], {
-                [styles.active]: item.key === (currentActiveKey || activeKey),
+                [styles.active]: item.key === (currentActiveKey || activeKey || defaultActiveKey),
                 [styles.activeWithMark]: activeWithMark,
                 [styles.disabled]: item.disabled,
                 [styles.withoutActiveLine]: item.withoutActiveLine

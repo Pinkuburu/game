@@ -84,7 +84,6 @@ export default class TableView extends React.PureComponent<IProps, IState> {
             .date()
             .toString()}
           onChange={this.handleTabChange}
-          withTabBarBottomBorder={false}
           isTabFullTabBar={true}
           currentActiveKey={currentDate.toString()}
         >

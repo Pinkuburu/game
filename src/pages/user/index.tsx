@@ -27,7 +27,6 @@ export default class PersonalCenter extends React.Component<IProps> {
         defaultActiveKey={PersonalCenterPageEnum.Member}
         activeBorderPosition="Top"
         activeWithMark={true}
-        withTabBarBottomBorder={false}
       >
         <CustomTabPane key={PersonalCenterPageEnum.Member} tab="成为会员">
           <Member />

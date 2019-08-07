@@ -46,6 +46,7 @@ export default class LoginModal extends React.PureComponent<IProps, IState> {
             isTabBarFullContainer={true}
             tabBarHeight="Big"
             isTabFullTabBar={true}
+            withTabBarBottomBorder={true}
           >
             <CustomTabPane tab="登录" key="login">
               <LoginForm toggle={this.toggle} />

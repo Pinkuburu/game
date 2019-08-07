@@ -20,7 +20,6 @@ const TabBar: React.FC<IProps> = (props: IProps) => (
     defaultActiveKey={MatchType.predict}
     onChange={handleMatchTypeChange}
     className={styles.tabBar}
-    withTabBarBottomBorder={false}
   >
     <CustomTabPane tab="赛事预告" key={MatchType.predict} />
     <CustomTabPane tab="赛事结果" key={MatchType.result} />

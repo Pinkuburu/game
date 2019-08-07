@@ -148,6 +148,7 @@ export interface LeagueDetailInfo {
   twitch_url: string;
 }
 
+// 名次得主
 export interface RankInfo {
   bonus: string;
   name: string;
@@ -191,6 +192,7 @@ export interface OddsStatForWin {
   winper: number;
   wins: number;
 }
+// 热门指数
 export interface OddsStatForHot {
   total_nums: number;
   win_nums: number;
@@ -201,4 +203,11 @@ export interface ClassifiedByGameType<T> {
   [GameTypeEnum.DOTA2]: T;
   [GameTypeEnum.LOL]: T;
   [GameTypeEnum.CSGO]: T;
+}
+
+// 分区基本信息
+export interface PartationItem {
+  id: number;
+  name: string;
+  sort: number;
 }

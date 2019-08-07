@@ -50,7 +50,7 @@ class OddsStatistics extends React.PureComponent<IProps> {
     } = this.getOddsStatAccrodingToGameType();
     return (
       <StatisticsContainer title="指数统计" action={this.buildSelect()}>
-        <TabBar defaultActiveKey={TabKey.Win_Lost} withTabBarBottomBorder={false}>
+        <TabBar defaultActiveKey={TabKey.Win_Lost}>
           <CustomTabPane key={TabKey.Win_Lost} tab="胜负" />
         </TabBar>
         <div className={styles.oddsStat}>

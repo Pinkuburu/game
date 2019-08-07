@@ -118,7 +118,6 @@ class LeagueTable extends React.PureComponent<IProps, IState> {
       <div className={styles.leagueListContainer}>
         <TabBar
           defaultActiveKey={TabKey.RECENT}
-          withTabBarBottomBorder={false}
           activeBorderPosition="Top"
           activeWithMark={true}
           onChange={this.handleTabBarChange}

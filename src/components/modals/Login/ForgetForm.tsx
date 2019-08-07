@@ -171,6 +171,7 @@ export default class ForgetForm extends React.PureComponent<IProps, IState> {
         isTabBarFullContainer={true}
         tabBarHeight="Big"
         isTabFullTabBar={true}
+        withTabBarBottomBorder={true}
       >
         <CustomTabPane
           tab={isVerifySmsCode ? '忘记密码' : '重置密码'}
